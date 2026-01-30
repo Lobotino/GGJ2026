@@ -165,7 +165,13 @@ public class BattleUIController : MonoBehaviour
                 {
                     if (action == null) continue;
                     GUI.enabled = playerState.CanUseAction(action);
-                    if (GUILayout.Button($"{action.actionName} (ОД {action.apCost})"))
+                    string label = action.actionName;
+                    string details = $"ОД {action.apCost}";
+                    if (action.mpCost > 0) details += $" / МП {action.mpCost}";
+                    if (action.basePower > 0 && !action.isHealing) details += $" / Урон {action.basePower}";
+                    if (action.basePower > 0 && action.isHealing) details += $" / Лечение {action.basePower}";
+                    if (action.statusToApply != null) details += $" / {action.statusToApply.statusType}";
+                    if (GUILayout.Button($"{label} ({details})"))
                     {
                         pendingCommand = new PlayerCommand { Type = PlayerCommandType.UseAction, Action = action };
                         commandReady = true;
