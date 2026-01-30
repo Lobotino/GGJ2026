@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04253721a670b4f04b5a32566d2932fb, type: 3}
+  m_Name: AI_Crystal
+  m_EditorClassIdentifier: Assembly-CSharp::AIProfile
+  rules:
+  - hpThreshold: 0.7
+    switchToMask: {fileID: 0}
+    preferredAction: {fileID: 11400000, guid: 1d291e8ec2da0671e7c3e1b032bb6a63, type: 2}
+  - hpThreshold: 0.4
+    switchToMask: {fileID: 11400000, guid: 38d7664082a4e2d07a01a31c7d7fe5b9, type: 2}
+    preferredAction: {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
+  - hpThreshold: 1
+    switchToMask: {fileID: 0}
+    preferredAction: {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  fallbackAction: {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}

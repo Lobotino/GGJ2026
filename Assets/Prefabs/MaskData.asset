@@ -24,7 +24,7 @@ MonoBehaviour:
   - type: 3
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: 38d7664082a4e2d07a01a31c7d7fe5b9, type: 2}
-    fighterProfile: {fileID: 0}
+    fighterProfile: {fileID: 11400000, guid: 4745fd0a59f343d8ad5a2f0ff9830a1c, type: 2}
   - type: 4
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: e53d9ca0edb9d0a245a392ea08c158d1, type: 2}
@@ -32,7 +32,7 @@ MonoBehaviour:
   - type: 5
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: 275186d05e62a033e429e2a32edd1611, type: 2}
-    fighterProfile: {fileID: 0}
+    fighterProfile: {fileID: 11400000, guid: e5f6a7b8c9d0e1f2a3b4c5d6a7b8c9d0, type: 2}
   - type: 6
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: 286a73b5535b5ad57091670205ac82ff, type: 2}
@@ -56,7 +56,7 @@ MonoBehaviour:
   - type: 11
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: a0ca941eb5bbb9a57f4d62f3ab16064d, type: 2}
-    fighterProfile: {fileID: 0}
+    fighterProfile: {fileID: 11400000, guid: c3d4e5f6a7b8c9d0e1f2a3b4c5d6a7b8, type: 2}
   - type: 12
     characterPrefab: {fileID: 0}
     battleMask: {fileID: 11400000, guid: 3427e5b2f0c2bf7e9409ef799f0a3c63, type: 2}

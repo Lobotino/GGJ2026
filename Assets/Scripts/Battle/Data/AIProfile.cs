@@ -14,4 +14,5 @@ public class AIProfile : ScriptableObject
 
     public AIRule[] rules;
     public BattleActionData fallbackAction;
+    [Min(0)] public int guardEveryNTurns = 0;
 }

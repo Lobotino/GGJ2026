@@ -27,7 +27,7 @@ MonoBehaviour:
   passiveType: 1
   vulnerability: 2
   availableActions:
-  - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  - {fileID: 11400000, guid: dbdda49167fa447d88751985748a3ea7, type: 2}
   - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
   - {fileID: 11400000, guid: 566634fb33645c25b96a1f1ab8b86a5c, type: 2}
   changeCooldownTurns: 0

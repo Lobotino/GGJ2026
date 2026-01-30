@@ -20,9 +20,9 @@ MonoBehaviour:
     MP: 1
     ATK: 0.8
     DEF: 0.85
-    MAG: 1.35
-    RES: 1.0
-    SPD: 1.05
+    MAG: 1.2
+    RES: 0.95
+    SPD: 1.0
   passiveEffect: "По Expose-цели маг. атаки ×1.25; свой Expose — входящий урон ×1.15."
   passiveType: 9
   vulnerability: 3

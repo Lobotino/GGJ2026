@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80da9bd14dd53477a9b96830bddf04f2, type: 3}
+  m_Name: Fighter_Crystal
+  m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
+  displayName: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u044C\u043D\u044B\u0439 \u043C\u0430\u0433"
+  baseStats:
+    HP: 35
+    MP: 14
+    ATK: 6
+    DEF: 7
+    MAG: 5
+    RES: 10
+    SPD: 5
+  startingMask: {fileID: 11400000, guid: a0ca941eb5bbb9a57f4d62f3ab16064d, type: 2}
+  availableMasks:
+  - {fileID: 11400000, guid: a0ca941eb5bbb9a57f4d62f3ab16064d, type: 2}
+  - {fileID: 11400000, guid: 38d7664082a4e2d07a01a31c7d7fe5b9, type: 2}
+  - {fileID: 11400000, guid: 4557f4aa292749569e9a2a72848a967d, type: 2}

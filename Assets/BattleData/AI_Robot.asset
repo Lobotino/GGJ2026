@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04253721a670b4f04b5a32566d2932fb, type: 3}
-  m_Name: AI_Crow
+  m_Name: AI_Robot
   m_EditorClassIdentifier: Assembly-CSharp::AIProfile
   rules:
-  - hpThreshold: 0.6
+  - hpThreshold: 0.7
     switchToMask: {fileID: 0}
-    preferredAction: {fileID: 11400000, guid: eb884465c9a9438389e011e6082a26ea, type: 2}
-  - hpThreshold: 0.35
+    preferredAction: {fileID: 11400000, guid: 67a2e5fcf243fd2306967e942cb4bf48, type: 2}
+  - hpThreshold: 0.4
     switchToMask: {fileID: 0}
-    preferredAction: {fileID: 11400000, guid: 90f482c676be4ec88a31126f4ab2f7f2, type: 2}
+    preferredAction: {fileID: 11400000, guid: fd2d721d71ceb3b89342bbbc0bb0af0a, type: 2}
   - hpThreshold: 1
     switchToMask: {fileID: 0}
-    preferredAction: {fileID: 11400000, guid: eb884465c9a9438389e011e6082a26ea, type: 2}
-  fallbackAction: {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
-  guardEveryNTurns: 3
+    preferredAction: {fileID: 11400000, guid: 90f482c676be4ec88a31126f4ab2f7f2, type: 2}
+  fallbackAction: {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}

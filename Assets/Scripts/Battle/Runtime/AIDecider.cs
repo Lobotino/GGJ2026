@@ -18,14 +18,30 @@ public static class AIDecider
                 }
 
                 if (rule.preferredAction != null && self.CanUseAction(rule.preferredAction))
-                    return AICommand.UseAction(rule.preferredAction);
+                {
+                    if (!ShouldSkipGuard(self, profile, rule.preferredAction))
+                        return AICommand.UseAction(rule.preferredAction);
+                }
             }
         }
 
         if (profile.fallbackAction != null && self.CanUseAction(profile.fallbackAction))
-            return AICommand.UseAction(profile.fallbackAction);
+        {
+            if (!ShouldSkipGuard(self, profile, profile.fallbackAction))
+                return AICommand.UseAction(profile.fallbackAction);
+        }
 
         return AICommand.EndTurn();
+    }
+
+    static bool ShouldSkipGuard(FighterState self, AIProfile profile, BattleActionData action)
+    {
+        if (profile == null || action == null) return false;
+        if (profile.guardEveryNTurns <= 1) return false;
+        if (!action.grantsGuard) return false;
+        if (self.Context == null) return false;
+        int turnIndex = self.Context.TurnNumber;
+        return turnIndex % profile.guardEveryNTurns != 0;
     }
 }
 
