@@ -10,6 +10,7 @@ public class BattleController : MonoBehaviour
 
     FighterState playerState;
     FighterState enemyState;
+    BattleContext battleContext;
 
     public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile)
     {
@@ -21,6 +22,16 @@ public class BattleController : MonoBehaviour
         playerState = new FighterState(playerProfile, playerMask);
         enemyState = new FighterState(enemyProfile, enemyMask);
 
+        battleContext = new BattleContext();
+
+        playerState.Context = battleContext;
+        playerState.Opponent = enemyState;
+        playerState.IsPlayer = true;
+
+        enemyState.Context = battleContext;
+        enemyState.Opponent = playerState;
+        enemyState.IsPlayer = false;
+
         if (uiController != null)
             uiController.Initialize(playerState, enemyState);
 
@@ -28,6 +39,8 @@ public class BattleController : MonoBehaviour
 
         while (playerState.IsAlive && enemyState.IsAlive)
         {
+            battleContext.TurnNumber++;
+
             if (playerTurn)
                 yield return RunTurn(playerState, enemyState, true, null);
             else
@@ -45,6 +58,7 @@ public class BattleController : MonoBehaviour
         if (actor == null || target == null) yield break;
 
         actor.ResetTurnFlags();
+        battleContext.ResetTurnTracking();
 
         int apFromMask = actor.CurrentMask != null ? actor.CurrentMask.apBonus : 0;
         int apPenalty = actor.GetApPenalty();
@@ -100,7 +114,7 @@ public class BattleController : MonoBehaviour
                     if (actor.CanUseAction(command.Action))
                     {
                         FighterState actionTarget = command.Action.targetSelf ? actor : target;
-                        ActionExecutor.ExecuteAction(actor, actionTarget, command.Action);
+                        ActionExecutor.ExecuteAction(actor, actionTarget, command.Action, battleContext);
                     }
                 }
             }
@@ -131,7 +145,7 @@ public class BattleController : MonoBehaviour
                     if (actor.CanUseAction(aiCommand.Action))
                     {
                         FighterState actionTarget = aiCommand.Action.targetSelf ? actor : target;
-                        ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action);
+                        ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action, battleContext);
                     }
                     else
                     {
@@ -146,6 +160,9 @@ public class BattleController : MonoBehaviour
             if (actor.CurrentAP <= 0)
                 turnEnded = true;
         }
+
+        // End-of-turn hooks
+        PassiveHandler.OnTurnEnd(actor, target, battleContext);
 
         actor.ApplyTickDamage(false);
         actor.TickStatusDurations();

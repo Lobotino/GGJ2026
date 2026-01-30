@@ -18,6 +18,10 @@ public class FighterState
 
     public int MaskCooldownTurns { get; private set; }
 
+    public BattleContext Context { get; set; }
+    public FighterState Opponent { get; set; }
+    public bool IsPlayer { get; set; }
+
     readonly List<BattleMaskData> availableMasks = new List<BattleMaskData>();
     readonly List<ActiveStatus> activeStatuses = new List<ActiveStatus>();
 
@@ -86,6 +90,16 @@ public class FighterState
         return false;
     }
 
+    public ActiveStatus GetStatus(StatusType statusType)
+    {
+        foreach (var status in activeStatuses)
+        {
+            if (status.Definition != null && status.Definition.statusType == statusType)
+                return status;
+        }
+        return null;
+    }
+
     public bool IsSilenced
     {
         get
@@ -123,6 +137,14 @@ public class FighterState
         return penalty;
     }
 
+    public int GetEffectiveAPCost(BattleActionData action, FighterState opponent, BattleContext context)
+    {
+        if (action == null) return 0;
+        int cost = action.apCost;
+        cost = PassiveHandler.OnCalculateActionCost(this, opponent, action, cost, context);
+        return Mathf.Max(0, cost);
+    }
+
     public bool CanUseAction(BattleActionData action)
     {
         if (action == null) return false;
@@ -137,7 +159,8 @@ public class FighterState
             }
         }
         if (!actionAllowed) return false;
-        if (CurrentAP < action.apCost) return false;
+        int effectiveCost = GetEffectiveAPCost(action, Opponent, Context);
+        if (CurrentAP < effectiveCost) return false;
         if (CurrentMP < action.mpCost) return false;
         if (action.isMagical && IsSilenced) return false;
         if (action.category == ActionCategory.Defense && DefenseDisabled) return false;
@@ -172,13 +195,65 @@ public class FighterState
         {
             if (status.Definition == definition || status.Definition.statusType == definition.statusType)
             {
-                status.Refresh();
+                status.Refresh(definition);
                 ClampResources();
                 return;
             }
         }
         activeStatuses.Add(new ActiveStatus(definition));
         ClampResources();
+    }
+
+    public void ApplyStatus(StatusDefinition definition, FighterState source, BattleContext context)
+    {
+        if (definition == null) return;
+        StatusDefinition finalDef = definition;
+        int durationMod = 0;
+
+        PassiveHandler.OnStatusAboutToApply(this, source, ref finalDef, ref durationMod, context);
+
+        foreach (var status in activeStatuses)
+        {
+            if (status.Definition == finalDef || status.Definition.statusType == finalDef.statusType)
+            {
+                status.Refresh(finalDef);
+                if (durationMod != 0)
+                    status.ReduceDuration(-durationMod);
+                ClampResources();
+                return;
+            }
+        }
+
+        var newStatus = new ActiveStatus(finalDef);
+        if (durationMod != 0)
+            newStatus.ReduceDuration(-durationMod);
+        activeStatuses.Add(newStatus);
+        ClampResources();
+    }
+
+    public bool RemoveStatus(StatusType statusType)
+    {
+        for (int i = activeStatuses.Count - 1; i >= 0; i--)
+        {
+            if (activeStatuses[i].Definition != null && activeStatuses[i].Definition.statusType == statusType)
+            {
+                activeStatuses.RemoveAt(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void ReduceStatusDuration(StatusType statusType, int amount)
+    {
+        foreach (var status in activeStatuses)
+        {
+            if (status.Definition != null && status.Definition.statusType == statusType)
+            {
+                status.ReduceDuration(amount);
+                break;
+            }
+        }
     }
 
     public void RemoveExpiredStatuses()
@@ -213,6 +288,14 @@ public class FighterState
     {
         if (action == null) return;
         CurrentAP -= action.apCost;
+        CurrentMP -= action.mpCost;
+        ClampResources();
+    }
+
+    public void SpendResources(BattleActionData action, int effectiveAPCost)
+    {
+        if (action == null) return;
+        CurrentAP -= effectiveAPCost;
         CurrentMP -= action.mpCost;
         ClampResources();
     }

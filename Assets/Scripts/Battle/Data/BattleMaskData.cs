@@ -9,6 +9,7 @@ public class BattleMaskData : ScriptableObject
 
     public StatMultiplier statMultipliers = StatMultiplier.One;
     [TextArea] public string passiveEffect;
+    public PassiveType passiveType;
     public StatusType vulnerability;
 
     public BattleActionData[] availableActions;
