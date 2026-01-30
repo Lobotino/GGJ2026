@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80da9bd14dd53477a9b96830bddf04f2, type: 3}
   m_Name: Fighter_Player
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
-  displayName: Player
+  displayName: Игрок
   baseStats:
     HP: 30
     MP: 10

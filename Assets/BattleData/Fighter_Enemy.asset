@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80da9bd14dd53477a9b96830bddf04f2, type: 3}
   m_Name: Fighter_Enemy
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
-  displayName: Crow Knight
+  displayName: Ворон-рыцарь
   baseStats:
     HP: 26
     MP: 8

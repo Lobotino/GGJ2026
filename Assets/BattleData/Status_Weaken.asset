@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Status_Weaken
   m_EditorClassIdentifier: Assembly-CSharp::StatusDefinition
   statusType: 3
-  description: "Weakened attack power."
+  description: "Снижает силу атаки."
   durationTurns: 2
   tickDamage: 0
   tickAtTurnStart: 0

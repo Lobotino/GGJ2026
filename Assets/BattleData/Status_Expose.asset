@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Status_Expose
   m_EditorClassIdentifier: Assembly-CSharp::StatusDefinition
   statusType: 2
-  description: "Defense lowered briefly."
+  description: "Временно снижает защиту."
   durationTurns: 1
   tickDamage: 0
   tickAtTurnStart: 0

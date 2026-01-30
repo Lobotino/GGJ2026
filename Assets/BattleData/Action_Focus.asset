@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b188457c9416243dbbcaac0e8599e66f, type: 3}
   m_Name: Action_Focus
   m_EditorClassIdentifier: Assembly-CSharp::BattleActionData
-  actionName: Focus
+  actionName: Фокус
   category: 3
   apCost: 1
   mpCost: 0

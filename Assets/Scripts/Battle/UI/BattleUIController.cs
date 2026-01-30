@@ -31,9 +31,9 @@ public class BattleUIController : MonoBehaviour
     public void RefreshAll()
     {
         if (playerHUD != null && playerState != null)
-            playerHUD.Refresh(playerState, playerState.Profile != null ? playerState.Profile.displayName : "Player");
+            playerHUD.Refresh(playerState, playerState.Profile != null ? playerState.Profile.displayName : "Игрок");
         if (enemyHUD != null && enemyState != null)
-            enemyHUD.Refresh(enemyState, enemyState.Profile != null ? enemyState.Profile.displayName : "Enemy");
+            enemyHUD.Refresh(enemyState, enemyState.Profile != null ? enemyState.Profile.displayName : "Враг");
     }
 
     public IEnumerator WaitForPlayerCommand(FighterState player, Action<PlayerCommand> onSelected)
@@ -129,23 +129,23 @@ public class BattleUIController : MonoBehaviour
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
-        GUILayout.Label($"Player HP {playerState.CurrentHP}/{playerState.MaxHP}  MP {playerState.CurrentMP}/{playerState.MaxMP}");
-        GUILayout.Label($"Will {playerState.CurrentWill}/{playerState.MaxWill}  AP {playerState.CurrentAP}");
-        GUILayout.Label($"Mask: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "None")}");
+        GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}");
+        GUILayout.Label($"Воля {playerState.CurrentWill}/{playerState.MaxWill}  ОД {playerState.CurrentAP}");
+        GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}");
         GUILayout.Space(4f);
-        GUILayout.Label($"Enemy HP {enemyState.CurrentHP}/{enemyState.MaxHP}  MP {enemyState.CurrentMP}/{enemyState.MaxMP}");
+        GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
 
         GUILayout.Space(8f);
         if (!showMaskList)
         {
-            GUILayout.Label("Actions:");
+            GUILayout.Label("Действия:");
             if (playerState.CurrentMask != null && playerState.CurrentMask.availableActions != null)
             {
                 foreach (var action in playerState.CurrentMask.availableActions)
                 {
                     if (action == null) continue;
                     GUI.enabled = playerState.CanUseAction(action);
-                    if (GUILayout.Button($"{action.actionName} (AP {action.apCost})"))
+                    if (GUILayout.Button($"{action.actionName} (ОД {action.apCost})"))
                     {
                         pendingCommand = new PlayerCommand { Type = PlayerCommandType.UseAction, Action = action };
                         commandReady = true;
@@ -155,11 +155,11 @@ public class BattleUIController : MonoBehaviour
             }
 
             GUILayout.Space(6f);
-            if (GUILayout.Button("Change Mask"))
+            if (GUILayout.Button("Сменить маску"))
             {
                 showMaskList = true;
             }
-            if (GUILayout.Button("End Turn"))
+            if (GUILayout.Button("Конец хода"))
             {
                 pendingCommand = new PlayerCommand { Type = PlayerCommandType.EndTurn };
                 commandReady = true;
@@ -167,19 +167,19 @@ public class BattleUIController : MonoBehaviour
         }
         else
         {
-            GUILayout.Label("Select Mask:");
+            GUILayout.Label("Выбор маски:");
             foreach (var mask in playerState.AvailableMasks)
             {
                 if (mask == null) continue;
                 GUI.enabled = playerState.CanChangeMask(mask);
-                if (GUILayout.Button($"{mask.displayName} (W {mask.changeWillCost})"))
+                if (GUILayout.Button($"{mask.displayName} (Воля {mask.changeWillCost})"))
                 {
                     pendingCommand = new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = mask };
                     commandReady = true;
                 }
                 GUI.enabled = true;
             }
-            if (GUILayout.Button("Back"))
+            if (GUILayout.Button("Назад"))
                 showMaskList = false;
         }
 

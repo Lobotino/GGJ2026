@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mask_Crow
   m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
   maskType: 2
-  displayName: Crow Mask
-  loreDescription: "Evasive stance focused on control."
+  displayName: Маска Ворона
+  loreDescription: "Контрольная стойка с упором на уклонение."
   statMultipliers:
     HP: 1
     MP: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
     MAG: 1
     RES: 1.1
     SPD: 1.2
-  passiveEffect: "+Defense, +Speed"
+  passiveEffect: "+Защита, +Скорость"
   vulnerability: 2
   availableActions:
   - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}

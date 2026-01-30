@@ -24,19 +24,19 @@ public class FighterHUD : MonoBehaviour
         if (maskText != null)
             maskText.text = state.CurrentMask != null && !string.IsNullOrWhiteSpace(state.CurrentMask.displayName)
                 ? state.CurrentMask.displayName
-                : "Mask";
+                : "Маска";
 
         if (willText != null)
-            willText.text = $"Will: {state.CurrentWill}/{state.MaxWill}";
+            willText.text = $"Воля: {state.CurrentWill}/{state.MaxWill}";
 
         if (apText != null)
-            apText.text = $"AP: {state.CurrentAP}";
+            apText.text = $"ОД: {state.CurrentAP}";
 
         if (hpText != null)
-            hpText.text = $"HP: {state.CurrentHP}/{state.MaxHP}";
+            hpText.text = $"Здоровье: {state.CurrentHP}/{state.MaxHP}";
 
         if (mpText != null)
-            mpText.text = $"MP: {state.CurrentMP}/{state.MaxMP}";
+            mpText.text = $"Мана: {state.CurrentMP}/{state.MaxMP}";
 
         if (hpSlider != null)
         {

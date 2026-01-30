@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Mask_Fire
   m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
   maskType: 1
-  displayName: Fire Mask
-  loreDescription: "Aggressive stance focused on damage."
+  displayName: Маска Огня
+  loreDescription: "Агрессивная стойка с упором на урон."
   statMultipliers:
     HP: 1
     MP: 1
@@ -24,7 +24,7 @@ MonoBehaviour:
     MAG: 1.1
     RES: 0.9
     SPD: 1
-  passiveEffect: "+Damage, -Defense"
+  passiveEffect: "+Урон, -Защита"
   vulnerability: 1
   availableActions:
   - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}

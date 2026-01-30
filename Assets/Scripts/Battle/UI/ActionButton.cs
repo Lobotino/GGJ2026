@@ -16,12 +16,12 @@ public class ActionButton : MonoBehaviour
         actionData = action;
         maskData = null;
         if (label != null)
-            label.text = action != null ? action.actionName : "Action";
+            label.text = action != null ? action.actionName : "Действие";
 
         if (costLabel != null)
         {
             if (action != null)
-                costLabel.text = $"AP {action.apCost} / MP {action.mpCost} / W {action.willCost}";
+                costLabel.text = $"ОД {action.apCost} / МП {action.mpCost} / Воля {action.willCost}";
             else
                 costLabel.text = string.Empty;
         }
@@ -40,12 +40,12 @@ public class ActionButton : MonoBehaviour
         actionData = null;
 
         if (label != null)
-            label.text = mask != null && !string.IsNullOrWhiteSpace(mask.displayName) ? mask.displayName : "Mask";
+            label.text = mask != null && !string.IsNullOrWhiteSpace(mask.displayName) ? mask.displayName : "Маска";
 
         if (costLabel != null)
         {
             if (mask != null)
-                costLabel.text = $"AP 1 / W {mask.changeWillCost}";
+                costLabel.text = $"ОД 1 / Воля {mask.changeWillCost}";
             else
                 costLabel.text = string.Empty;
         }

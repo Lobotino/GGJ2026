@@ -37,7 +37,7 @@ public class BattleController : MonoBehaviour
         }
 
         if (uiController != null)
-            uiController.ShowResult(playerState.IsAlive ? "Victory" : "Defeat");
+            uiController.ShowResult(playerState.IsAlive ? "Победа" : "Поражение");
     }
 
     IEnumerator RunTurn(FighterState actor, FighterState target, bool isPlayer, AIProfile aiProfile)

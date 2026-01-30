@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Status_Burn
   m_EditorClassIdentifier: Assembly-CSharp::StatusDefinition
   statusType: 1
-  description: "Burns for 2 damage at end of turn."
+  description: "Наносит 2 урона в конце хода."
   durationTurns: 2
   tickDamage: 2
   tickAtTurnStart: 0
