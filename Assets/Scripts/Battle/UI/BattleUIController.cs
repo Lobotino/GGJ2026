@@ -18,6 +18,7 @@ public class BattleUIController : MonoBehaviour
     bool commandReady;
     PlayerCommand pendingCommand;
     string debugResult;
+    Vector2 debugScroll;
 
     public void Initialize(FighterState player, FighterState enemy)
     {
@@ -124,8 +125,8 @@ public class BattleUIController : MonoBehaviour
         if (!awaitingCommand)
             return;
 
-        float width = 320f;
-        float height = 260f;
+        float width = 340f;
+        float height = 360f;
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
@@ -136,9 +137,11 @@ public class BattleUIController : MonoBehaviour
         GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
 
         GUILayout.Space(8f);
+        float listHeight = 160f;
         if (!showMaskList)
         {
             GUILayout.Label("Действия:");
+            debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
             if (playerState.CurrentMask != null && playerState.CurrentMask.availableActions != null)
             {
                 foreach (var action in playerState.CurrentMask.availableActions)
@@ -153,11 +156,13 @@ public class BattleUIController : MonoBehaviour
                     GUI.enabled = true;
                 }
             }
+            GUILayout.EndScrollView();
 
-            GUILayout.Space(6f);
+            GUILayout.Space(4f);
             if (GUILayout.Button("Сменить маску"))
             {
                 showMaskList = true;
+                debugScroll = Vector2.zero;
             }
             if (GUILayout.Button("Конец хода"))
             {
@@ -168,6 +173,7 @@ public class BattleUIController : MonoBehaviour
         else
         {
             GUILayout.Label("Выбор маски:");
+            debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
             foreach (var mask in playerState.AvailableMasks)
             {
                 if (mask == null) continue;
@@ -179,6 +185,7 @@ public class BattleUIController : MonoBehaviour
                 }
                 GUI.enabled = true;
             }
+            GUILayout.EndScrollView();
             if (GUILayout.Button("Назад"))
                 showMaskList = false;
         }
