@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0340580e1f944459460e0974ad7e2d, type: 3}
+  m_Name: MaskData
+  m_EditorClassIdentifier: Assembly-CSharp::MaskData
+  entries:
+  - type: 1
+    characterPrefab: {fileID: 0}
+  - type: 2
+    characterPrefab: {fileID: 0}

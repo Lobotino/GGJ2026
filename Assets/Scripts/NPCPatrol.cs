@@ -15,6 +15,9 @@ public class NPCPatrol : MonoBehaviour
     [Header("Pause")]
     [SerializeField] float pauseDuration = 2.5f;
 
+    [Header("Battle")]
+    [SerializeField] BattleTransitionManager battleTransitionManager;
+
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     int currentWaypointIndex;
@@ -95,6 +98,16 @@ public class NPCPatrol : MonoBehaviour
         resumeTime = Time.time + pauseDuration;
 
         FaceTarget(other.transform);
+
+        if (battleTransitionManager != null && !battleTransitionManager.InBattle)
+        {
+            var playerMask = other.GetComponent<CharacterMask>();
+            var npcMask = GetComponent<CharacterMask>();
+            MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
+            MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
+            var playerMovement = other.GetComponent<PlayerMovement2D>();
+            battleTransitionManager.StartBattle(pMask, nMask, playerMovement);
+        }
     }
 
     void FaceTarget(Transform target)

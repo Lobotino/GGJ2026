@@ -1,0 +1,78 @@
+using System.Collections;
+using UnityEngine;
+
+public class BattleTransitionManager : MonoBehaviour
+{
+    [SerializeField] ScreenFade screenFade;
+    [SerializeField] BattleArena battleArena;
+    [SerializeField] CameraFollow2D cameraFollow;
+    [SerializeField] float fadeDuration = 0.3f;
+    [SerializeField] float battleDisplayDuration = 2f;
+
+    bool inBattle;
+
+    public bool InBattle => inBattle;
+
+    public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement)
+    {
+        if (inBattle) return;
+        StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement));
+    }
+
+    IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement)
+    {
+        inBattle = true;
+
+        // Freeze player input
+        if (playerMovement != null)
+            playerMovement.enabled = false;
+
+        // Remember camera state to restore later
+        Camera cam = cameraFollow.GetComponent<Camera>();
+        Transform camTransform = cameraFollow.transform;
+        Vector3 originalCamPos = camTransform.position;
+        float originalSize = cam.orthographicSize;
+
+        Debug.Log("[Battle] Fading to black...");
+        yield return screenFade.FadeIn(fadeDuration);
+
+        // Move camera to center of arena background and fit to it
+        cameraFollow.enabled = false;
+        Vector3 arenaCenter = battleArena.GetCenter();
+        camTransform.position = new Vector3(arenaCenter.x, arenaCenter.y, camTransform.position.z);
+
+        float arenaSize = battleArena.GetCameraSize(cam.aspect);
+        if (arenaSize > 0f)
+            cam.orthographicSize = arenaSize;
+
+        // Setup arena characters
+        battleArena.Setup(playerMask, enemyMask);
+
+        Debug.Log("[Battle] Revealing arena...");
+        yield return screenFade.FadeOut(fadeDuration);
+
+        Debug.Log("[Battle] Waiting...");
+        yield return new WaitForSeconds(battleDisplayDuration);
+
+        Debug.Log("[Battle] Fading to black again...");
+        yield return screenFade.FadeIn(fadeDuration);
+
+        // Remove spawned arena characters
+        battleArena.Cleanup();
+
+        // Return camera
+        camTransform.position = originalCamPos;
+        cam.orthographicSize = originalSize;
+        cameraFollow.enabled = true;
+
+        Debug.Log("[Battle] Returning to overworld...");
+        yield return screenFade.FadeOut(fadeDuration);
+
+        // Unfreeze player
+        if (playerMovement != null)
+            playerMovement.enabled = true;
+
+        inBattle = false;
+        Debug.Log("[Battle] Done.");
+    }
+}
