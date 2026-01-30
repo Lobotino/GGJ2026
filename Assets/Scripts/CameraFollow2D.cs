@@ -4,6 +4,7 @@ public class CameraFollow2D : MonoBehaviour
 {
     [Header("Target")]
     [SerializeField] private Transform target;
+    [SerializeField] private Rigidbody2D targetRigidbody;
 
     [Header("Smoothing")]
     [Range(0.01f, 1f)]
@@ -19,14 +20,21 @@ public class CameraFollow2D : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
+        if (target == null)
+            TryAutoAssignTarget();
+        if (targetRigidbody == null && target != null)
+            targetRigidbody = target.GetComponent<Rigidbody2D>();
     }
 
     private void LateUpdate()
     {
-        if (target == null || cam == null) return;
+        if (cam == null) return;
+        if (target == null && targetRigidbody == null && !TryAutoAssignTarget())
+            return;
 
+        Vector3 targetPosition = targetRigidbody != null ? (Vector3)targetRigidbody.position : target.position;
         // Desired position follows the target, keep camera Z unchanged
-        Vector3 desired = new Vector3(target.position.x, target.position.y, transform.position.z);
+        Vector3 desired = new Vector3(targetPosition.x, targetPosition.y, transform.position.z);
 
         // Smooth follow using SmoothDamp
         Vector3 smoothed = Vector3.SmoothDamp(transform.position, desired, ref velocity, smoothSpeed);
@@ -39,6 +47,18 @@ public class CameraFollow2D : MonoBehaviour
         float clampedY = Mathf.Clamp(smoothed.y, worldMin.y + camHalfHeight, worldMax.y - camHalfHeight);
 
         transform.position = new Vector3(clampedX, clampedY, smoothed.z);
+    }
+
+    private bool TryAutoAssignTarget()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+            return false;
+
+        target = player.transform;
+        if (targetRigidbody == null)
+            targetRigidbody = player.GetComponent<Rigidbody2D>();
+        return true;
     }
 
     private void OnDrawGizmosSelected()
