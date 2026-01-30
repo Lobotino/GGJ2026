@@ -8,10 +8,15 @@ public class NPCPatrol : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float waypointReachThreshold = 0.1f;
 
+    [Header("Sprite Flip")]
+    [Tooltip("Enable if the sprite faces left by default")]
+    [SerializeField] bool spriteDefaultFacesLeft = false;
+
     [Header("Pause")]
     [SerializeField] float pauseDuration = 2.5f;
 
     Rigidbody2D rb;
+    SpriteRenderer spriteRenderer;
     int currentWaypointIndex;
     int direction = 1; // 1 = forward, -1 = backward
     bool paused;
@@ -22,6 +27,7 @@ public class NPCPatrol : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (waypoints == null || waypoints.Length < 2)
         {
@@ -48,11 +54,10 @@ public class NPCPatrol : MonoBehaviour
         Vector2 diff = dest - pos;
 
         // Flip sprite to face movement direction
-        if (diff.x != 0f)
+        if (spriteRenderer != null && diff.x != 0f)
         {
-            Vector3 scale = transform.localScale;
-            scale.x = Mathf.Sign(diff.x) * Mathf.Abs(scale.x);
-            transform.localScale = scale;
+            bool movingLeft = diff.x < 0f;
+            spriteRenderer.flipX = spriteDefaultFacesLeft ? !movingLeft : movingLeft;
         }
 
         if (diff.sqrMagnitude < waypointReachThreshold * waypointReachThreshold)
@@ -88,5 +93,17 @@ public class NPCPatrol : MonoBehaviour
 
         paused = true;
         resumeTime = Time.time + pauseDuration;
+
+        FaceTarget(other.transform);
+    }
+
+    void FaceTarget(Transform target)
+    {
+        if (spriteRenderer == null) return;
+        float dx = target.position.x - transform.position.x;
+        if (dx == 0f) return;
+
+        bool targetIsLeft = dx < 0f;
+        spriteRenderer.flipX = spriteDefaultFacesLeft ? !targetIsLeft : targetIsLeft;
     }
 }

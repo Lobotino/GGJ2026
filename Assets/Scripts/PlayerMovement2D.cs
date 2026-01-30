@@ -8,13 +8,19 @@ public class PlayerMovement2D : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
 
+    [Header("Sprite Flip")]
+    [Tooltip("Enable if the sprite faces left by default")]
+    [SerializeField] private bool spriteDefaultFacesLeft = false;
+
     private Rigidbody2D rb;
+    private SpriteRenderer spriteRenderer;
     private Vector2 input;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -38,6 +44,12 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (spriteRenderer != null && input.x != 0f)
+        {
+            bool movingLeft = input.x < 0f;
+            spriteRenderer.flipX = spriteDefaultFacesLeft ? !movingLeft : movingLeft;
+        }
+
         Vector2 newPosition = rb.position + input * moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(newPosition);
     }
