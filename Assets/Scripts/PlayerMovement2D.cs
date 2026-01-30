@@ -14,6 +14,12 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField] private float arriveThreshold = 0.05f;
     [SerializeField] private float autoFindNodeRadius = 6f;
 
+    [Header("Death & Respawn")]
+    [Tooltip("If true, the player will be teleported to the respawn point on battle defeat")]
+    [SerializeField] private bool canDie = true;
+    [Tooltip("The player will be moved here after dying in battle")]
+    [SerializeField] private Transform respawnPoint;
+
     [Header("Sprite Flip")]
     [Tooltip("Enable if the sprite faces left by default")]
     [SerializeField] private bool spriteDefaultFacesLeft = false;
@@ -118,6 +124,20 @@ public class PlayerMovement2D : MonoBehaviour
         }
 
         return best;
+    }
+
+    public bool CanDie => canDie;
+
+    public void TeleportToRespawn()
+    {
+        if (respawnPoint == null) return;
+
+        Vector2 pos = respawnPoint.position;
+        rb.position = pos;
+        transform.position = pos;
+        isMoving = false;
+        targetNode = null;
+        currentNode = FindNearestNode(autoFindNodeRadius);
     }
 
     private bool TryGetInputDirection(out Vector2Int direction)

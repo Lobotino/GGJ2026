@@ -69,10 +69,22 @@ public class BattleTransitionManager : MonoBehaviour
         // Remove spawned arena characters
         battleArena.Cleanup();
 
+        // Handle death: teleport player to respawn point while screen is still black
+        bool playerDied = battleController != null && battleController.PlayerLost;
+        if (playerDied && playerMovement != null && playerMovement.CanDie)
+        {
+            Debug.Log("[Battle] Player died — respawning...");
+            playerMovement.TeleportToRespawn();
+        }
+
         // Return camera
-        camTransform.position = originalCamPos;
         cam.orthographicSize = originalSize;
         cameraFollow.enabled = true;
+        // Let CameraFollow snap to (possibly new) player position
+        camTransform.position = new Vector3(
+            cameraFollow.transform.position.x,
+            cameraFollow.transform.position.y,
+            camTransform.position.z);
 
         Debug.Log("[Battle] Returning to overworld...");
         yield return screenFade.FadeOut(fadeDuration);

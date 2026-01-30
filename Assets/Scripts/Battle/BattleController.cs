@@ -12,8 +12,11 @@ public class BattleController : MonoBehaviour
     FighterState enemyState;
     BattleContext battleContext;
 
+    public bool PlayerLost { get; private set; }
+
     public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile)
     {
+        PlayerLost = false;
         var playerProfile = maskData != null ? maskData.GetFighterProfile(playerMaskType) : null;
         var enemyProfile = maskData != null ? maskData.GetFighterProfile(enemyMaskType) : null;
         var playerMask = maskData != null ? maskData.GetBattleMask(playerMaskType) : null;
@@ -48,6 +51,8 @@ public class BattleController : MonoBehaviour
 
             playerTurn = !playerTurn;
         }
+
+        PlayerLost = !playerState.IsAlive;
 
         if (uiController != null)
             uiController.ShowResult(playerState.IsAlive ? "Победа" : "Поражение");
