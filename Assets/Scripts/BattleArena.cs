@@ -10,6 +10,9 @@ public class BattleArena : MonoBehaviour
     GameObject spawnedPlayer;
     GameObject spawnedEnemy;
 
+    public GameObject SpawnedPlayer => spawnedPlayer;
+    public GameObject SpawnedEnemy => spawnedEnemy;
+
     public void Setup(MaskType playerMask, MaskType enemyMask)
     {
         Cleanup();
@@ -69,6 +72,28 @@ public class BattleArena : MonoBehaviour
         {
             Destroy(spawnedEnemy);
             spawnedEnemy = null;
+        }
+    }
+
+    public void SwapFighterSprite(bool isPlayer, MaskType newMask)
+    {
+        if (maskData == null) return;
+        GameObject prefab = maskData.GetPrefab(newMask);
+        if (prefab == null) return;
+
+        if (isPlayer)
+        {
+            if (spawnedPlayer != null)
+                Destroy(spawnedPlayer);
+            spawnedPlayer = Instantiate(prefab, playerSlot.position, Quaternion.identity, playerSlot);
+        }
+        else
+        {
+            if (spawnedEnemy != null)
+                Destroy(spawnedEnemy);
+            spawnedEnemy = Instantiate(prefab, enemySlot.position, Quaternion.identity, enemySlot);
+            Vector3 s = spawnedEnemy.transform.localScale;
+            spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
         }
     }
 }

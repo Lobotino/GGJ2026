@@ -10,6 +10,8 @@ public class MaskData : ScriptableObject
     {
         public MaskType type;
         public GameObject characterPrefab;
+        public BattleMaskData battleMask;
+        public FighterProfile fighterProfile;
     }
 
     [SerializeField] List<MaskEntry> entries;
@@ -21,6 +23,28 @@ public class MaskData : ScriptableObject
         {
             if (entry.type == type)
                 return entry.characterPrefab;
+        }
+        return null;
+    }
+
+    public BattleMaskData GetBattleMask(MaskType type)
+    {
+        if (entries == null) return null;
+        foreach (var entry in entries)
+        {
+            if (entry.type == type)
+                return entry.battleMask;
+        }
+        return null;
+    }
+
+    public FighterProfile GetFighterProfile(MaskType type)
+    {
+        if (entries == null) return null;
+        foreach (var entry in entries)
+        {
+            if (entry.type == type)
+                return entry.fighterProfile;
         }
         return null;
     }

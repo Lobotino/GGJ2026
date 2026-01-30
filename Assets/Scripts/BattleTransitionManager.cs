@@ -6,6 +6,7 @@ public class BattleTransitionManager : MonoBehaviour
     [SerializeField] ScreenFade screenFade;
     [SerializeField] BattleArena battleArena;
     [SerializeField] CameraFollow2D cameraFollow;
+    [SerializeField] BattleController battleController;
     [SerializeField] float fadeDuration = 0.3f;
     [SerializeField] float battleDisplayDuration = 2f;
 
@@ -13,13 +14,13 @@ public class BattleTransitionManager : MonoBehaviour
 
     public bool InBattle => inBattle;
 
-    public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement)
+    public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile)
     {
         if (inBattle) return;
-        StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement));
+        StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement, enemyAIProfile));
     }
 
-    IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement)
+    IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile)
     {
         inBattle = true;
 
@@ -51,8 +52,16 @@ public class BattleTransitionManager : MonoBehaviour
         Debug.Log("[Battle] Revealing arena...");
         yield return screenFade.FadeOut(fadeDuration);
 
-        Debug.Log("[Battle] Waiting...");
-        yield return new WaitForSeconds(battleDisplayDuration);
+        if (battleController != null)
+        {
+            Debug.Log("[Battle] Running battle...");
+            yield return battleController.RunBattle(playerMask, enemyMask, enemyAIProfile);
+        }
+        else
+        {
+            Debug.Log("[Battle] Waiting...");
+            yield return new WaitForSeconds(battleDisplayDuration);
+        }
 
         Debug.Log("[Battle] Fading to black again...");
         yield return screenFade.FadeIn(fadeDuration);

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04253721a670b4f04b5a32566d2932fb, type: 3}
+  m_Name: AI_Crow
+  m_EditorClassIdentifier: Assembly-CSharp::AIProfile
+  rules:
+  - hpThreshold: 0.5
+    switchToMask: {fileID: 11400000, guid: 4557f4aa292749569e9a2a72848a967d, type: 2}
+    preferredAction: {fileID: 11400000, guid: 482bdfe87da64954bccd1bef7efeeb1c, type: 2}
+  - hpThreshold: 1
+    switchToMask: {fileID: 0}
+    preferredAction: {fileID: 11400000, guid: eb884465c9a9438389e011e6082a26ea, type: 2}
+  fallbackAction: {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}

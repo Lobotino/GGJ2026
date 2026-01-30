@@ -15,5 +15,9 @@ MonoBehaviour:
   entries:
   - type: 1
     characterPrefab: {fileID: 0}
+    battleMask: {fileID: 11400000, guid: 4557f4aa292749569e9a2a72848a967d, type: 2}
+    fighterProfile: {fileID: 11400000, guid: 4745fd0a59f343d8ad5a2f0ff9830a1c, type: 2}
   - type: 2
     characterPrefab: {fileID: 0}
+    battleMask: {fileID: 11400000, guid: 6a7d02d396744a44a737a36a383e6759, type: 2}
+    fighterProfile: {fileID: 11400000, guid: da53375cca704c929fbb52b69b9256c9, type: 2}

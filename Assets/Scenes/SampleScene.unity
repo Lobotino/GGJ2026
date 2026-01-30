@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleArena
   playerSlot: {fileID: 1960572123}
   enemySlot: {fileID: 230614059}
-  maskData: {fileID: 0}
+  maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
 --- !u!212 &259194345
 SpriteRenderer:
   serializedVersion: 2
@@ -814,6 +814,7 @@ GameObject:
   - component: {fileID: 1162788052}
   - component: {fileID: 1162788051}
   - component: {fileID: 1162788055}
+  - component: {fileID: 632733260}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -1015,6 +1016,7 @@ GameObject:
   - component: {fileID: 1423283971}
   - component: {fileID: 1423283970}
   - component: {fileID: 1423283967}
+  - component: {fileID: 643858442}
   - component: {fileID: 1423283966}
   m_Layer: 8
   m_Name: NPC common
@@ -1082,6 +1084,7 @@ MonoBehaviour:
   spriteDefaultFacesLeft: 1
   pauseDuration: 2.5
   battleTransitionManager: {fileID: 1506877338}
+  aiProfile: {fileID: 11400000, guid: 12e1e87a168b49cdaf618033b4986579, type: 2}
 --- !u!50 &1423283970
 Rigidbody2D:
   serializedVersion: 5
@@ -1196,6 +1199,8 @@ GameObject:
   - component: {fileID: 1506877340}
   - component: {fileID: 1506877339}
   - component: {fileID: 1506877338}
+  - component: {fileID: 497515959}
+  - component: {fileID: 954195581}
   m_Layer: 5
   m_Name: BattleCanvas
   m_TagString: Untagged
@@ -1218,7 +1223,7 @@ MonoBehaviour:
   screenFade: {fileID: 936028491}
   battleArena: {fileID: 259194344}
   cameraFollow: {fileID: 519420033}
-  battleCameraPosition: {fileID: 259194346}
+  battleController: {fileID: 497515959}
   fadeDuration: 0.4
   battleDisplayDuration: 5
 --- !u!114 &1506877339
@@ -6404,6 +6409,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+
+--- !u!114 &497515959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506877337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 022233cb7f84e4dd19bae08ff3ccd834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleController
+  uiController: {fileID: 954195581}
+  battleArena: {fileID: 259194344}
+  maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
+  baseApPerTurn: 3
+--- !u!114 &954195581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506877337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11dbf2693f24d41ad8e1104733ca0743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
+  playerHUD: {fileID: 0}
+  enemyHUD: {fileID: 0}
+  actionMenu: {fileID: 0}
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
+--- !u!114 &632733260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1162788050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf73fb57b98148619a1555d06271d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMask
+  currentMask: 1
+--- !u!114 &643858442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423283965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf73fb57b98148619a1555d06271d6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterMask
+  currentMask: 2
+
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class NPCPatrol : MonoBehaviour
 
     [Header("Battle")]
     [SerializeField] BattleTransitionManager battleTransitionManager;
+    [SerializeField] AIProfile aiProfile;
 
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
@@ -106,7 +107,7 @@ public class NPCPatrol : MonoBehaviour
             MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
             MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
             var playerMovement = other.GetComponent<PlayerMovement2D>();
-            battleTransitionManager.StartBattle(pMask, nMask, playerMovement);
+            battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile);
         }
     }
 

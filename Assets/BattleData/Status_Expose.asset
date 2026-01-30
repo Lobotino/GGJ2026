@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b5497403c9184209809b157530b46e8, type: 3}
+  m_Name: Status_Expose
+  m_EditorClassIdentifier: Assembly-CSharp::StatusDefinition
+  statusType: 2
+  description: "Defense lowered briefly."
+  durationTurns: 1
+  tickDamage: 0
+  tickAtTurnStart: 0
+  tickAtTurnEnd: 0
+  statMultipliers:
+    HP: 1
+    MP: 1
+    Will: 1
+    ATK: 1
+    DEF: 0.7
+    MAG: 1
+    RES: 0.8
+    SPD: 1
+  preventMagic: 0
+  preventDefense: 0
+  apPenalty: 0
