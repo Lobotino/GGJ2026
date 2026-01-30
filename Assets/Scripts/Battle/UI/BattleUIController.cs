@@ -110,6 +110,20 @@ public class BattleUIController : MonoBehaviour
             debugResult = message;
     }
 
+    string FormatStatuses(FighterState fighter)
+    {
+        if (fighter.ActiveStatuses.Count == 0)
+            return "Нет";
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < fighter.ActiveStatuses.Count; i++)
+        {
+            var s = fighter.ActiveStatuses[i];
+            if (i > 0) sb.Append(", ");
+            sb.Append($"{s.Definition.statusType}({s.RemainingTurns})");
+        }
+        return sb.ToString();
+    }
+
     void OnGUI()
     {
         if (playerState == null || enemyState == null)
@@ -126,16 +140,18 @@ public class BattleUIController : MonoBehaviour
             return;
 
         float width = 340f;
-        float height = 360f;
+        float height = 400f;
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
         GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}");
         GUILayout.Label($"ОД {playerState.CurrentAP}");
         GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}");
+        GUILayout.Label($"Статусы: {FormatStatuses(playerState)}");
         GUILayout.Space(4f);
         GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
         GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}");
+        GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}");
 
         GUILayout.Space(8f);
         float listHeight = 160f;

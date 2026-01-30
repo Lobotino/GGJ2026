@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54176e773802c41cfb6cf1743703414c, type: 3}
+  m_Name: Mask_Frog
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
+  maskType: 14
+  displayName: Лягушка
+  loreDescription: "Скользкая маска — сопротивляется контролю и ломает защиту."
+  statMultipliers:
+    HP: 1
+    MP: 1
+    ATK: 0.95
+    DEF: 1.0
+    MAG: 1.0
+    RES: 0.95
+    SPD: 1.05
+  passiveEffect: "Первый Control за ход теряет 1 ход длительности (мин. 1)."
+  passiveType: 12
+  vulnerability: 0
+  availableActions:
+  - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
+  - {fileID: 11400000, guid: 582d63dcef080fc8cdab827bc98fe820, type: 2}
+  changeCooldownTurns: 0
+  disallowConsecutiveChange: 1
+  applyInertia: 1
+  inertiaApPenalty: 1
+  apBonus: 1

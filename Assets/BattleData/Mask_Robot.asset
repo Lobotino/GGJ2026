@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54176e773802c41cfb6cf1743703414c, type: 3}
+  m_Name: Mask_Robot
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
+  maskType: 5
+  displayName: Робот механоид
+  loreDescription: "Тяжёлая оборонительная маска с механическими системами."
+  statMultipliers:
+    HP: 1
+    MP: 1
+    ATK: 1.05
+    DEF: 1.25
+    MAG: 0.75
+    RES: 0.95
+    SPD: 0.85
+  passiveEffect: "Первая физ. атака за ход дополнительно снижается на 25%."
+  passiveType: 3
+  vulnerability: 1
+  availableActions:
+  - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
+  - {fileID: 11400000, guid: 67a2e5fcf243fd2306967e942cb4bf48, type: 2}
+  - {fileID: 11400000, guid: fd2d721d71ceb3b89342bbbc0bb0af0a, type: 2}
+  changeCooldownTurns: 0
+  disallowConsecutiveChange: 1
+  applyInertia: 1
+  inertiaApPenalty: 1
+  apBonus: 0

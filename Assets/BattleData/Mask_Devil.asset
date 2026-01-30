@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54176e773802c41cfb6cf1743703414c, type: 3}
+  m_Name: Mask_Devil
+  m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
+  maskType: 4
+  displayName: Чёрт с рогами
+  loreDescription: "Агрессивная маска, питающаяся кровью врага."
+  statMultipliers:
+    HP: 1
+    MP: 1
+    ATK: 1.2
+    DEF: 0.9
+    MAG: 0.85
+    RES: 0.9
+    SPD: 1.05
+  passiveEffect: "По цели с Bleed физ. атаки наносят ×1.15 урона."
+  passiveType: 2
+  vulnerability: 4
+  availableActions:
+  - {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
+  - {fileID: 11400000, guid: 415e0b904cfb15a1dd66129bb091a6df, type: 2}
+  - {fileID: 11400000, guid: fdfeae5ddf287d61046ec5e3e9cc1036, type: 2}
+  changeCooldownTurns: 0
+  disallowConsecutiveChange: 1
+  applyInertia: 1
+  inertiaApPenalty: 1
+  apBonus: 0
