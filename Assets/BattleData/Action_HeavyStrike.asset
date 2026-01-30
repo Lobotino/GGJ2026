@@ -17,10 +17,10 @@ MonoBehaviour:
   apCost: 2
   mpCost: 0
   willCost: 0
-  basePower: 9
+  basePower: 14
   isMagical: 0
   isHealing: 0
   targetSelf: 0
-  statusToApply: {fileID: 0}
+  statusToApply: {fileID: 11400000, guid: 836d7f46e2bf47e4af5945a2fc3a23f3, type: 2}
   grantsGuard: 0
   grantsCounter: 0

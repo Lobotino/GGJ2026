@@ -15,7 +15,7 @@ MonoBehaviour:
   statusType: 1
   description: "Наносит 2 урона в конце хода."
   durationTurns: 2
-  tickDamage: 2
+  tickDamage: 3
   tickAtTurnStart: 0
   tickAtTurnEnd: 1
   statMultipliers:

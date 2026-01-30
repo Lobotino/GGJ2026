@@ -19,8 +19,8 @@ MonoBehaviour:
     HP: 1
     MP: 1
     Will: 1
-    ATK: 1.2
-    DEF: 0.9
+    ATK: 1.25
+    DEF: 0.8
     MAG: 1.1
     RES: 0.9
     SPD: 1

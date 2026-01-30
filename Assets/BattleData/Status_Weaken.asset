@@ -22,9 +22,9 @@ MonoBehaviour:
     HP: 1
     MP: 1
     Will: 1
-    ATK: 0.8
+    ATK: 0.5
     DEF: 1
-    MAG: 0.9
+    MAG: 0.5
     RES: 1
     SPD: 1
   preventMagic: 0

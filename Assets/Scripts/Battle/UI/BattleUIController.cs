@@ -135,6 +135,7 @@ public class BattleUIController : MonoBehaviour
         GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}");
         GUILayout.Space(4f);
         GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
+        GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}");
 
         GUILayout.Space(8f);
         float listHeight = 160f;

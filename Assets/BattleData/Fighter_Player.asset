@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
   displayName: Игрок
   baseStats:
-    HP: 30
-    MP: 10
+    HP: 40
+    MP: 12
     Will: 6
-    ATK: 8
-    DEF: 6
+    ATK: 6
+    DEF: 7
     MAG: 6
-    RES: 5
+    RES: 6
     SPD: 5
   startingMask: {fileID: 11400000, guid: 4557f4aa292749569e9a2a72848a967d, type: 2}
   availableMasks:

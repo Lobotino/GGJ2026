@@ -19,10 +19,10 @@ MonoBehaviour:
     HP: 1
     MP: 1
     Will: 1
-    ATK: 0.9
-    DEF: 1.1
+    ATK: 0.75
+    DEF: 1.2
     MAG: 1
-    RES: 1.1
+    RES: 1.2
     SPD: 1.2
   passiveEffect: "+Защита, +Скорость"
   vulnerability: 2

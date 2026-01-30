@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StatusDefinition
   statusType: 2
   description: "Временно снижает защиту."
-  durationTurns: 1
+  durationTurns: 2
   tickDamage: 0
   tickAtTurnStart: 0
   tickAtTurnEnd: 0
@@ -23,9 +23,9 @@ MonoBehaviour:
     MP: 1
     Will: 1
     ATK: 1
-    DEF: 0.7
+    DEF: 0.5
     MAG: 1
-    RES: 0.8
+    RES: 0.5
     SPD: 1
   preventMagic: 0
   preventDefense: 0

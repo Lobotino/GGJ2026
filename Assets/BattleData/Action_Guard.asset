@@ -23,4 +23,4 @@ MonoBehaviour:
   targetSelf: 1
   statusToApply: {fileID: 0}
   grantsGuard: 1
-  grantsCounter: 0
+  grantsCounter: 1

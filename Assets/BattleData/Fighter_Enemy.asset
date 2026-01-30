@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
   displayName: Ворон-рыцарь
   baseStats:
-    HP: 26
-    MP: 8
+    HP: 60
+    MP: 10
     Will: 5
-    ATK: 7
-    DEF: 7
-    MAG: 5
-    RES: 6
+    ATK: 8
+    DEF: 10
+    MAG: 7
+    RES: 9
     SPD: 4
   startingMask: {fileID: 11400000, guid: 6a7d02d396744a44a737a36a383e6759, type: 2}
   availableMasks:
