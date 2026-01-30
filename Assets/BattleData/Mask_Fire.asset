@@ -18,7 +18,6 @@ MonoBehaviour:
   statMultipliers:
     HP: 1
     MP: 1
-    Will: 1
     ATK: 1.25
     DEF: 0.8
     MAG: 1.1
@@ -31,8 +30,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 90f482c676be4ec88a31126f4ab2f7f2, type: 2}
   - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
   - {fileID: 11400000, guid: 482bdfe87da64954bccd1bef7efeeb1c, type: 2}
-  - {fileID: 11400000, guid: 912236afa58e432a8fc32769dbba9820, type: 2}
-  changeWillCost: 1
   changeCooldownTurns: 0
   disallowConsecutiveChange: 1
   applyInertia: 1

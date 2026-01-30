@@ -11,7 +11,6 @@ public class FighterState
 
     public int CurrentHP { get; private set; }
     public int CurrentMP { get; private set; }
-    public int CurrentWill { get; private set; }
     public int CurrentAP { get; set; }
 
     public bool IsGuarding { get; private set; }
@@ -38,15 +37,12 @@ public class FighterState
 
         CurrentHP = MaxHP;
         CurrentMP = MaxMP;
-        CurrentWill = MaxWill;
     }
 
     public bool IsAlive => CurrentHP > 0;
 
     public int MaxHP => Mathf.Max(1, Mathf.RoundToInt(BaseStats.HP * GetMaskMultiplier().HP * GetStatusMultiplier().HP));
     public int MaxMP => Mathf.Max(0, Mathf.RoundToInt(BaseStats.MP * GetMaskMultiplier().MP * GetStatusMultiplier().MP));
-    public int MaxWill => Mathf.Max(0, Mathf.RoundToInt(BaseStats.Will * GetMaskMultiplier().Will * GetStatusMultiplier().Will));
-
     public float EffectiveATK => BaseStats.ATK * GetMaskMultiplier().ATK * GetStatusMultiplier().ATK;
     public float EffectiveDEF => BaseStats.DEF * GetMaskMultiplier().DEF * GetStatusMultiplier().DEF;
     public float EffectiveMAG => BaseStats.MAG * GetMaskMultiplier().MAG * GetStatusMultiplier().MAG;
@@ -143,7 +139,6 @@ public class FighterState
         if (!actionAllowed) return false;
         if (CurrentAP < action.apCost) return false;
         if (CurrentMP < action.mpCost) return false;
-        if (CurrentWill < action.willCost) return false;
         if (action.isMagical && IsSilenced) return false;
         if (action.category == ActionCategory.Defense && DefenseDisabled) return false;
         return true;
@@ -155,8 +150,7 @@ public class FighterState
         if (CurrentMask == newMask) return false;
         if (!availableMasks.Contains(newMask)) return false;
         if (MaskCooldownTurns > 0) return false;
-        if (CurrentAP < 1) return false;
-        if (CurrentWill < newMask.changeWillCost) return false;
+        if (CurrentAP < 2) return false;
         if (changedMaskThisTurn) return false;
         if (CurrentMask != null && CurrentMask.disallowConsecutiveChange && changedMaskLastTurn)
             return false;
@@ -220,14 +214,12 @@ public class FighterState
         if (action == null) return;
         CurrentAP -= action.apCost;
         CurrentMP -= action.mpCost;
-        CurrentWill -= action.willCost;
         ClampResources();
     }
 
     public void SpendForMaskChange(BattleMaskData mask)
     {
-        CurrentAP -= 1;
-        CurrentWill -= mask != null ? mask.changeWillCost : 0;
+        CurrentAP -= 2;
         ClampResources();
     }
 
@@ -235,11 +227,6 @@ public class FighterState
     {
         if (mask != null && mask.applyInertia)
             CurrentAP = Mathf.Max(0, CurrentAP - Mathf.Max(0, mask.inertiaApPenalty));
-    }
-
-    public void GainWill(int amount)
-    {
-        CurrentWill = Mathf.Clamp(CurrentWill + amount, 0, MaxWill);
     }
 
     public void Heal(int amount)
@@ -261,7 +248,6 @@ public class FighterState
     {
         CurrentHP = Mathf.Clamp(CurrentHP, 0, MaxHP);
         CurrentMP = Mathf.Clamp(CurrentMP, 0, MaxMP);
-        CurrentWill = Mathf.Clamp(CurrentWill, 0, MaxWill);
     }
 
     StatMultiplier GetMaskMultiplier()

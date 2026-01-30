@@ -21,7 +21,7 @@ public class ActionButton : MonoBehaviour
         if (costLabel != null)
         {
             if (action != null)
-                costLabel.text = $"ОД {action.apCost} / МП {action.mpCost} / Воля {action.willCost}";
+                costLabel.text = $"ОД {action.apCost} / МП {action.mpCost}";
             else
                 costLabel.text = string.Empty;
         }
@@ -45,7 +45,7 @@ public class ActionButton : MonoBehaviour
         if (costLabel != null)
         {
             if (mask != null)
-                costLabel.text = $"ОД 1 / Воля {mask.changeWillCost}";
+                costLabel.text = "ОД 2";
             else
                 costLabel.text = string.Empty;
         }

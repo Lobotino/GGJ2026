@@ -18,7 +18,6 @@ public static class ActionExecutor
             if (target == null) return;
             int healAmount = Mathf.Max(1, action.basePower);
             target.Heal(healAmount);
-            actor.GainWill(1);
             if (action.statusToApply != null)
                 target.ApplyStatus(action.statusToApply);
             return;
@@ -43,10 +42,6 @@ public static class ActionExecutor
             int finalDamage = Mathf.Max(1, Mathf.RoundToInt(damage));
             target.TakeDamage(finalDamage);
 
-            actor.GainWill(1);
-            if (finalDamage > 0)
-                target.GainWill(1);
-
             if (target.IsCountering && action.category == ActionCategory.Attack)
             {
                 int counterDamage = Mathf.Max(1, Mathf.RoundToInt(target.EffectiveATK * 0.5f));
@@ -54,11 +49,6 @@ public static class ActionExecutor
                 target.SetCountering(false);
             }
         }
-        else
-        {
-            actor.GainWill(1);
-        }
-
         if (action.statusToApply != null)
             target.ApplyStatus(action.statusToApply);
     }

@@ -131,7 +131,7 @@ public class BattleUIController : MonoBehaviour
         GUILayout.BeginArea(panel, GUI.skin.box);
 
         GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}");
-        GUILayout.Label($"Воля {playerState.CurrentWill}/{playerState.MaxWill}  ОД {playerState.CurrentAP}");
+        GUILayout.Label($"ОД {playerState.CurrentAP}");
         GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}");
         GUILayout.Space(4f);
         GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
@@ -179,7 +179,7 @@ public class BattleUIController : MonoBehaviour
             {
                 if (mask == null) continue;
                 GUI.enabled = playerState.CanChangeMask(mask);
-                if (GUILayout.Button($"{mask.displayName} (Воля {mask.changeWillCost})"))
+                if (GUILayout.Button($"{mask.displayName} (ОД 2)"))
                 {
                     pendingCommand = new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = mask };
                     commandReady = true;

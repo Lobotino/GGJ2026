@@ -6,18 +6,16 @@ public struct StatBlock
 {
     public int HP;
     public int MP;
-    public int Will;
     public int ATK;
     public int DEF;
     public int MAG;
     public int RES;
     public int SPD;
 
-    public StatBlock(int hp, int mp, int will, int atk, int def, int mag, int res, int spd)
+    public StatBlock(int hp, int mp, int atk, int def, int mag, int res, int spd)
     {
         HP = hp;
         MP = mp;
-        Will = will;
         ATK = atk;
         DEF = def;
         MAG = mag;
@@ -31,7 +29,6 @@ public struct StatMultiplier
 {
     public float HP;
     public float MP;
-    public float Will;
     public float ATK;
     public float DEF;
     public float MAG;
@@ -42,7 +39,6 @@ public struct StatMultiplier
     {
         HP = 1f,
         MP = 1f,
-        Will = 1f,
         ATK = 1f,
         DEF = 1f,
         MAG = 1f,
@@ -54,7 +50,6 @@ public struct StatMultiplier
     {
         HP *= other.HP;
         MP *= other.MP;
-        Will *= other.Will;
         ATK *= other.ATK;
         DEF *= other.DEF;
         MAG *= other.MAG;

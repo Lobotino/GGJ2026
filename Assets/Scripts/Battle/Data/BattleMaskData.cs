@@ -14,7 +14,6 @@ public class BattleMaskData : ScriptableObject
     public BattleActionData[] availableActions;
 
     [Header("Mask Change")]
-    public int changeWillCost = 1;
     public int changeCooldownTurns = 0;
     public bool disallowConsecutiveChange = false;
     public bool applyInertia = false;

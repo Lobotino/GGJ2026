@@ -21,7 +21,6 @@ MonoBehaviour:
   statMultipliers:
     HP: 1
     MP: 1
-    Will: 1
     ATK: 1
     DEF: 0.5
     MAG: 1

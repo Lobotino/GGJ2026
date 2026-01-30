@@ -8,7 +8,6 @@ public class BattleActionData : ScriptableObject
 
     public int apCost = 1;
     public int mpCost = 0;
-    public int willCost = 0;
 
     public int basePower = 1;
     public bool isMagical = false;

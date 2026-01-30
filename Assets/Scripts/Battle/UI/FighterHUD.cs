@@ -27,7 +27,7 @@ public class FighterHUD : MonoBehaviour
                 : "Маска";
 
         if (willText != null)
-            willText.text = $"Воля: {state.CurrentWill}/{state.MaxWill}";
+            willText.text = "";
 
         if (apText != null)
             apText.text = $"ОД: {state.CurrentAP}";

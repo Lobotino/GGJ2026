@@ -16,7 +16,6 @@ MonoBehaviour:
   category: 1
   apCost: 1
   mpCost: 0
-  willCost: 0
   basePower: 0
   isMagical: 0
   isHealing: 0

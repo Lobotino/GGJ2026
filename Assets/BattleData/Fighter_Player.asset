@@ -16,7 +16,6 @@ MonoBehaviour:
   baseStats:
     HP: 40
     MP: 12
-    Will: 6
     ATK: 6
     DEF: 7
     MAG: 6
