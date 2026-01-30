@@ -14,6 +14,7 @@ public class PlayerMovement2D : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
     }
 
     private void Update()
