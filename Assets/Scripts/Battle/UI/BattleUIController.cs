@@ -41,6 +41,8 @@ public class BattleUIController : MonoBehaviour
 
     public IEnumerator WaitForPlayerCommand(FighterState player, Action<PlayerCommand> onSelected)
     {
+        Debug.Log($"[BattleUI] Command UI path: {(actionMenu == null ? "OnGUI" : "ActionMenu")}");
+        LogMaskChangeState(player);
         if (actionMenu == null)
         {
             awaitingCommand = true;
@@ -73,6 +75,7 @@ public class BattleUIController : MonoBehaviour
                 () => Choose(new PlayerCommand { Type = PlayerCommandType.EndTurn }),
                 () =>
                 {
+                    LogMaskChangeState(player);
                     bool canChange = false;
                     foreach (var mask in player.AvailableMasks)
                     {
@@ -142,7 +145,7 @@ public class BattleUIController : MonoBehaviour
             return;
 
         float width = 340f;
-        float height = 400f;
+        float height = 520f;
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
@@ -203,6 +206,7 @@ public class BattleUIController : MonoBehaviour
             GUILayout.Space(4f);
             if (GUILayout.Button("Сменить маску"))
             {
+                LogMaskChangeState(playerState);
                 showMaskList = true;
                 debugScroll = Vector2.zero;
             }
@@ -233,5 +237,23 @@ public class BattleUIController : MonoBehaviour
         }
 
         GUILayout.EndArea();
+    }
+
+    void LogMaskChangeState(FighterState player)
+    {
+        if (player == null) return;
+        var sb = new System.Text.StringBuilder();
+        string current = player.CurrentMask != null ? player.CurrentMask.displayName : "null";
+        sb.Append($"[BattleUI] ChangeMask check: AP={player.CurrentAP}, cooldown={player.MaskCooldownTurns}, current={current}");
+        if (player.AvailableMasks != null)
+        {
+            foreach (var mask in player.AvailableMasks)
+            {
+                if (mask == null) continue;
+                string name = !string.IsNullOrWhiteSpace(mask.displayName) ? mask.displayName : mask.maskType.ToString();
+                sb.Append($", {name}:{player.CanChangeMask(mask)}");
+            }
+        }
+        Debug.Log(sb.ToString());
     }
 }

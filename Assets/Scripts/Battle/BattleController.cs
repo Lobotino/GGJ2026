@@ -36,6 +36,8 @@ public class BattleController : MonoBehaviour
             {
                 if (maskType == MaskType.None) continue;
                 var mask = maskData.GetBattleMask(maskType);
+                if (mask == null)
+                    Debug.LogWarning($"[Battle] No BattleMaskData for maskType {maskType} in MaskData.");
                 if (mask != null && !overrideMasks.Contains(mask))
                     overrideMasks.Add(mask);
             }
@@ -69,6 +71,8 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.Initialize(playerState, enemyState, battleContext);
+
+        Debug.Log($"[Battle] Player available masks: {FormatMasks(playerState.AvailableMasks)}");
 
         bool playerTurn = playerState.EffectiveSPD >= enemyState.EffectiveSPD;
 
@@ -228,6 +232,21 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.RefreshAll();
+    }
+
+    static string FormatMasks(System.Collections.Generic.IReadOnlyList<BattleMaskData> masks)
+    {
+        if (masks == null || masks.Count == 0) return "none";
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < masks.Count; i++)
+        {
+            var mask = masks[i];
+            if (i > 0) sb.Append(", ");
+            if (mask == null) sb.Append("null");
+            else if (!string.IsNullOrWhiteSpace(mask.displayName)) sb.Append(mask.displayName);
+            else sb.Append(mask.maskType);
+        }
+        return sb.ToString();
     }
 
     IEnumerator TryCompanionAttack(CompanionState companion, FighterState target)

@@ -147,7 +147,8 @@ public class NPCPatrol : MonoBehaviour
             MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
             MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
             var playerMovement = other.GetComponent<PlayerMovement2D>();
-            Debug.Log($"[NPCPatrol] Starting battle: playerMask={pMask}, npcMask={nMask}, aiProfile={aiProfile}");
+            string available = playerAvailableMasks == null ? "null" : string.Join(", ", playerAvailableMasks);
+            Debug.Log($"[NPCPatrol] Starting battle: playerMask={pMask}, npcMask={nMask}, aiProfile={aiProfile}, playerAvailableMasks={available}");
             battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile,
                 playerCompanionMask, enemyCompanionMask,
                 playerBattlePrefab, enemyBattlePrefab,
