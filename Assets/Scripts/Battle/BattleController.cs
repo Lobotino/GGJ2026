@@ -67,6 +67,10 @@ public class BattleController : MonoBehaviour
             playerTurn = !playerTurn;
         }
 
+        // Death animation
+        FighterState dead = !playerState.IsAlive ? playerState : enemyState;
+        yield return PlayAnimation(dead, "Die");
+
         PlayerLost = !playerState.IsAlive;
 
         if (uiController != null)
@@ -122,6 +126,7 @@ public class BattleController : MonoBehaviour
                 {
                     if (actor.CanChangeMask(command.Mask))
                     {
+                        yield return PlayAnimation(actor, "ChangeMask");
                         actor.SpendForMaskChange(command.Mask);
                         actor.ChangeMask(command.Mask);
                         actor.ApplyInertia(command.Mask);
@@ -138,7 +143,13 @@ public class BattleController : MonoBehaviour
                     if (actor.CanUseAction(command.Action))
                     {
                         FighterState actionTarget = command.Action.targetSelf ? actor : target;
+                        yield return PlayActionAnimation(actor, command.Action);
+                        int hpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, command.Action, battleContext);
+                        if (actionTarget.CurrentHP < hpBefore)
+                            yield return PlayHitAnimation(actionTarget);
+                        if (!target.IsAlive)
+                            yield return PlayAnimation(target, "Die");
                     }
                 }
             }
@@ -153,6 +164,7 @@ public class BattleController : MonoBehaviour
                 {
                     if (actor.CanChangeMask(aiCommand.Mask))
                     {
+                        yield return PlayAnimation(actor, "ChangeMask");
                         actor.SpendForMaskChange(aiCommand.Mask);
                         actor.ChangeMask(aiCommand.Mask);
                         actor.ApplyInertia(aiCommand.Mask);
@@ -169,7 +181,13 @@ public class BattleController : MonoBehaviour
                     if (actor.CanUseAction(aiCommand.Action))
                     {
                         FighterState actionTarget = aiCommand.Action.targetSelf ? actor : target;
+                        yield return PlayActionAnimation(actor, aiCommand.Action);
+                        int hpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action, battleContext);
+                        if (actionTarget.CurrentHP < hpBefore)
+                            yield return PlayHitAnimation(actionTarget);
+                        if (!target.IsAlive)
+                            yield return PlayAnimation(target, "Die");
                     }
                     else
                     {
@@ -208,5 +226,47 @@ public class BattleController : MonoBehaviour
             ActionExecutor.ExecuteCompanionAction(companion, target, battleContext);
             companion.ResetAfterAttack();
         }
+    }
+
+    IEnumerator PlayAnimation(FighterState fighter, string trigger)
+    {
+        if (battleArena == null || fighter == null) yield break;
+
+        BattleFighterAnimator anim = fighter.IsPlayer
+            ? battleArena.PlayerAnimator
+            : battleArena.EnemyAnimator;
+
+        if (anim != null)
+            yield return anim.PlayAndWait(trigger);
+    }
+
+    IEnumerator PlayActionAnimation(FighterState actor, BattleActionData action)
+    {
+        string trigger;
+
+        if (!string.IsNullOrEmpty(action.animationTrigger))
+        {
+            trigger = action.animationTrigger;
+        }
+        else if (action.grantsGuard)
+        {
+            trigger = "Guard";
+        }
+        else if (action.grantsCounter || action.isEnhancedCounter)
+        {
+            trigger = "Counter";
+        }
+        else
+        {
+            trigger = "Attack";
+        }
+
+        yield return PlayAnimation(actor, trigger);
+    }
+
+    IEnumerator PlayHitAnimation(FighterState target)
+    {
+        if (target == null || !target.IsAlive) yield break;
+        yield return PlayAnimation(target, "Hit");
     }
 }

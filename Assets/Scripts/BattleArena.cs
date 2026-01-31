@@ -20,8 +20,13 @@ public class BattleArena : MonoBehaviour
     GameObject spawnedPlayerCompanion;
     GameObject spawnedEnemyCompanion;
 
+    BattleFighterAnimator playerAnimator;
+    BattleFighterAnimator enemyAnimator;
+
     public GameObject SpawnedPlayer => spawnedPlayer;
     public GameObject SpawnedEnemy => spawnedEnemy;
+    public BattleFighterAnimator PlayerAnimator => playerAnimator;
+    public BattleFighterAnimator EnemyAnimator => enemyAnimator;
 
     public void Setup(MaskType playerMask, MaskType enemyMask)
     {
@@ -38,13 +43,17 @@ public class BattleArena : MonoBehaviour
         GameObject ePrefab = enemyBattlePrefab != null ? enemyBattlePrefab : defaultEnemyBattlePrefab;
 
         if (pPrefab != null && playerSlot != null)
+        {
             spawnedPlayer = Instantiate(pPrefab, playerSlot.position, Quaternion.identity, playerSlot);
+            playerAnimator = spawnedPlayer.GetComponentInChildren<BattleFighterAnimator>();
+        }
 
         if (ePrefab != null && enemySlot != null)
         {
             spawnedEnemy = Instantiate(ePrefab, enemySlot.position, Quaternion.identity, enemySlot);
             Vector3 s = spawnedEnemy.transform.localScale;
             spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
+            enemyAnimator = spawnedEnemy.GetComponentInChildren<BattleFighterAnimator>();
         }
 
         // Companions: explicit prefab > default on arena
@@ -98,6 +107,9 @@ public class BattleArena : MonoBehaviour
 
     public void Cleanup()
     {
+        playerAnimator = null;
+        enemyAnimator = null;
+
         if (spawnedPlayer != null)
         {
             Destroy(spawnedPlayer);
@@ -131,6 +143,7 @@ public class BattleArena : MonoBehaviour
             if (spawnedPlayer != null)
                 Destroy(spawnedPlayer);
             spawnedPlayer = Instantiate(prefab, playerSlot.position, Quaternion.identity, playerSlot);
+            playerAnimator = spawnedPlayer.GetComponentInChildren<BattleFighterAnimator>();
         }
         else
         {
@@ -139,6 +152,7 @@ public class BattleArena : MonoBehaviour
             spawnedEnemy = Instantiate(prefab, enemySlot.position, Quaternion.identity, enemySlot);
             Vector3 s = spawnedEnemy.transform.localScale;
             spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
+            enemyAnimator = spawnedEnemy.GetComponentInChildren<BattleFighterAnimator>();
         }
     }
 }

@@ -16,6 +16,9 @@ public class BattleActionData : ScriptableObject
 
     public StatusDefinition statusToApply;
 
+    [Header("Animation")]
+    public string animationTrigger;
+
     [Header("Defensive Flags")]
     public bool grantsGuard = false;
     public bool grantsCounter = false;

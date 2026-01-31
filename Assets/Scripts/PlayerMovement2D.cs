@@ -31,6 +31,8 @@ public class PlayerMovement2D : MonoBehaviour
     private GridMoveNode2D targetNode;
     private Vector2 targetPosition;
     private bool isMoving;
+    private bool inputLocked;
+    private System.Action onMovementStopped;
 
     private static readonly int AnimIsRunHorizontal = Animator.StringToHash("IsRunHorizontal");
     private static readonly int AnimIsRunTop = Animator.StringToHash("IsRunTop");
@@ -59,6 +61,9 @@ public class PlayerMovement2D : MonoBehaviour
         if (isMoving)
             return;
 
+        if (inputLocked)
+            return;
+
         if (currentNode == null)
             currentNode = FindNearestNode(autoFindNodeRadius);
 
@@ -84,6 +89,13 @@ public class PlayerMovement2D : MonoBehaviour
             targetNode = null;
             isMoving = false;
             ClearAnimationState();
+
+            if (inputLocked && onMovementStopped != null)
+            {
+                var cb = onMovementStopped;
+                onMovementStopped = null;
+                cb.Invoke();
+            }
         }
     }
 
@@ -156,6 +168,25 @@ public class PlayerMovement2D : MonoBehaviour
     }
 
     public bool CanDie => canDie;
+
+    public void LockInputUntilStopped(System.Action onStopped)
+    {
+        inputLocked = true;
+        if (!isMoving)
+        {
+            onStopped?.Invoke();
+        }
+        else
+        {
+            onMovementStopped = onStopped;
+        }
+    }
+
+    public void UnlockInput()
+    {
+        inputLocked = false;
+        onMovementStopped = null;
+    }
 
     public void TeleportToRespawn()
     {

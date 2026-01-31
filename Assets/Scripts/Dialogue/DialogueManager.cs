@@ -143,12 +143,20 @@ public class DialogueManager : MonoBehaviour
         cachedPlayerMovement = playerMovement;
 
         if (cachedPlayerMovement != null)
-            cachedPlayerMovement.enabled = false;
-
-        if (dialoguePanel != null)
-            dialoguePanel.SetActive(true);
-
-        StartCoroutine(RunDialogue(data));
+        {
+            cachedPlayerMovement.LockInputUntilStopped(() =>
+            {
+                if (dialoguePanel != null)
+                    dialoguePanel.SetActive(true);
+                StartCoroutine(RunDialogue(data));
+            });
+        }
+        else
+        {
+            if (dialoguePanel != null)
+                dialoguePanel.SetActive(true);
+            StartCoroutine(RunDialogue(data));
+        }
     }
 
     IEnumerator RunDialogue(DialogueData data)
@@ -244,7 +252,7 @@ public class DialogueManager : MonoBehaviour
             dialoguePanel.SetActive(false);
 
         if (cachedPlayerMovement != null)
-            cachedPlayerMovement.enabled = true;
+            cachedPlayerMovement.UnlockInput();
 
         cachedPlayerMovement = null;
 
