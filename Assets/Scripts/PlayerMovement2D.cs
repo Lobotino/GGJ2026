@@ -26,16 +26,22 @@ public class PlayerMovement2D : MonoBehaviour
 
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     private GridMoveNode2D currentNode;
     private GridMoveNode2D targetNode;
     private Vector2 targetPosition;
     private bool isMoving;
+
+    private static readonly int AnimIsRunHorizontal = Animator.StringToHash("IsRunHorizontal");
+    private static readonly int AnimIsRunTop = Animator.StringToHash("IsRunTop");
+    private static readonly int AnimIsRunBottom = Animator.StringToHash("IsRunBottom");
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -77,6 +83,7 @@ public class PlayerMovement2D : MonoBehaviour
             currentNode = targetNode;
             targetNode = null;
             isMoving = false;
+            ClearAnimationState();
         }
     }
 
@@ -93,8 +100,30 @@ public class PlayerMovement2D : MonoBehaviour
         if (spriteRenderer != null && direction.x != 0)
         {
             bool movingLeft = direction.x < 0;
-            spriteRenderer.flipX = spriteDefaultFacesLeft ? !movingLeft : movingLeft;
+            spriteRenderer.flipX = spriteDefaultFacesLeft ? movingLeft : !movingLeft;
         }
+
+        SetAnimationState(direction);
+    }
+
+    private void SetAnimationState(Vector2Int direction)
+    {
+        if (animator == null)
+            return;
+
+        animator.SetBool(AnimIsRunHorizontal, direction.x != 0);
+        animator.SetBool(AnimIsRunTop, direction.y > 0);
+        animator.SetBool(AnimIsRunBottom, direction.y < 0);
+    }
+
+    private void ClearAnimationState()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetBool(AnimIsRunHorizontal, false);
+        animator.SetBool(AnimIsRunTop, false);
+        animator.SetBool(AnimIsRunBottom, false);
     }
 
     private GridMoveNode2D FindNearestNode(float maxDistance)
@@ -137,6 +166,7 @@ public class PlayerMovement2D : MonoBehaviour
         transform.position = pos;
         isMoving = false;
         targetNode = null;
+        ClearAnimationState();
         currentNode = FindNearestNode(autoFindNodeRadius);
     }
 
