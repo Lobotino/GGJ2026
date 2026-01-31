@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6053851720153681213
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -33.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -33.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 391060647840955611, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_Name
+      value: NPC Tulpan In Battle Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+    - {fileID: 4578684412538341178, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+    - {fileID: 3917804837841139882, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+    - {fileID: 8302678069929729661, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+    - {fileID: 9071091463468495077, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}

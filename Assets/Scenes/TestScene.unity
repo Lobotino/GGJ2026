@@ -762,8 +762,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleArena
   playerSlot: {fileID: 1631909844}
   enemySlot: {fileID: 539334652}
-  playerCompanionSlot: {fileID: 994377168}
-  enemyCompanionSlot: {fileID: 1596440231}
+  playerCompanionSlot: {fileID: 0}
+  enemyCompanionSlot: {fileID: 0}
   background: {fileID: 259194345}
   defaultPlayerBattlePrefab: {fileID: 0}
   defaultEnemyBattlePrefab: {fileID: 0}
@@ -2279,72 +2279,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 259194346}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &563851170
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -33.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -33.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 391060647840955611, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: m_Name
-      value: NPC Tulpan (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-      propertyPath: battleTransitionManager
-      value: 
-      objectReference: {fileID: 1506877338}
-    m_RemovedComponents:
-    - {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-    - {fileID: 4578684412538341178, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-    - {fileID: 3917804837841139882, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-    - {fileID: 8302678069929729661, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-    - {fileID: 9071091463468495077, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
 --- !u!1 &599605465
 GameObject:
   m_ObjectHideFlags: 0
@@ -29370,6 +29304,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20.88
       objectReference: {fileID: 0}
@@ -29414,9 +29360,21 @@ PrefabInstance:
       value: NPC Tulpan
       objectReference: {fileID: 0}
     - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: enemyBattlePrefab
+      value: 
+      objectReference: {fileID: 5867848945338970598, guid: d4918f0753c834b26942fbbac5dc00e1, type: 3}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: playerBattlePrefab
+      value: 
+      objectReference: {fileID: 8262597116255116894, guid: f3616ba3adaa44c33b1e1141cf1dfd81, type: 3}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: battleTransitionManager
       value: 
       objectReference: {fileID: 1506877338}
+    - target: {fileID: 8302678069929729661, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: enemyBattlePrefab
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29502,7 +29460,6 @@ SceneRoots:
   - {fileID: 2034662686}
   - {fileID: 2000000002}
   - {fileID: 6125356300951697202}
-  - {fileID: 563851170}
   - {fileID: 2000000042}
   - {fileID: 1441156469}
   - {fileID: 1115429429}

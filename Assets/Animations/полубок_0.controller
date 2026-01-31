@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1107 &-4785255235583038307
+--- !u!1107 &-3253893474376170175
 AnimatorStateMachine:
   serializedVersion: 6
   m_ObjectHideFlags: 1
@@ -10,7 +10,7 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 9216072926462449321}
+    m_State: {fileID: 4937775179470827384}
     m_Position: {x: 200, y: 0, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
@@ -21,20 +21,20 @@ AnimatorStateMachine:
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 9216072926462449321}
+  m_DefaultState: {fileID: 4937775179470827384}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u0432\u043F\u0435\u0440\u0435\u04341_0"
+  m_Name: "\u043F\u043E\u043B\u0443\u0431\u043E\u043A_0"
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: -4785255235583038307}
+    m_StateMachine: {fileID: -3253893474376170175}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -44,14 +44,14 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &9216072926462449321
+--- !u!1102 &4937775179470827384
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerTopRun
+  m_Name: player in the battle default
   m_Speed: 0.5
   m_CycleOffset: 0
   m_Transitions: []
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 93c8e08100a7f47e083c0c4bc67fe7ed, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2d64ea5e9b8a44ee8a244cdb73814f43, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
