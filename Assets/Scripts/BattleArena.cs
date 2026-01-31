@@ -7,6 +7,7 @@ public class BattleArena : MonoBehaviour
     [SerializeField] Transform playerCompanionSlot;
     [SerializeField] Transform enemyCompanionSlot;
     [SerializeField] SpriteRenderer background;
+    [SerializeField] MaskData maskData;
 
     [Header("Battle Prefabs (override overworld prefabs)")]
     [SerializeField] GameObject defaultPlayerBattlePrefab;
@@ -22,19 +23,24 @@ public class BattleArena : MonoBehaviour
 
     BattleFighterAnimator playerAnimator;
     BattleFighterAnimator enemyAnimator;
+    BattleFighterAnimator playerCompanionAnimator;
+    BattleFighterAnimator enemyCompanionAnimator;
 
     public GameObject SpawnedPlayer => spawnedPlayer;
     public GameObject SpawnedEnemy => spawnedEnemy;
     public BattleFighterAnimator PlayerAnimator => playerAnimator;
     public BattleFighterAnimator EnemyAnimator => enemyAnimator;
+    public BattleFighterAnimator PlayerCompanionAnimator => playerCompanionAnimator;
+    public BattleFighterAnimator EnemyCompanionAnimator => enemyCompanionAnimator;
 
     public void Setup(MaskType playerMask, MaskType enemyMask)
     {
-        Setup(null, null, null, null);
+        Setup(null, null, null, null, MaskType.None, MaskType.None);
     }
 
     public void Setup(GameObject playerBattlePrefab, GameObject enemyBattlePrefab,
-        GameObject playerCompPrefab, GameObject enemyCompPrefab)
+        GameObject playerCompPrefab, GameObject enemyCompPrefab,
+        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None)
     {
         Cleanup();
 
@@ -56,19 +62,36 @@ public class BattleArena : MonoBehaviour
             enemyAnimator = EnsureFighterAnimator(spawnedEnemy);
         }
 
-        // Companions: explicit prefab > default on arena
-        GameObject pComp = playerCompPrefab != null ? playerCompPrefab : defaultPlayerCompanionPrefab;
-        GameObject eComp = enemyCompPrefab != null ? enemyCompPrefab : defaultEnemyCompanionPrefab;
+        // Companions: explicit prefab > default on arena > resolve from MaskData.battlePrefab
+        GameObject pComp = ResolveCompanionPrefab(playerCompPrefab, defaultPlayerCompanionPrefab, playerCompanionMask);
+        GameObject eComp = ResolveCompanionPrefab(enemyCompPrefab, defaultEnemyCompanionPrefab, enemyCompanionMask);
 
-        SpawnCompanion(pComp, playerCompanionSlot, false, ref spawnedPlayerCompanion);
-        SpawnCompanion(eComp, enemyCompanionSlot, true, ref spawnedEnemyCompanion);
+        SpawnCompanion(pComp, playerCompanionSlot, false, ref spawnedPlayerCompanion, ref playerCompanionAnimator);
+        SpawnCompanion(eComp, enemyCompanionSlot, true, ref spawnedEnemyCompanion, ref enemyCompanionAnimator);
     }
 
-    void SpawnCompanion(GameObject prefab, Transform slot, bool flip, ref GameObject spawned)
+    GameObject ResolveCompanionPrefab(GameObject explicitPrefab, GameObject defaultPrefab, MaskType companionMask)
+    {
+        if (explicitPrefab != null) return explicitPrefab;
+        if (defaultPrefab != null) return defaultPrefab;
+
+        // Auto-resolve from MaskData using the companion's mask type
+        if (companionMask != MaskType.None && maskData != null)
+        {
+            var battleMask = maskData.GetBattleMask(companionMask);
+            if (battleMask != null && battleMask.battlePrefab != null)
+                return battleMask.battlePrefab;
+        }
+        return null;
+    }
+
+    void SpawnCompanion(GameObject prefab, Transform slot, bool flip, ref GameObject spawned, ref BattleFighterAnimator anim)
     {
         if (prefab == null || slot == null) return;
 
-        spawned = Instantiate(prefab, slot.position, Quaternion.identity, slot);
+        Vector3 spawnPos = slot.position;
+        spawnPos.z += 1f;
+        spawned = Instantiate(prefab, spawnPos, Quaternion.identity, slot);
         spawned.transform.localScale *= companionScale;
 
         if (flip)
@@ -76,6 +99,8 @@ public class BattleArena : MonoBehaviour
             Vector3 s = spawned.transform.localScale;
             spawned.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
         }
+
+        anim = EnsureFighterAnimator(spawned);
     }
 
     /// <summary>
@@ -109,6 +134,8 @@ public class BattleArena : MonoBehaviour
     {
         playerAnimator = null;
         enemyAnimator = null;
+        playerCompanionAnimator = null;
+        enemyCompanionAnimator = null;
 
         if (spawnedPlayer != null)
         {

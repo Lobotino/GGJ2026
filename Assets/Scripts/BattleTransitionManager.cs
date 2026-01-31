@@ -61,7 +61,8 @@ public class BattleTransitionManager : MonoBehaviour
             cam.orthographicSize = arenaSize;
 
         // Setup arena characters
-        battleArena.Setup(playerBattlePrefab, enemyBattlePrefab, playerCompanionPrefab, enemyCompanionPrefab);
+        battleArena.Setup(playerBattlePrefab, enemyBattlePrefab, playerCompanionPrefab, enemyCompanionPrefab,
+            playerCompanionMask, enemyCompanionMask);
 
         Debug.Log("[Battle] Revealing arena...");
         yield return screenFade.FadeOut(fadeDuration);

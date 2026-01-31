@@ -762,9 +762,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BattleArena
   playerSlot: {fileID: 1631909844}
   enemySlot: {fileID: 539334652}
-  playerCompanionSlot: {fileID: 0}
-  enemyCompanionSlot: {fileID: 0}
+  playerCompanionSlot: {fileID: 994377168}
+  enemyCompanionSlot: {fileID: 1596440231}
   background: {fileID: 259194345}
+  maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
   defaultPlayerBattlePrefab: {fileID: 0}
   defaultEnemyBattlePrefab: {fileID: 0}
   defaultPlayerCompanionPrefab: {fileID: 0}
@@ -29364,9 +29365,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5867848945338970598, guid: d4918f0753c834b26942fbbac5dc00e1, type: 3}
     - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: enemyCompanionMask
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: playerBattlePrefab
       value: 
       objectReference: {fileID: 8262597116255116894, guid: f3616ba3adaa44c33b1e1141cf1dfd81, type: 3}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: playerCompanionMask
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: enemyCompanionPrefab
+      value: 
+      objectReference: {fileID: 5867848945338970598, guid: d4918f0753c834b26942fbbac5dc00e1, type: 3}
+    - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: playerCompanionPrefab
+      value: 
+      objectReference: {fileID: 5867848945338970598, guid: d4918f0753c834b26942fbbac5dc00e1, type: 3}
     - target: {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: battleTransitionManager
       value: 

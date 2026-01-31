@@ -92,7 +92,7 @@ public class BattleController : MonoBehaviour
 
         // Companion attack at turn start
         CompanionState companion = isPlayer ? battleContext.PlayerCompanion : battleContext.EnemyCompanion;
-        TryCompanionAttack(companion, target);
+        yield return TryCompanionAttack(companion, target);
 
         if (uiController != null)
             uiController.RefreshAll();
@@ -213,16 +213,49 @@ public class BattleController : MonoBehaviour
             uiController.RefreshAll();
     }
 
-    void TryCompanionAttack(CompanionState companion, FighterState target)
+    IEnumerator TryCompanionAttack(CompanionState companion, FighterState target)
     {
-        if (companion == null || target == null || !target.IsAlive) return;
+        if (companion == null || target == null || !target.IsAlive) yield break;
 
         companion.OnTurnStart();
 
         if (companion.ShouldAttackThisTurn())
         {
+            // Play companion attack animation and apply damage
+            BattleFighterAnimator compAnim = null;
+            if (battleArena != null)
+            {
+                bool isPlayerCompanion = companion == battleContext.PlayerCompanion;
+                compAnim = isPlayerCompanion
+                    ? battleArena.PlayerCompanionAnimator
+                    : battleArena.EnemyCompanionAnimator;
+            }
+
+            if (compAnim != null)
+                yield return compAnim.PlayAndWait("Attack", lunge: true);
+
+            int hpBefore = target.CurrentHP;
             ActionExecutor.ExecuteCompanionAction(companion, target, battleContext);
             companion.ResetAfterAttack();
+
+            // Hit reaction + companion return in parallel
+            if (compAnim != null)
+            {
+                bool needsHit = target.IsAlive && target.CurrentHP < hpBefore;
+                Coroutine returnCo = StartCoroutine(compAnim.PlayReturnBack());
+
+                if (needsHit)
+                {
+                    BattleFighterAnimator targetAnim = target.IsPlayer
+                        ? battleArena.PlayerAnimator
+                        : battleArena.EnemyAnimator;
+                    if (targetAnim != null)
+                        yield return targetAnim.PlayAndWait("Hit", shake: true);
+                }
+
+                if (returnCo != null)
+                    yield return returnCo;
+            }
         }
     }
 
