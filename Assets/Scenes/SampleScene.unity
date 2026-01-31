@@ -1012,6 +1012,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1441156469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &786309535
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 786309537}
+  - component: {fileID: 786309536}
+  m_Layer: 0
+  m_Name: DialogSceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &786309536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786309535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3968551c3b6b04c2e9dd22b571655f6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  dialoguePanel: {fileID: 0}
+  speakerNameText: {fileID: 0}
+  dialogueText: {fileID: 0}
+  continueIndicator: {fileID: 0}
+  typingSpeed: 0.03
+--- !u!4 &786309537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786309535}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &846498580
 GameObject:
   m_ObjectHideFlags: 0
@@ -7160,6 +7209,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1694022519}
   - component: {fileID: 1694022518}
+  - component: {fileID: 1694022520}
+  - component: {fileID: 1694022521}
   m_Layer: 0
   m_Name: "ChatGPT Image 31 \u044F\u043D\u0432. 2026 \u0433., 02_18_46_0"
   m_TagString: Untagged
@@ -7241,6 +7292,68 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1694022520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694022517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea80a3bcc20d470b8bb4ec5df3cb1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueData: {fileID: 11400000, guid: d57629cf719cb4d479607e3850bb9183, type: 2}
+  oneShot: 0
+  requiredFlag: 
+  returnDialogueData: {fileID: 0}
+  returnPostAction: 0
+  postAction: 0
+  battleTransitionManager: {fileID: 0}
+  aiProfile: {fileID: 0}
+  objectsToActivate: []
+  objectsToDeactivate: []
+  setFlagOnComplete: 
+  onDialogueComplete:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!58 &1694022521
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1694022517}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 7.42
 --- !u!1 &1717617380
 GameObject:
   m_ObjectHideFlags: 0
@@ -8238,3 +8351,4 @@ SceneRoots:
   - {fileID: 1115429429}
   - {fileID: 1694022519}
   - {fileID: 294935161}
+  - {fileID: 786309537}
