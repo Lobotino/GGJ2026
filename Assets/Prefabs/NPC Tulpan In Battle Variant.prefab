@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC Tulpan In Battle Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 3385357230537277974, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f9ed1e8ab6c3146ed96065628b6065be, type: 2}
     m_RemovedComponents:
     - {fileID: 7111727747037080006, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
     - {fileID: 4578684412538341178, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
@@ -60,5 +64,33 @@ PrefabInstance:
     - {fileID: 9071091463468495077, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 391060647840955611, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2523295120891659510}
   m_SourcePrefab: {fileID: 100100000, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+--- !u!1 &5867848945338970598 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 391060647840955611, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+  m_PrefabInstance: {fileID: 6053851720153681213}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2523295120891659510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5867848945338970598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f9b1874ea194c6cb2f28b33d4eb5ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleFighterAnimator
+  lungeDistance: 1.5
+  lungeDuration: 0.2
+  returnDuration: 0.15
+  shakeIntensity: 0.15
+  shakeDuration: 0.3
+  shakeCount: 6
+  flashDuration: 0.15
+  flashCount: 2

@@ -60,7 +60,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f9ed1e8ab6c3146ed96065628b6065be, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,3 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f9b1874ea194c6cb2f28b33d4eb5ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleFighterAnimator
+  lungeDistance: 1.5
+  lungeDuration: 0.1
+  returnDuration: 0.15
+  shakeIntensity: 0.15
+  shakeDuration: 0.3
+  shakeCount: 6
+  flashDuration: 0.15
+  flashCount: 2

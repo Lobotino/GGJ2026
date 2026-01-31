@@ -146,8 +146,7 @@ public class BattleController : MonoBehaviour
                         yield return PlayActionAnimation(actor, command.Action);
                         int hpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, command.Action, battleContext);
-                        if (actionTarget.CurrentHP < hpBefore)
-                            yield return PlayHitAnimation(actionTarget);
+                        yield return PlayReturnAndHit(actor, actionTarget, hpBefore);
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
@@ -184,8 +183,7 @@ public class BattleController : MonoBehaviour
                         yield return PlayActionAnimation(actor, aiCommand.Action);
                         int hpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action, battleContext);
-                        if (actionTarget.CurrentHP < hpBefore)
-                            yield return PlayHitAnimation(actionTarget);
+                        yield return PlayReturnAndHit(actor, actionTarget, hpBefore);
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
@@ -228,7 +226,7 @@ public class BattleController : MonoBehaviour
         }
     }
 
-    IEnumerator PlayAnimation(FighterState fighter, string trigger)
+    IEnumerator PlayAnimation(FighterState fighter, string trigger, bool lunge = false, bool shake = false)
     {
         if (battleArena == null || fighter == null) yield break;
 
@@ -237,16 +235,18 @@ public class BattleController : MonoBehaviour
             : battleArena.EnemyAnimator;
 
         if (anim != null)
-            yield return anim.PlayAndWait(trigger);
+            yield return anim.PlayAndWait(trigger, lunge, shake);
     }
 
     IEnumerator PlayActionAnimation(FighterState actor, BattleActionData action)
     {
         string trigger;
+        bool isAttack = false;
 
         if (!string.IsNullOrEmpty(action.animationTrigger))
         {
             trigger = action.animationTrigger;
+            isAttack = !action.grantsGuard && !action.grantsCounter && !action.isEnhancedCounter && !action.targetSelf;
         }
         else if (action.grantsGuard)
         {
@@ -259,14 +259,41 @@ public class BattleController : MonoBehaviour
         else
         {
             trigger = "Attack";
+            isAttack = true;
         }
 
-        yield return PlayAnimation(actor, trigger);
+        yield return PlayAnimation(actor, trigger, lunge: isAttack);
+    }
+
+    IEnumerator PlayReturnAndHit(FighterState actor, FighterState actionTarget, int hpBefore)
+    {
+        if (battleArena == null) yield break;
+
+        BattleFighterAnimator actorAnim = actor.IsPlayer
+            ? battleArena.PlayerAnimator
+            : battleArena.EnemyAnimator;
+
+        bool needsReturn = actorAnim != null;
+        bool needsHit = actionTarget != null && actionTarget.IsAlive && actionTarget.CurrentHP < hpBefore;
+
+        Coroutine returnCo = null;
+        Coroutine hitCo = null;
+
+        if (needsReturn)
+            returnCo = StartCoroutine(actorAnim.PlayReturnBack());
+
+        if (needsHit)
+            hitCo = StartCoroutine(PlayAnimation(actionTarget, "Hit", shake: true));
+
+        if (returnCo != null)
+            yield return returnCo;
+        if (hitCo != null)
+            yield return hitCo;
     }
 
     IEnumerator PlayHitAnimation(FighterState target)
     {
         if (target == null || !target.IsAlive) yield break;
-        yield return PlayAnimation(target, "Hit");
+        yield return PlayAnimation(target, "Hit", shake: true);
     }
 }

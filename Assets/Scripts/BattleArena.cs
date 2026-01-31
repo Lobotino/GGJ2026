@@ -45,7 +45,7 @@ public class BattleArena : MonoBehaviour
         if (pPrefab != null && playerSlot != null)
         {
             spawnedPlayer = Instantiate(pPrefab, playerSlot.position, Quaternion.identity, playerSlot);
-            playerAnimator = spawnedPlayer.GetComponentInChildren<BattleFighterAnimator>();
+            playerAnimator = EnsureFighterAnimator(spawnedPlayer);
         }
 
         if (ePrefab != null && enemySlot != null)
@@ -53,7 +53,7 @@ public class BattleArena : MonoBehaviour
             spawnedEnemy = Instantiate(ePrefab, enemySlot.position, Quaternion.identity, enemySlot);
             Vector3 s = spawnedEnemy.transform.localScale;
             spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
-            enemyAnimator = spawnedEnemy.GetComponentInChildren<BattleFighterAnimator>();
+            enemyAnimator = EnsureFighterAnimator(spawnedEnemy);
         }
 
         // Companions: explicit prefab > default on arena
@@ -132,6 +132,14 @@ public class BattleArena : MonoBehaviour
         }
     }
 
+    static BattleFighterAnimator EnsureFighterAnimator(GameObject go)
+    {
+        var anim = go.GetComponentInChildren<BattleFighterAnimator>();
+        if (anim == null)
+            anim = go.AddComponent<BattleFighterAnimator>();
+        return anim;
+    }
+
     public void SwapFighterSprite(bool isPlayer, BattleMaskData mask)
     {
         if (mask == null) return;
@@ -143,7 +151,7 @@ public class BattleArena : MonoBehaviour
             if (spawnedPlayer != null)
                 Destroy(spawnedPlayer);
             spawnedPlayer = Instantiate(prefab, playerSlot.position, Quaternion.identity, playerSlot);
-            playerAnimator = spawnedPlayer.GetComponentInChildren<BattleFighterAnimator>();
+            playerAnimator = EnsureFighterAnimator(spawnedPlayer);
         }
         else
         {
@@ -152,7 +160,7 @@ public class BattleArena : MonoBehaviour
             spawnedEnemy = Instantiate(prefab, enemySlot.position, Quaternion.identity, enemySlot);
             Vector3 s = spawnedEnemy.transform.localScale;
             spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
-            enemyAnimator = spawnedEnemy.GetComponentInChildren<BattleFighterAnimator>();
+            enemyAnimator = EnsureFighterAnimator(spawnedEnemy);
         }
     }
 }
