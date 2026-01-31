@@ -14,7 +14,8 @@ public class BattleController : MonoBehaviour
 
     public bool PlayerLost { get; private set; }
 
-    public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile)
+    public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile,
+        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None)
     {
         PlayerLost = false;
         var playerProfile = maskData != null ? maskData.GetFighterProfile(playerMaskType) : null;
@@ -35,8 +36,22 @@ public class BattleController : MonoBehaviour
         enemyState.Opponent = playerState;
         enemyState.IsPlayer = false;
 
+        // Create companions
+        if (playerCompanionMask != MaskType.None && maskData != null)
+        {
+            var compMask = maskData.GetBattleMask(playerCompanionMask);
+            if (compMask != null)
+                battleContext.PlayerCompanion = new CompanionState(compMask, playerState);
+        }
+        if (enemyCompanionMask != MaskType.None && maskData != null)
+        {
+            var compMask = maskData.GetBattleMask(enemyCompanionMask);
+            if (compMask != null)
+                battleContext.EnemyCompanion = new CompanionState(compMask, enemyState);
+        }
+
         if (uiController != null)
-            uiController.Initialize(playerState, enemyState);
+            uiController.Initialize(playerState, enemyState, battleContext);
 
         bool playerTurn = playerState.EffectiveSPD >= enemyState.EffectiveSPD;
 
@@ -70,6 +85,10 @@ public class BattleController : MonoBehaviour
         actor.CurrentAP = Mathf.Max(0, baseApPerTurn + apFromMask - apPenalty);
 
         actor.ApplyTickDamage(true);
+
+        // Companion attack at turn start
+        CompanionState companion = isPlayer ? battleContext.PlayerCompanion : battleContext.EnemyCompanion;
+        TryCompanionAttack(companion, target);
 
         if (uiController != null)
             uiController.RefreshAll();
@@ -107,7 +126,7 @@ public class BattleController : MonoBehaviour
                         actor.ChangeMask(command.Mask);
                         actor.ApplyInertia(command.Mask);
                         if (battleArena != null)
-                            battleArena.SwapFighterSprite(true, command.Mask.maskType);
+                            battleArena.SwapFighterSprite(true, command.Mask);
                     }
                     else
                     {
@@ -138,7 +157,7 @@ public class BattleController : MonoBehaviour
                         actor.ChangeMask(aiCommand.Mask);
                         actor.ApplyInertia(aiCommand.Mask);
                         if (battleArena != null)
-                            battleArena.SwapFighterSprite(false, aiCommand.Mask.maskType);
+                            battleArena.SwapFighterSprite(false, aiCommand.Mask);
                     }
                     else
                     {
@@ -176,5 +195,18 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.RefreshAll();
+    }
+
+    void TryCompanionAttack(CompanionState companion, FighterState target)
+    {
+        if (companion == null || target == null || !target.IsAlive) return;
+
+        companion.OnTurnStart();
+
+        if (companion.ShouldAttackThisTurn())
+        {
+            ActionExecutor.ExecuteCompanionAction(companion, target, battleContext);
+            companion.ResetAfterAttack();
+        }
     }
 }

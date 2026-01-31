@@ -13,6 +13,10 @@ public class BattleContext
     public bool PhysicalHitReceivedThisTurn { get; set; }
     public bool FirstControlStatusThisTurn { get; set; }
 
+    // Companions
+    public CompanionState PlayerCompanion { get; set; }
+    public CompanionState EnemyCompanion { get; set; }
+
     // Turn counter
     public int TurnNumber { get; set; }
 

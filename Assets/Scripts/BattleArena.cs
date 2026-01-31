@@ -4,33 +4,68 @@ public class BattleArena : MonoBehaviour
 {
     [SerializeField] Transform playerSlot;
     [SerializeField] Transform enemySlot;
+    [SerializeField] Transform playerCompanionSlot;
+    [SerializeField] Transform enemyCompanionSlot;
     [SerializeField] SpriteRenderer background;
-    [SerializeField] MaskData maskData;
+
+    [Header("Battle Prefabs (override overworld prefabs)")]
+    [SerializeField] GameObject defaultPlayerBattlePrefab;
+    [SerializeField] GameObject defaultEnemyBattlePrefab;
+    [SerializeField] GameObject defaultPlayerCompanionPrefab;
+    [SerializeField] GameObject defaultEnemyCompanionPrefab;
+    [SerializeField] float companionScale = 0.6f;
 
     GameObject spawnedPlayer;
     GameObject spawnedEnemy;
+    GameObject spawnedPlayerCompanion;
+    GameObject spawnedEnemyCompanion;
 
     public GameObject SpawnedPlayer => spawnedPlayer;
     public GameObject SpawnedEnemy => spawnedEnemy;
 
     public void Setup(MaskType playerMask, MaskType enemyMask)
     {
+        Setup(null, null, null, null);
+    }
+
+    public void Setup(GameObject playerBattlePrefab, GameObject enemyBattlePrefab,
+        GameObject playerCompPrefab, GameObject enemyCompPrefab)
+    {
         Cleanup();
 
-        if (maskData == null) return;
+        // Fighters: explicit prefab > default on arena
+        GameObject pPrefab = playerBattlePrefab != null ? playerBattlePrefab : defaultPlayerBattlePrefab;
+        GameObject ePrefab = enemyBattlePrefab != null ? enemyBattlePrefab : defaultEnemyBattlePrefab;
 
-        GameObject playerPrefab = maskData.GetPrefab(playerMask);
-        GameObject enemyPrefab = maskData.GetPrefab(enemyMask);
+        if (pPrefab != null && playerSlot != null)
+            spawnedPlayer = Instantiate(pPrefab, playerSlot.position, Quaternion.identity, playerSlot);
 
-        if (playerPrefab != null)
-            spawnedPlayer = Instantiate(playerPrefab, playerSlot.position, Quaternion.identity, playerSlot);
-
-        if (enemyPrefab != null)
+        if (ePrefab != null && enemySlot != null)
         {
-            spawnedEnemy = Instantiate(enemyPrefab, enemySlot.position, Quaternion.identity, enemySlot);
-            // Flip enemy to face the player
+            spawnedEnemy = Instantiate(ePrefab, enemySlot.position, Quaternion.identity, enemySlot);
             Vector3 s = spawnedEnemy.transform.localScale;
             spawnedEnemy.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
+        }
+
+        // Companions: explicit prefab > default on arena
+        GameObject pComp = playerCompPrefab != null ? playerCompPrefab : defaultPlayerCompanionPrefab;
+        GameObject eComp = enemyCompPrefab != null ? enemyCompPrefab : defaultEnemyCompanionPrefab;
+
+        SpawnCompanion(pComp, playerCompanionSlot, false, ref spawnedPlayerCompanion);
+        SpawnCompanion(eComp, enemyCompanionSlot, true, ref spawnedEnemyCompanion);
+    }
+
+    void SpawnCompanion(GameObject prefab, Transform slot, bool flip, ref GameObject spawned)
+    {
+        if (prefab == null || slot == null) return;
+
+        spawned = Instantiate(prefab, slot.position, Quaternion.identity, slot);
+        spawned.transform.localScale *= companionScale;
+
+        if (flip)
+        {
+            Vector3 s = spawned.transform.localScale;
+            spawned.transform.localScale = new Vector3(-Mathf.Abs(s.x), s.y, s.z);
         }
     }
 
@@ -73,12 +108,22 @@ public class BattleArena : MonoBehaviour
             Destroy(spawnedEnemy);
             spawnedEnemy = null;
         }
+        if (spawnedPlayerCompanion != null)
+        {
+            Destroy(spawnedPlayerCompanion);
+            spawnedPlayerCompanion = null;
+        }
+        if (spawnedEnemyCompanion != null)
+        {
+            Destroy(spawnedEnemyCompanion);
+            spawnedEnemyCompanion = null;
+        }
     }
 
-    public void SwapFighterSprite(bool isPlayer, MaskType newMask)
+    public void SwapFighterSprite(bool isPlayer, BattleMaskData mask)
     {
-        if (maskData == null) return;
-        GameObject prefab = maskData.GetPrefab(newMask);
+        if (mask == null) return;
+        GameObject prefab = mask.battlePrefab;
         if (prefab == null) return;
 
         if (isPlayer)

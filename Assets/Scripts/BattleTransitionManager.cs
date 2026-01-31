@@ -14,15 +14,28 @@ public class BattleTransitionManager : MonoBehaviour
 
     public bool InBattle => inBattle;
 
-    public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile)
+    public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
+        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None,
+        GameObject playerBattlePrefab = null, GameObject enemyBattlePrefab = null,
+        GameObject playerCompanionPrefab = null, GameObject enemyCompanionPrefab = null)
     {
         if (inBattle) return;
-        StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement, enemyAIProfile));
+        StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement, enemyAIProfile,
+            playerCompanionMask, enemyCompanionMask,
+            playerBattlePrefab, enemyBattlePrefab,
+            playerCompanionPrefab, enemyCompanionPrefab));
     }
 
-    IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile)
+    IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
+        MaskType playerCompanionMask, MaskType enemyCompanionMask,
+        GameObject playerBattlePrefab, GameObject enemyBattlePrefab,
+        GameObject playerCompanionPrefab, GameObject enemyCompanionPrefab)
     {
         inBattle = true;
+
+        if (screenFade == null) { Debug.LogError("[Battle] screenFade is not assigned!"); yield break; }
+        if (battleArena == null) { Debug.LogError("[Battle] battleArena is not assigned!"); yield break; }
+        if (cameraFollow == null) { Debug.LogError("[Battle] cameraFollow is not assigned!"); yield break; }
 
         // Freeze player input
         if (playerMovement != null)
@@ -30,6 +43,7 @@ public class BattleTransitionManager : MonoBehaviour
 
         // Remember camera state to restore later
         Camera cam = cameraFollow.GetComponent<Camera>();
+        if (cam == null) { Debug.LogError("[Battle] No Camera component on cameraFollow object!"); yield break; }
         Transform camTransform = cameraFollow.transform;
         Vector3 originalCamPos = camTransform.position;
         float originalSize = cam.orthographicSize;
@@ -47,7 +61,7 @@ public class BattleTransitionManager : MonoBehaviour
             cam.orthographicSize = arenaSize;
 
         // Setup arena characters
-        battleArena.Setup(playerMask, enemyMask);
+        battleArena.Setup(playerBattlePrefab, enemyBattlePrefab, playerCompanionPrefab, enemyCompanionPrefab);
 
         Debug.Log("[Battle] Revealing arena...");
         yield return screenFade.FadeOut(fadeDuration);
@@ -55,7 +69,7 @@ public class BattleTransitionManager : MonoBehaviour
         if (battleController != null)
         {
             Debug.Log("[Battle] Running battle...");
-            yield return battleController.RunBattle(playerMask, enemyMask, enemyAIProfile);
+            yield return battleController.RunBattle(playerMask, enemyMask, enemyAIProfile, playerCompanionMask, enemyCompanionMask);
         }
         else
         {

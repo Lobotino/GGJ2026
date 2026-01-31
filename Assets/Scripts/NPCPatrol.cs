@@ -23,6 +23,23 @@ public class NPCPatrol : MonoBehaviour
 
     public AIProfile AiProfile => aiProfile;
 
+    [Header("Battle Prefabs (override overworld visuals)")]
+    [SerializeField] GameObject playerBattlePrefab;
+    [SerializeField] GameObject enemyBattlePrefab;
+
+    [Header("Companions")]
+    [SerializeField] MaskType playerCompanionMask = MaskType.None;
+    [SerializeField] MaskType enemyCompanionMask = MaskType.None;
+    [SerializeField] GameObject playerCompanionPrefab;
+    [SerializeField] GameObject enemyCompanionPrefab;
+
+    public MaskType PlayerCompanionMask => playerCompanionMask;
+    public MaskType EnemyCompanionMask => enemyCompanionMask;
+    public GameObject PlayerBattlePrefab => playerBattlePrefab;
+    public GameObject EnemyBattlePrefab => enemyBattlePrefab;
+    public GameObject PlayerCompanionPrefab => playerCompanionPrefab;
+    public GameObject EnemyCompanionPrefab => enemyCompanionPrefab;
+
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
     int currentWaypointIndex;
@@ -39,8 +56,7 @@ public class NPCPatrol : MonoBehaviour
 
         if (waypoints == null || waypoints.Length < 2)
         {
-            Debug.LogWarning($"NPCPatrol on {name}: need at least 2 waypoints.");
-            enabled = false;
+            Debug.Log($"NPCPatrol on {name}: no waypoints — standing still.");
         }
     }
 
@@ -96,6 +112,8 @@ public class NPCPatrol : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log($"[NPCPatrol] OnTriggerEnter2D hit by {other.name}, tag={other.tag}, paused={paused}");
+
         if (paused) return;
         if (!other.CompareTag("Player")) return;
 
@@ -104,9 +122,15 @@ public class NPCPatrol : MonoBehaviour
 
         FaceTarget(other.transform);
 
-        // If a DialogueTrigger is present, let it handle the battle via post-action
-        if (GetComponent<DialogueTrigger>() != null)
+        // If a DialogueTrigger with actual dialogue is present, let it handle the battle via post-action
+        var dialogueTrigger = GetComponent<DialogueTrigger>();
+        if (dialogueTrigger != null && dialogueTrigger.HasDialogue)
+        {
+            Debug.Log("[NPCPatrol] Deferring to DialogueTrigger (has dialogue)");
             return;
+        }
+
+        Debug.Log($"[NPCPatrol] battleTransitionManager={battleTransitionManager}, inBattle={battleTransitionManager?.InBattle}");
 
         if (battleTransitionManager != null && !battleTransitionManager.InBattle)
         {
@@ -115,7 +139,11 @@ public class NPCPatrol : MonoBehaviour
             MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
             MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
             var playerMovement = other.GetComponent<PlayerMovement2D>();
-            battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile);
+            Debug.Log($"[NPCPatrol] Starting battle: playerMask={pMask}, npcMask={nMask}, aiProfile={aiProfile}");
+            battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile,
+                playerCompanionMask, enemyCompanionMask,
+                playerBattlePrefab, enemyBattlePrefab,
+                playerCompanionPrefab, enemyCompanionPrefab);
         }
     }
 

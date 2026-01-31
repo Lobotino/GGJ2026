@@ -258,4 +258,41 @@ public static class ActionExecutor
             }
         }
     }
+
+    public static void ExecuteCompanionAction(CompanionState companion, FighterState target, BattleContext context)
+    {
+        if (companion == null || target == null || !target.IsAlive) return;
+
+        BattleActionData action = companion.GetCompanionAction();
+
+        if (action == null)
+        {
+            // Basic hit: flat 3 damage
+            target.TakeDamage(3);
+            return;
+        }
+
+        if (action.basePower > 0 && !action.isHealing)
+        {
+            float atk = action.isMagical ? companion.Owner.EffectiveMAG : companion.Owner.EffectiveATK;
+            float def = action.isMagical ? target.EffectiveRES : target.EffectiveDEF;
+            float ratio = def <= 0f ? 1f : (atk / def);
+            float damage = action.basePower * ratio;
+
+            // Companion modifier: ×0.5
+            damage *= 0.5f;
+
+            int finalDamage = Mathf.Max(1, Mathf.RoundToInt(damage));
+            target.TakeDamage(finalDamage);
+        }
+
+        // Apply primary status (full duration, simplified — no secondary/self statuses)
+        if (action.statusToApply != null)
+        {
+            if (context != null)
+                target.ApplyStatus(action.statusToApply, companion.Owner, context);
+            else
+                target.ApplyStatus(action.statusToApply);
+        }
+    }
 }

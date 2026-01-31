@@ -13,6 +13,7 @@ public class BattleUIController : MonoBehaviour
 
     FighterState playerState;
     FighterState enemyState;
+    BattleContext battleContext;
     bool awaitingCommand;
     bool showMaskList;
     bool commandReady;
@@ -20,10 +21,11 @@ public class BattleUIController : MonoBehaviour
     string debugResult;
     Vector2 debugScroll;
 
-    public void Initialize(FighterState player, FighterState enemy)
+    public void Initialize(FighterState player, FighterState enemy, BattleContext context = null)
     {
         playerState = player;
         enemyState = enemy;
+        battleContext = context;
         if (resultPanel != null)
             resultPanel.SetActive(false);
         RefreshAll();
@@ -152,6 +154,23 @@ public class BattleUIController : MonoBehaviour
         GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
         GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}");
         GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}");
+
+        // Companion info
+        if (battleContext != null)
+        {
+            if (battleContext.PlayerCompanion != null)
+            {
+                var pc = battleContext.PlayerCompanion;
+                string pcName = pc.Mask != null ? pc.Mask.displayName : "?";
+                GUILayout.Label($"Компаньон игрока: {pcName} (атака через {pc.TurnsUntilAttack()} х.)");
+            }
+            if (battleContext.EnemyCompanion != null)
+            {
+                var ec = battleContext.EnemyCompanion;
+                string ecName = ec.Mask != null ? ec.Mask.displayName : "?";
+                GUILayout.Label($"Компаньон врага: {ecName} (атака через {ec.TurnsUntilAttack()} х.)");
+            }
+        }
 
         GUILayout.Space(8f);
         float listHeight = 160f;

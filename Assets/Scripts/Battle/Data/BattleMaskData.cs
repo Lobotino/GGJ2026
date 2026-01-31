@@ -14,6 +14,10 @@ public class BattleMaskData : ScriptableObject
 
     public BattleActionData[] availableActions;
 
+    [Header("Battle Visual")]
+    [Tooltip("Prefab to spawn on the battle arena (if null, falls back to overworld prefab from MaskData)")]
+    public GameObject battlePrefab;
+
     [Header("Mask Change")]
     public int changeCooldownTurns = 0;
     public bool disallowConsecutiveChange = false;

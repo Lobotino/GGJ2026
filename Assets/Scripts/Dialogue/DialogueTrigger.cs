@@ -39,6 +39,12 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] BattleTransitionManager battleTransitionManager;
     [Tooltip("If empty, will be taken from NPCPatrol on the same GameObject")]
     [SerializeField] AIProfile aiProfile;
+    [SerializeField] GameObject playerBattlePrefab;
+    [SerializeField] GameObject enemyBattlePrefab;
+    [SerializeField] MaskType playerCompanionMask = MaskType.None;
+    [SerializeField] MaskType enemyCompanionMask = MaskType.None;
+    [SerializeField] GameObject playerCompanionPrefab;
+    [SerializeField] GameObject enemyCompanionPrefab;
 
     [Header("UnlockPassage Settings")]
     [SerializeField] GameObject[] objectsToActivate;
@@ -53,6 +59,8 @@ public class DialogueTrigger : MonoBehaviour
 
     bool disabled;
     bool ready;
+
+    public bool HasDialogue => dialogueData != null && dialogueData.lines != null && dialogueData.lines.Length > 0;
 
     void Start()
     {
@@ -118,11 +126,23 @@ public class DialogueTrigger : MonoBehaviour
             case DialoguePostAction.StartBattle:
                 BattleTransitionManager btm = battleTransitionManager;
                 AIProfile profile = aiProfile;
+                MaskType pComp = playerCompanionMask;
+                MaskType eComp = enemyCompanionMask;
+                GameObject pBattlePrefab = playerBattlePrefab;
+                GameObject eBattlePrefab = enemyBattlePrefab;
+                GameObject pCompPrefab = playerCompanionPrefab;
+                GameObject eCompPrefab = enemyCompanionPrefab;
                 var patrol = GetComponent<NPCPatrol>();
                 if (patrol != null)
                 {
                     if (btm == null) btm = patrol.BattleTransition;
                     if (profile == null) profile = patrol.AiProfile;
+                    if (pComp == MaskType.None) pComp = patrol.PlayerCompanionMask;
+                    if (eComp == MaskType.None) eComp = patrol.EnemyCompanionMask;
+                    if (pBattlePrefab == null) pBattlePrefab = patrol.PlayerBattlePrefab;
+                    if (eBattlePrefab == null) eBattlePrefab = patrol.EnemyBattlePrefab;
+                    if (pCompPrefab == null) pCompPrefab = patrol.PlayerCompanionPrefab;
+                    if (eCompPrefab == null) eCompPrefab = patrol.EnemyCompanionPrefab;
                 }
                 if (btm != null && !btm.InBattle)
                 {
@@ -131,7 +151,8 @@ public class DialogueTrigger : MonoBehaviour
                     MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
                     MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
                     var playerMovement = player.GetComponent<PlayerMovement2D>();
-                    btm.StartBattle(pMask, nMask, playerMovement, profile);
+                    btm.StartBattle(pMask, nMask, playerMovement, profile, pComp, eComp,
+                        pBattlePrefab, eBattlePrefab, pCompPrefab, eCompPrefab);
                 }
                 break;
 
