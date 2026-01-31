@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b188457c9416243dbbcaac0e8599e66f, type: 3}
   m_Name: Action_CrystalResonance
   m_EditorClassIdentifier: Assembly-CSharp::BattleActionData
-  actionName: Резонансный луч
+  actionName: "\u0420\u0435\u0437\u043E\u043D\u0430\u043D\u0441\u043D\u044B\u0439
+    \u043B\u0443\u0447"
   category: 0
   apCost: 3
   mpCost: 10
@@ -21,26 +22,27 @@ MonoBehaviour:
   isHealing: 0
   targetSelf: 0
   statusToApply: {fileID: 0}
+  animationTrigger: Luch
   grantsGuard: 0
   grantsCounter: 0
   selfStatusOnUse: {fileID: 0}
-  removeStatusTypes: []
+  removeStatusTypes: 
   statusDurationReduction: 0
   secondaryStatus: {fileID: 0}
   conditionalBonusOnTargetStatus: 1
   requiredTargetStatus: 2
-  conditionalDamageMultiplier: 1.0
+  conditionalDamageMultiplier: 1
   conditionalAPGain: 0
   apGainAmount: 0
   isEnhancedCounter: 0
-  enhancedCounterMultiplier: 1.0
+  enhancedCounterMultiplier: 1
   overrideGuardMultiplier: 0
   guardMultiplierOverride: 0.5
   reactiveGuard: 0
   reactiveGuardStatus: {fileID: 0}
   lastActionBonus: 0
-  lastActionMultiplier: 1.0
+  lastActionMultiplier: 1
   firstTurnBonus: 0
-  firstTurnMultiplier: 1.0
+  firstTurnMultiplier: 1
   selfDebuffIfConditionFails: 1
   selfDebuffOnFail: {fileID: 11400000, guid: 88029bc68a9de2405dec62b05d533104, type: 2}
