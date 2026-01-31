@@ -2857,11 +2857,11 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 1b058758ff5c046dda65ca591e551adc, type: 2}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -28.19
+      value: -17.42
       objectReference: {fileID: 0}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.78
+      value: -19.63
       objectReference: {fileID: 0}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2898,8 +2898,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 759717120}
   m_SourcePrefab: {fileID: 100100000, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+--- !u!1 &759717119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+  m_PrefabInstance: {fileID: 759717118}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &759717120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759717119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea80a3bcc20d470b8bb4ec5df3cb1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueData: {fileID: 11400000, guid: 1bc7f0e785a934bff94fb18e68a2c1ce, type: 2}
+  disableAfterDefault: 1
+  postAction: 1
+  conditionalDialogues: []
+  battleTransitionManager: {fileID: 0}
+  aiProfile: {fileID: 0}
+  playerBattlePrefab: {fileID: 0}
+  enemyBattlePrefab: {fileID: 0}
+  playerCompanionMask: 0
+  enemyCompanionMask: 0
+  playerCompanionPrefab: {fileID: 0}
+  enemyCompanionPrefab: {fileID: 0}
+  objectsToActivate: []
+  objectsToDeactivate: []
+  setFlagOnComplete: 
+  onDialogueComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &786309535
 GameObject:
   m_ObjectHideFlags: 0
@@ -28911,11 +28961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.37
+      value: -18.07
       objectReference: {fileID: 0}
     - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9.79
+      value: -15.52
       objectReference: {fileID: 0}
     - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29024,11 +29074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.68
+      value: -27.46
       objectReference: {fileID: 0}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.94
+      value: -17.17
       objectReference: {fileID: 0}
     - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -29065,8 +29115,58 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7733538628971119037}
   m_SourcePrefab: {fileID: 100100000, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+--- !u!1 &7733538628971119036 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+  m_PrefabInstance: {fileID: 7733538628971119035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7733538628971119037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7733538628971119036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea80a3bcc20d470b8bb4ec5df3cb1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueData: {fileID: 11400000, guid: 5415d89fd0af5470fa6372683220e6c2, type: 2}
+  disableAfterDefault: 1
+  postAction: 1
+  conditionalDialogues: []
+  battleTransitionManager: {fileID: 0}
+  aiProfile: {fileID: 0}
+  playerBattlePrefab: {fileID: 0}
+  enemyBattlePrefab: {fileID: 0}
+  playerCompanionMask: 0
+  enemyCompanionMask: 0
+  playerCompanionPrefab: {fileID: 0}
+  enemyCompanionPrefab: {fileID: 0}
+  objectsToActivate: []
+  objectsToDeactivate: []
+  setFlagOnComplete: 
+  onDialogueComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &7766361297649389002
 PrefabInstance:
   m_ObjectHideFlags: 0
