@@ -17,7 +17,11 @@ public class NPCPatrol : MonoBehaviour
 
     [Header("Battle")]
     [SerializeField] BattleTransitionManager battleTransitionManager;
+
+    public BattleTransitionManager BattleTransition => battleTransitionManager;
     [SerializeField] AIProfile aiProfile;
+
+    public AIProfile AiProfile => aiProfile;
 
     Rigidbody2D rb;
     SpriteRenderer spriteRenderer;
@@ -99,6 +103,10 @@ public class NPCPatrol : MonoBehaviour
         resumeTime = Time.time + pauseDuration;
 
         FaceTarget(other.transform);
+
+        // If a DialogueTrigger is present, let it handle the battle via post-action
+        if (GetComponent<DialogueTrigger>() != null)
+            return;
 
         if (battleTransitionManager != null && !battleTransitionManager.InBattle)
         {

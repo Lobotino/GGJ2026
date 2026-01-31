@@ -10,23 +10,34 @@ public enum DialoguePostAction
     Custom
 }
 
+[System.Serializable]
+public class ConditionalDialogue
+{
+    [Tooltip("If this flag is set, use this dialogue")]
+    public string requiredFlag;
+    public DialogueData dialogueData;
+    public DialoguePostAction postAction;
+    [Tooltip("Flag to set after this dialogue completes")]
+    public string setFlagOnComplete;
+    [Tooltip("Disable this trigger after this dialogue completes")]
+    public bool disableAfter;
+}
+
 public class DialogueTrigger : MonoBehaviour
 {
-    [Header("Dialogue")]
+    [Header("Default Dialogue (no flags)")]
     [SerializeField] DialogueData dialogueData;
-    [SerializeField] bool oneShot;
+    [SerializeField] bool disableAfterDefault;
 
-    [Header("Return Visit")]
-    [Tooltip("If requiredFlag is set and the flag exists, this dialogue plays instead")]
-    [SerializeField] string requiredFlag;
-    [SerializeField] DialogueData returnDialogueData;
-    [SerializeField] DialoguePostAction returnPostAction;
-
-    [Header("Post Action")]
+    [Header("Post Action (default)")]
     [SerializeField] DialoguePostAction postAction;
+
+    [Header("Conditional Dialogues (checked top to bottom, first match wins)")]
+    [SerializeField] ConditionalDialogue[] conditionalDialogues;
 
     [Header("StartBattle Settings")]
     [SerializeField] BattleTransitionManager battleTransitionManager;
+    [Tooltip("If empty, will be taken from NPCPatrol on the same GameObject")]
     [SerializeField] AIProfile aiProfile;
 
     [Header("UnlockPassage Settings")]
@@ -40,7 +51,7 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Custom Action")]
     [SerializeField] UnityEvent onDialogueComplete;
 
-    bool hasTriggered;
+    bool disabled;
     bool ready;
 
     void Start()
@@ -57,27 +68,47 @@ public class DialogueTrigger : MonoBehaviour
         if (!ready) return;
         if (!other.CompareTag("Player")) return;
         if (DialogueManager.Instance == null || DialogueManager.Instance.IsActive) return;
-        if (oneShot && hasTriggered) return;
+        if (disabled) return;
 
-        bool useReturn = !string.IsNullOrEmpty(requiredFlag) && DialogueFlags.HasFlag(requiredFlag);
-        DialogueData data = useReturn ? returnDialogueData : dialogueData;
-        DialoguePostAction action = useReturn ? returnPostAction : postAction;
+        DialogueData data = dialogueData;
+        DialoguePostAction action = postAction;
+        string flagToSet = setFlagOnComplete;
+        bool disableAfterThis = disableAfterDefault;
+
+        if (conditionalDialogues != null)
+        {
+            for (int i = 0; i < conditionalDialogues.Length; i++)
+            {
+                var cd = conditionalDialogues[i];
+                if (!string.IsNullOrEmpty(cd.requiredFlag) && DialogueFlags.HasFlag(cd.requiredFlag))
+                {
+                    data = cd.dialogueData;
+                    action = cd.postAction;
+                    flagToSet = cd.setFlagOnComplete;
+                    disableAfterThis = cd.disableAfter;
+                    break;
+                }
+            }
+        }
 
         if (data == null || data.lines == null || data.lines.Length == 0) return;
 
         var playerMovement = other.GetComponent<PlayerMovement2D>();
+        string capturedFlag = flagToSet;
+        bool capturedDisable = disableAfterThis;
 
         DialogueManager.Instance.StartDialogue(data, playerMovement, () =>
         {
-            hasTriggered = true;
-            ExecutePostAction(action, other);
+            if (capturedDisable)
+                disabled = true;
+            ExecutePostAction(action, capturedFlag, other);
         });
     }
 
-    void ExecutePostAction(DialoguePostAction action, Collider2D player)
+    void ExecutePostAction(DialoguePostAction action, string flagToSet, Collider2D player)
     {
-        if (!string.IsNullOrEmpty(setFlagOnComplete))
-            DialogueFlags.SetFlag(setFlagOnComplete);
+        if (!string.IsNullOrEmpty(flagToSet))
+            DialogueFlags.SetFlag(flagToSet);
 
         switch (action)
         {
@@ -85,14 +116,22 @@ public class DialogueTrigger : MonoBehaviour
                 break;
 
             case DialoguePostAction.StartBattle:
-                if (battleTransitionManager != null && !battleTransitionManager.InBattle)
+                BattleTransitionManager btm = battleTransitionManager;
+                AIProfile profile = aiProfile;
+                var patrol = GetComponent<NPCPatrol>();
+                if (patrol != null)
+                {
+                    if (btm == null) btm = patrol.BattleTransition;
+                    if (profile == null) profile = patrol.AiProfile;
+                }
+                if (btm != null && !btm.InBattle)
                 {
                     var playerMask = player.GetComponent<CharacterMask>();
                     var npcMask = GetComponent<CharacterMask>();
                     MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
                     MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
                     var playerMovement = player.GetComponent<PlayerMovement2D>();
-                    battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile);
+                    btm.StartBattle(pMask, nMask, playerMovement, profile);
                 }
                 break;
 

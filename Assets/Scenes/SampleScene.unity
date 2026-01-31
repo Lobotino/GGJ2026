@@ -1513,7 +1513,7 @@ Transform:
   m_GameObject: {fileID: 1115429427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.7, y: -39, z: 0}
+  m_LocalPosition: {x: -12.73, y: -39.08, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2308,7 +2308,7 @@ Transform:
   m_GameObject: {fileID: 1520210695}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: -20.4, z: 100}
+  m_LocalPosition: {x: 4.1, y: -20.4, z: 100}
   m_LocalScale: {x: 2.87, y: 2.87, z: 2.87}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -7305,16 +7305,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueData: {fileID: 11400000, guid: d57629cf719cb4d479607e3850bb9183, type: 2}
-  oneShot: 0
-  requiredFlag: 
-  returnDialogueData: {fileID: 0}
-  returnPostAction: 0
+  disableAfterDefault: 0
   postAction: 0
+  conditionalDialogues:
+  - requiredFlag: tulpan_dead
+    dialogueData: {fileID: 11400000, guid: 4f460d13f650c4ab9b26d3ea3ef4640b, type: 2}
+    postAction: 0
+    setFlagOnComplete: 
+    disableAfter: 1
+  - requiredFlag: met_secretary
+    dialogueData: {fileID: 11400000, guid: 60d805e06e46041cc81b57f4df603245, type: 2}
+    postAction: 0
+    setFlagOnComplete: 
+    disableAfter: 0
   battleTransitionManager: {fileID: 0}
   aiProfile: {fileID: 0}
   objectsToActivate: []
   objectsToDeactivate: []
-  setFlagOnComplete: 
+  setFlagOnComplete: met_secretary
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -7525,7 +7533,7 @@ Transform:
   m_GameObject: {fileID: 2000000001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.3, y: -18.8, z: 0}
+  m_LocalPosition: {x: 28.6, y: -18, z: 0}
   m_LocalScale: {x: 0.52, y: 0.52, z: 0.52}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -7761,6 +7769,7 @@ GameObject:
   - component: {fileID: 2000000025}
   - component: {fileID: 2000000026}
   - component: {fileID: 2000000027}
+  - component: {fileID: 2000000028}
   m_Layer: 8
   m_Name: NPC Tulpan
   m_TagString: Untagged
@@ -7937,6 +7946,42 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 8.85
+--- !u!114 &2000000028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000000021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea80a3bcc20d470b8bb4ec5df3cb1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueData: {fileID: 11400000, guid: 1cf01f836d29a4fb1b37a5295707b271, type: 2}
+  disableAfterDefault: 1
+  postAction: 1
+  conditionalDialogues: []
+  battleTransitionManager: {fileID: 0}
+  aiProfile: {fileID: 0}
+  objectsToActivate: []
+  objectsToDeactivate: []
+  setFlagOnComplete: tulpan_dead
+  onDialogueComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2000000030
 GameObject:
   m_ObjectHideFlags: 0

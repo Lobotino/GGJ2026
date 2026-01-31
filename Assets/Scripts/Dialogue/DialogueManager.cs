@@ -17,7 +17,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] GameObject continueIndicator;
 
     [Header("Settings")]
-    [SerializeField] float typingSpeed = 0.03f;
+    [SerializeField] float typingSpeed = 0.01f;
 
     bool isActive;
     bool isTyping;
