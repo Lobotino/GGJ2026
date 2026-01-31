@@ -143,6 +143,7 @@ MonoBehaviour:
   pauseDuration: 2.5
   battleTransitionManager: {fileID: 0}
   aiProfile: {fileID: 11400000, guid: 12e1e87a168b49cdaf618033b4986579, type: 2}
+  enemyProfileOverride: {fileID: 11400000, guid: d4e5f6a7b8c9d0e1f2a3b4c5d6a7b8c9, type: 2}
   playerBattlePrefab: {fileID: 0}
   enemyBattlePrefab: {fileID: 0}
   playerCompanionMask: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf73fb57b98148619a1555d06271d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterMask
-  currentMask: 2
+  currentMask: 13
 --- !u!58 &3917804837841139882
 CircleCollider2D:
   m_ObjectHideFlags: 0

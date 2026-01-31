@@ -16,9 +16,9 @@ MonoBehaviour:
   baseStats:
     HP: 20
     MP: 10
-    ATK: 8
-    DEF: 10
-    MAG: 7
+    ATK: 11
+    DEF: 8
+    MAG: 9
     RES: 9
     SPD: 6
   startingMask: {fileID: 11400000, guid: 6a7d02d396744a44a737a36a383e6759, type: 2}

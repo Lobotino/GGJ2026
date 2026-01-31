@@ -15,16 +15,33 @@ public class BattleController : MonoBehaviour
     public bool PlayerLost { get; private set; }
 
     public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile,
-        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None)
+        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None,
+        MaskType[] playerAvailableMasksOverride = null, FighterProfile enemyProfileOverride = null)
     {
         PlayerLost = false;
-        var playerProfile = maskData != null ? maskData.GetFighterProfile(playerMaskType) : null;
-        var enemyProfile = maskData != null ? maskData.GetFighterProfile(enemyMaskType) : null;
+        var playerProfile = maskData != null ? maskData.GetFighterProfile(MaskType.Base) : null;
+        var enemyProfile = enemyProfileOverride != null
+            ? enemyProfileOverride
+            : (maskData != null ? maskData.GetFighterProfile(enemyMaskType) : null);
         var playerMask = maskData != null ? maskData.GetBattleMask(playerMaskType) : null;
         var enemyMask = maskData != null ? maskData.GetBattleMask(enemyMaskType) : null;
 
         playerState = new FighterState(playerProfile, playerMask);
         enemyState = new FighterState(enemyProfile, enemyMask);
+
+        if (playerAvailableMasksOverride != null && playerAvailableMasksOverride.Length > 0 && maskData != null)
+        {
+            var overrideMasks = new System.Collections.Generic.List<BattleMaskData>();
+            foreach (var maskType in playerAvailableMasksOverride)
+            {
+                if (maskType == MaskType.None) continue;
+                var mask = maskData.GetBattleMask(maskType);
+                if (mask != null && !overrideMasks.Contains(mask))
+                    overrideMasks.Add(mask);
+            }
+            if (overrideMasks.Count > 0)
+                playerState.SetAvailableMasks(overrideMasks, includeCurrentMask: true);
+        }
 
         battleContext = new BattleContext();
 

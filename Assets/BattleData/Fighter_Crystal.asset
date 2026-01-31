@@ -15,13 +15,13 @@ MonoBehaviour:
   displayName: "\u041A\u0440\u0438\u0441\u0442\u0430\u043B\u044C\u043D\u044B\u0439
     \u043C\u0430\u0433"
   baseStats:
-    HP: 80
-    MP: 14
-    ATK: 6
-    DEF: 7
+    HP: 55
+    MP: 24
+    ATK: 8
+    DEF: 10
     MAG: 5
     RES: 10
-    SPD: 5
+    SPD: 4
   startingMask: {fileID: 11400000, guid: a0ca941eb5bbb9a57f4d62f3ab16064d, type: 2}
   availableMasks:
   - {fileID: 11400000, guid: a0ca941eb5bbb9a57f4d62f3ab16064d, type: 2}

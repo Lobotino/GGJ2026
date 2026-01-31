@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: AI_Crystal
   m_EditorClassIdentifier: Assembly-CSharp::AIProfile
   rules:
-  - hpThreshold: 0.7
+  - hpThreshold: 0.5
+    switchToMask: {fileID: 0}
+    preferredAction: {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
+  - hpThreshold: 1
     switchToMask: {fileID: 0}
     preferredAction: {fileID: 11400000, guid: 1d291e8ec2da0671e7c3e1b032bb6a63, type: 2}
-  - hpThreshold: 0.4
-    switchToMask: {fileID: 11400000, guid: 38d7664082a4e2d07a01a31c7d7fe5b9, type: 2}
-    preferredAction: {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
   - hpThreshold: 1
     switchToMask: {fileID: 0}
     preferredAction: {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
   fallbackAction: {fileID: 11400000, guid: be5a952e59ea4122a6e639138c518143, type: 2}
+  guardEveryNTurns: 2

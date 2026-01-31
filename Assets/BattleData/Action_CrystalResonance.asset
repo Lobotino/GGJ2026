@@ -17,7 +17,7 @@ MonoBehaviour:
   category: 0
   apCost: 3
   mpCost: 10
-  basePower: 21
+  basePower: 16
   isMagical: 1
   isHealing: 0
   targetSelf: 0
@@ -45,4 +45,4 @@ MonoBehaviour:
   firstTurnBonus: 0
   firstTurnMultiplier: 1
   selfDebuffIfConditionFails: 1
-  selfDebuffOnFail: {fileID: 11400000, guid: 88029bc68a9de2405dec62b05d533104, type: 2}
+  selfDebuffOnFail: {fileID: 11400000, guid: 8d1f7e8c23537c9590847adbb3808ae4, type: 2}

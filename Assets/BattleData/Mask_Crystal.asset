@@ -34,4 +34,4 @@ MonoBehaviour:
   disallowConsecutiveChange: 1
   applyInertia: 1
   inertiaApPenalty: 1
-  apBonus: 0
+  apBonus: 1

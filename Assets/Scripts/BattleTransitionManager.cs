@@ -17,19 +17,23 @@ public class BattleTransitionManager : MonoBehaviour
     public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
         MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None,
         GameObject playerBattlePrefab = null, GameObject enemyBattlePrefab = null,
-        GameObject playerCompanionPrefab = null, GameObject enemyCompanionPrefab = null)
+        GameObject playerCompanionPrefab = null, GameObject enemyCompanionPrefab = null,
+        MaskType[] playerAvailableMasks = null,
+        FighterProfile enemyProfileOverride = null)
     {
         if (inBattle) return;
         StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement, enemyAIProfile,
             playerCompanionMask, enemyCompanionMask,
             playerBattlePrefab, enemyBattlePrefab,
-            playerCompanionPrefab, enemyCompanionPrefab));
+            playerCompanionPrefab, enemyCompanionPrefab,
+            playerAvailableMasks, enemyProfileOverride));
     }
 
     IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
         MaskType playerCompanionMask, MaskType enemyCompanionMask,
         GameObject playerBattlePrefab, GameObject enemyBattlePrefab,
-        GameObject playerCompanionPrefab, GameObject enemyCompanionPrefab)
+        GameObject playerCompanionPrefab, GameObject enemyCompanionPrefab,
+        MaskType[] playerAvailableMasks, FighterProfile enemyProfileOverride)
     {
         inBattle = true;
 
@@ -70,7 +74,7 @@ public class BattleTransitionManager : MonoBehaviour
         if (battleController != null)
         {
             Debug.Log("[Battle] Running battle...");
-            yield return battleController.RunBattle(playerMask, enemyMask, enemyAIProfile, playerCompanionMask, enemyCompanionMask);
+            yield return battleController.RunBattle(playerMask, enemyMask, enemyAIProfile, playerCompanionMask, enemyCompanionMask, playerAvailableMasks, enemyProfileOverride);
         }
         else
         {
