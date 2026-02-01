@@ -19,7 +19,16 @@ public class BattleFighterAnimator : MonoBehaviour
     [SerializeField] float flashDuration = 0.15f;
     [SerializeField] int flashCount = 2;
 
+    [Header("Finishing Hit")]
+    [SerializeField] float finishingShakeDuration = 0.6f;
+    [SerializeField] float finishingShakeIntensity = 0.2f;
+    [SerializeField] int finishingShakeCount = 10;
+    [SerializeField] float finishingFlashDuration = 0.3f;
+    [SerializeField] int finishingFlashCount = 3;
+    [SerializeField] Color finishingFlashColor = Color.red;
+
     static readonly int FlashAmountId = Shader.PropertyToID("_FlashAmount");
+    static readonly int FlashColorId = Shader.PropertyToID("_FlashColor");
 
     Animator animator;
     SpriteRenderer spriteRenderer;
@@ -41,7 +50,7 @@ public class BattleFighterAnimator : MonoBehaviour
             animator.runtimeAnimatorController = controller;
     }
 
-    public IEnumerator PlayAndWait(string trigger, bool lunge = false, bool shake = false)
+    public IEnumerator PlayAndWait(string trigger, bool lunge = false, bool shake = false, bool finishing = false)
     {
         if (string.IsNullOrEmpty(trigger))
             yield break;
@@ -85,8 +94,18 @@ public class BattleFighterAnimator : MonoBehaviour
 
         if (isHit)
         {
-            StartCoroutine(Flash());
-            yield return Shake();
+            if (finishing)
+            {
+                SetFlashColor(finishingFlashColor);
+                StartCoroutine(Flash(finishingFlashDuration, finishingFlashCount));
+                yield return Shake(finishingShakeIntensity, finishingShakeDuration, finishingShakeCount);
+                SetFlashColor(Color.white);
+            }
+            else
+            {
+                StartCoroutine(Flash());
+                yield return Shake();
+            }
         }
     }
 
@@ -137,12 +156,17 @@ public class BattleFighterAnimator : MonoBehaviour
 
     IEnumerator Shake()
     {
-        Vector3 originalPos = transform.localPosition;
-        float stepDuration = shakeDuration / shakeCount;
+        yield return Shake(shakeIntensity, shakeDuration, shakeCount);
+    }
 
-        for (int i = 0; i < shakeCount; i++)
+    IEnumerator Shake(float intensity, float duration, int count)
+    {
+        Vector3 originalPos = transform.localPosition;
+        float stepDuration = duration / count;
+
+        for (int i = 0; i < count; i++)
         {
-            Vector2 rnd = Random.insideUnitCircle * shakeIntensity;
+            Vector2 rnd = Random.insideUnitCircle * intensity;
             Vector3 shakePos = originalPos + new Vector3(rnd.x, rnd.y, 0f);
 
             float elapsed = 0f;
@@ -160,12 +184,17 @@ public class BattleFighterAnimator : MonoBehaviour
 
     IEnumerator Flash()
     {
+        yield return Flash(flashDuration, flashCount);
+    }
+
+    IEnumerator Flash(float duration, int count)
+    {
         if (spriteRenderer == null)
             yield break;
 
-        float halfFlash = flashDuration / 2f;
+        float halfFlash = duration / 2f;
 
-        for (int i = 0; i < flashCount; i++)
+        for (int i = 0; i < count; i++)
         {
             SetFlashAmount(1f);
             yield return null;
@@ -187,6 +216,13 @@ public class BattleFighterAnimator : MonoBehaviour
     {
         spriteRenderer.GetPropertyBlock(propertyBlock);
         propertyBlock.SetFloat(FlashAmountId, amount);
+        spriteRenderer.SetPropertyBlock(propertyBlock);
+    }
+
+    void SetFlashColor(Color color)
+    {
+        spriteRenderer.GetPropertyBlock(propertyBlock);
+        propertyBlock.SetColor(FlashColorId, color);
         spriteRenderer.SetPropertyBlock(propertyBlock);
     }
 }

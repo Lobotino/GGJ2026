@@ -165,9 +165,10 @@ public class BattleController : MonoBehaviour
                     {
                         FighterState actionTarget = command.Action.targetSelf ? actor : target;
                         yield return PlayActionAnimation(actor, command.Action);
-                        int hpBefore = actionTarget.CurrentHP;
+                        int actorHpBefore = actor.CurrentHP;
+                        int targetHpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, command.Action, battleContext);
-                        yield return PlayReturnAndHit(actor, actionTarget, hpBefore);
+                        yield return PlayReturnAndHit(actor, actionTarget, actorHpBefore, targetHpBefore);
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
@@ -202,9 +203,10 @@ public class BattleController : MonoBehaviour
                     {
                         FighterState actionTarget = aiCommand.Action.targetSelf ? actor : target;
                         yield return PlayActionAnimation(actor, aiCommand.Action);
-                        int hpBefore = actionTarget.CurrentHP;
+                        int actorHpBefore = actor.CurrentHP;
+                        int targetHpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action, battleContext);
-                        yield return PlayReturnAndHit(actor, actionTarget, hpBefore);
+                        yield return PlayReturnAndHit(actor, actionTarget, actorHpBefore, targetHpBefore);
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
@@ -334,7 +336,7 @@ public class BattleController : MonoBehaviour
         yield return PlayAnimation(actor, trigger, lunge: isAttack);
     }
 
-    IEnumerator PlayReturnAndHit(FighterState actor, FighterState actionTarget, int hpBefore)
+    IEnumerator PlayReturnAndHit(FighterState actor, FighterState actionTarget, int actorHpBefore, int targetHpBefore)
     {
         if (battleArena == null) yield break;
 
@@ -343,21 +345,37 @@ public class BattleController : MonoBehaviour
             : battleArena.EnemyAnimator;
 
         bool needsReturn = actorAnim != null;
-        bool needsHit = actionTarget != null && actionTarget.IsAlive && actionTarget.CurrentHP < hpBefore;
+        bool needsTargetHit = actionTarget != null && actionTarget.CurrentHP < targetHpBefore;
+        bool isTargetFinishing = needsTargetHit && !actionTarget.IsAlive;
+
+        // Counter-attack may have damaged the actor
+        bool needsActorHit = actor != null && actor.CurrentHP < actorHpBefore;
+        bool isActorFinishing = needsActorHit && !actor.IsAlive;
 
         Coroutine returnCo = null;
-        Coroutine hitCo = null;
+        Coroutine targetHitCo = null;
 
         if (needsReturn)
             returnCo = StartCoroutine(actorAnim.PlayReturnBack());
 
-        if (needsHit)
-            hitCo = StartCoroutine(PlayAnimation(actionTarget, "Hit", shake: true));
+        if (needsTargetHit)
+        {
+            BattleFighterAnimator targetAnim = actionTarget.IsPlayer
+                ? battleArena.PlayerAnimator
+                : battleArena.EnemyAnimator;
+
+            if (targetAnim != null)
+                targetHitCo = StartCoroutine(targetAnim.PlayAndWait("Hit", shake: true, finishing: isTargetFinishing));
+        }
 
         if (returnCo != null)
             yield return returnCo;
-        if (hitCo != null)
-            yield return hitCo;
+        if (targetHitCo != null)
+            yield return targetHitCo;
+
+        // Play counter-attack hit on the actor (after return and target hit)
+        if (needsActorHit && actorAnim != null)
+            yield return actorAnim.PlayAndWait("Hit", shake: true, finishing: isActorFinishing);
     }
 
     IEnumerator PlayHitAnimation(FighterState target)
