@@ -10,6 +10,7 @@ public class BattleUIController : MonoBehaviour
     [SerializeField] ActionMenuPanel actionMenu;
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
+    [SerializeField, Min(8)] int debugMenuFontSize = 14;
 
     FighterState playerState;
     FighterState enemyState;
@@ -134,10 +135,15 @@ public class BattleUIController : MonoBehaviour
         if (playerState == null || enemyState == null)
             return;
 
+        int fontSize = Mathf.Max(8, debugMenuFontSize);
+        GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize };
+        GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
+        GUIStyle boxStyle = new GUIStyle(GUI.skin.box) { fontSize = fontSize };
+
         if (!awaitingCommand && !string.IsNullOrEmpty(debugResult))
         {
             Rect resultRect = new Rect(10f, 10f, 200f, 60f);
-            GUI.Box(resultRect, debugResult);
+            GUI.Box(resultRect, debugResult, boxStyle);
             return;
         }
 
@@ -149,14 +155,14 @@ public class BattleUIController : MonoBehaviour
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
-        GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}");
-        GUILayout.Label($"ОД {playerState.CurrentAP}");
-        GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}");
-        GUILayout.Label($"Статусы: {FormatStatuses(playerState)}");
+        GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}", labelStyle);
+        GUILayout.Label($"ОД {playerState.CurrentAP}", labelStyle);
+        GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}", labelStyle);
+        GUILayout.Label($"Статусы: {FormatStatuses(playerState)}", labelStyle);
         GUILayout.Space(4f);
-        GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}");
-        GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}");
-        GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}");
+        GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}", labelStyle);
+        GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}", labelStyle);
+        GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}", labelStyle);
 
         // Companion info
         if (battleContext != null)
@@ -165,13 +171,13 @@ public class BattleUIController : MonoBehaviour
             {
                 var pc = battleContext.PlayerCompanion;
                 string pcName = pc.Mask != null ? pc.Mask.displayName : "?";
-                GUILayout.Label($"Компаньон игрока: {pcName} (атака через {pc.TurnsUntilAttack()} х.)");
+                GUILayout.Label($"Компаньон игрока: {pcName} (атака через {pc.TurnsUntilAttack()} х.)", labelStyle);
             }
             if (battleContext.EnemyCompanion != null)
             {
                 var ec = battleContext.EnemyCompanion;
                 string ecName = ec.Mask != null ? ec.Mask.displayName : "?";
-                GUILayout.Label($"Компаньон врага: {ecName} (атака через {ec.TurnsUntilAttack()} х.)");
+                GUILayout.Label($"Компаньон врага: {ecName} (атака через {ec.TurnsUntilAttack()} х.)", labelStyle);
             }
         }
 
@@ -179,7 +185,7 @@ public class BattleUIController : MonoBehaviour
         float listHeight = 160f;
         if (!showMaskList)
         {
-            GUILayout.Label("Действия:");
+            GUILayout.Label("Действия:", labelStyle);
             debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
             if (playerState.CurrentMask != null && playerState.CurrentMask.availableActions != null)
             {
@@ -193,7 +199,7 @@ public class BattleUIController : MonoBehaviour
                     if (action.basePower > 0 && !action.isHealing) details += $" / Урон {action.basePower}";
                     if (action.basePower > 0 && action.isHealing) details += $" / Лечение {action.basePower}";
                     if (action.statusToApply != null) details += $" / {action.statusToApply.statusType}";
-                    if (GUILayout.Button($"{label} ({details})"))
+                    if (GUILayout.Button($"{label} ({details})", buttonStyle))
                     {
                         pendingCommand = new PlayerCommand { Type = PlayerCommandType.UseAction, Action = action };
                         commandReady = true;
@@ -204,13 +210,13 @@ public class BattleUIController : MonoBehaviour
             GUILayout.EndScrollView();
 
             GUILayout.Space(4f);
-            if (GUILayout.Button("Сменить маску"))
+            if (GUILayout.Button("Сменить маску", buttonStyle))
             {
                 LogMaskChangeState(playerState);
                 showMaskList = true;
                 debugScroll = Vector2.zero;
             }
-            if (GUILayout.Button("Конец хода"))
+            if (GUILayout.Button("Конец хода", buttonStyle))
             {
                 pendingCommand = new PlayerCommand { Type = PlayerCommandType.EndTurn };
                 commandReady = true;
@@ -218,13 +224,13 @@ public class BattleUIController : MonoBehaviour
         }
         else
         {
-            GUILayout.Label("Выбор маски:");
+            GUILayout.Label("Выбор маски:", labelStyle);
             debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
             foreach (var mask in playerState.AvailableMasks)
             {
                 if (mask == null) continue;
                 GUI.enabled = playerState.CanChangeMask(mask);
-                if (GUILayout.Button($"{mask.displayName} (ОД 2)"))
+                if (GUILayout.Button($"{mask.displayName} (ОД 2)", buttonStyle))
                 {
                     pendingCommand = new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = mask };
                     commandReady = true;
@@ -232,7 +238,7 @@ public class BattleUIController : MonoBehaviour
                 GUI.enabled = true;
             }
             GUILayout.EndScrollView();
-            if (GUILayout.Button("Назад"))
+            if (GUILayout.Button("Назад", buttonStyle))
                 showMaskList = false;
         }
 
