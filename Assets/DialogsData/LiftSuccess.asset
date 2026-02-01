@@ -16,9 +16,18 @@ MonoBehaviour:
   - speakerName: "\u0413\u0435\u0440\u043E\u0439"
     text: "\u0423\u0440\u0430, \u043A\u0430\u0440\u0442\u0430 \u043F\u043E\u0434\u0445\u043E\u0434\u0438\u0442!"
     isPlayer: 1
+    rightImage: {fileID: 7895062046642514236, guid: 77f666bfcc91d4263a9ce7075f5b6b6e, type: 3}
+    imageOnLeft: 1
   - speakerName: "\u041B\u0438\u0444\u0442"
     text: "*\u041F\u0440\u0438\u0435\u0437\u0436\u0430\u0435\u0442 \u0438 \u0443\u0432\u043E\u0437\u0438\u0442
-      \u0438\u0433\u0440\u043E\u043A\u0430 \u043A \u0433\u043B\u0430\u0432-\u0431\u043E\u0441\u0441\u0443
+      \u0433\u0435\u0440\u043E\u044F \u043A \u0433\u043B\u0430\u0432-\u0431\u043E\u0441\u0441\u0443
       \u0416\u0430\u0431\u0435 \u0434\u043B\u044F \u0444\u0438\u043D\u0430\u043B\u044C\u043D\u043E\u0439
       \u0431\u0438\u0442\u0432\u044B...*"
     isPlayer: 0
+    rightImage: {fileID: 0}
+    imageOnLeft: 0
+  - speakerName: "\u0420\u0430\u0441\u0441\u043A\u0430\u0437\u0447\u0438\u043A"
+    text: "\u041F\u0440\u043E\u0434\u043E\u043B\u0436\u0435\u043D\u0438\u0435 \u0441\u043B\u0435\u0434\u0443\u0435\u0442..."
+    isPlayer: 0
+    rightImage: {fileID: -8486332913673954508, guid: e5a71a23f067c412c8e23a889234ded2, type: 3}
+    imageOnLeft: 1

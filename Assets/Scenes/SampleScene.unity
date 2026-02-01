@@ -478,26 +478,54 @@ PrefabInstance:
       objectReference: {fileID: 1506877338}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].postAction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].dialogueData
       value: 
-      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+      objectReference: {fileID: 11400000, guid: 52402a21e57a6425dba24426aa7b80a2, type: 2}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].disableAfter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].requiredFlag
-      value: tulpan_met
+      value: tulpan_dead
       objectReference: {fileID: 0}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].disableAfter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].requiredFlag
+      value: tulpan_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnWin
       value: tulpan_dead
       objectReference: {fileID: 0}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnLose
       value: tulpan_win
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -587,26 +615,54 @@ PrefabInstance:
       objectReference: {fileID: 1506877338}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].postAction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].dialogueData
       value: 
-      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+      objectReference: {fileID: 11400000, guid: 2a808762de93542528dd0af05ca5763c, type: 2}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].disableAfter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].requiredFlag
-      value: crystal_met
+      value: crystal_dead
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
       value: crystal_dead
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: f0f6aa3fcb2084b95874d08d701d2567, type: 2}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].disableAfter
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].requiredFlag
+      value: crystal_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnWin
+      value: crystal_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: crystal_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnLose
       value: crystal_win
       objectReference: {fileID: 0}
     - target: {fileID: 7818550397998465449, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
@@ -5094,26 +5150,50 @@ PrefabInstance:
       objectReference: {fileID: 1506877338}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].postAction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].dialogueData
       value: 
-      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+      objectReference: {fileID: 11400000, guid: f9bfb68b571454d9d8e475ac0a169f27, type: 2}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].disableAfter
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].requiredFlag
-      value: robot_win
+      value: robot_dead
       objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
       value: robot_dead
       objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a75971fcf8d74ad4b7076565a83ed32, type: 2}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].requiredFlag
+      value: robot_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnWin
+      value: robot_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: robot_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[1].setFlagOnLose
       value: robot_win
       objectReference: {fileID: 0}
     - target: {fileID: 6137700985771611923, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
@@ -14353,7 +14433,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 800, y: 800}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &746228569

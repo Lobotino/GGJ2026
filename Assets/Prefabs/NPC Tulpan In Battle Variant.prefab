@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 67797762827435583, guid: 2972731d4a20447a6a2504ab73f2273d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -33.07
       objectReference: {fileID: 0}
@@ -94,3 +106,9 @@ MonoBehaviour:
   shakeCount: 6
   flashDuration: 0.15
   flashCount: 2
+  finishingShakeDuration: 0.6
+  finishingShakeIntensity: 0.2
+  finishingShakeCount: 10
+  finishingFlashDuration: 0.3
+  finishingFlashCount: 3
+  finishingFlashColor: {r: 1, g: 0, b: 0, a: 1}
