@@ -24,6 +24,16 @@ public class DialogueManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] float typingSpeed = 0.01f;
 
+    const float TextLeftPadding = 24f;
+    const float TextRightPadding = 24f;
+    const float TextBottomPadding = 16f;
+    const float TextTopPadding = 4f;
+    const float SideTextPadding = 520f;
+    const float SideImagePadding = 24f;
+    const float NameLeftPadding = 24f;
+    const float NameRightPadding = 24f;
+    const float NameTopPadding = 8f;
+
     bool isActive;
     bool isTyping;
     bool skipRequested;
@@ -94,8 +104,8 @@ public class DialogueManager : MonoBehaviour
         var nameRect = nameGo.GetComponent<RectTransform>();
         nameRect.anchorMin = new Vector2(0f, 0.72f);
         nameRect.anchorMax = new Vector2(0.5f, 1f);
-        nameRect.offsetMin = new Vector2(24f, 0f);
-        nameRect.offsetMax = new Vector2(0f, -8f);
+        nameRect.offsetMin = new Vector2(NameLeftPadding, 0f);
+        nameRect.offsetMax = new Vector2(-NameRightPadding, -NameTopPadding);
 
         // Dialogue text — main area
         var textGo = new GameObject("DialogueText");
@@ -109,8 +119,8 @@ public class DialogueManager : MonoBehaviour
         var textRect = textGo.GetComponent<RectTransform>();
         textRect.anchorMin = new Vector2(0f, 0f);
         textRect.anchorMax = new Vector2(1f, 0.72f);
-        textRect.offsetMin = new Vector2(24f, 16f);
-        textRect.offsetMax = new Vector2(-520f, -4f);
+        textRect.offsetMin = new Vector2(TextLeftPadding, TextBottomPadding);
+        textRect.offsetMax = new Vector2(-TextRightPadding, -TextTopPadding);
 
         // Right-side image (optional per line)
         var imageGo = new GameObject("DialogueSideImage");
@@ -119,10 +129,7 @@ public class DialogueManager : MonoBehaviour
         dialogueSideImage.preserveAspect = true;
         dialogueSideImage.enabled = false;
         var imageRect = imageGo.GetComponent<RectTransform>();
-        imageRect.anchorMin = new Vector2(0.62f, 0.04f);
-        imageRect.anchorMax = new Vector2(0.98f, 0.96f);
-        imageRect.offsetMin = Vector2.zero;
-        imageRect.offsetMax = Vector2.zero;
+        SetImageAnchorsRight(imageRect);
 
         // Continue indicator — bottom-right
         continueIndicator = new GameObject("ContinueIndicator");
@@ -185,7 +192,7 @@ public class DialogueManager : MonoBehaviour
             if (speakerNameText != null)
                 speakerNameText.text = line.speakerName;
 
-            ApplySideImage(line.rightImage);
+            ApplySideImage(line.rightImage, line.imageOnLeft);
 
             if (continueIndicator != null)
                 continueIndicator.SetActive(false);
@@ -201,7 +208,7 @@ public class DialogueManager : MonoBehaviour
         EndDialogue();
     }
 
-    void ApplySideImage(Sprite sprite)
+    void ApplySideImage(Sprite sprite, bool placeOnLeft)
     {
         if (dialogueSideImage == null)
             return;
@@ -210,11 +217,74 @@ public class DialogueManager : MonoBehaviour
         {
             dialogueSideImage.sprite = null;
             dialogueSideImage.enabled = false;
+            ApplyTextPadding(TextLeftPadding, TextRightPadding);
+            ApplyNamePadding(NameLeftPadding, NameRightPadding);
             return;
         }
 
         dialogueSideImage.sprite = sprite;
         dialogueSideImage.enabled = true;
+
+        if (placeOnLeft)
+        {
+            SetImageAnchorsLeft(dialogueSideImage.rectTransform);
+            ApplyTextPadding(SideTextPadding, TextRightPadding);
+            ApplyNamePadding(SideTextPadding, NameRightPadding);
+        }
+        else
+        {
+            SetImageAnchorsRight(dialogueSideImage.rectTransform);
+            ApplyTextPadding(TextLeftPadding, SideTextPadding);
+            ApplyNamePadding(NameLeftPadding, SideTextPadding);
+        }
+    }
+
+    void ApplyTextPadding(float left, float right)
+    {
+        if (dialogueText == null)
+            return;
+
+        var rect = dialogueText.GetComponent<RectTransform>();
+        if (rect == null)
+            return;
+
+        rect.offsetMin = new Vector2(left, TextBottomPadding);
+        rect.offsetMax = new Vector2(-right, -TextTopPadding);
+    }
+
+    void ApplyNamePadding(float left, float right)
+    {
+        if (speakerNameText == null)
+            return;
+
+        var rect = speakerNameText.GetComponent<RectTransform>();
+        if (rect == null)
+            return;
+
+        rect.offsetMin = new Vector2(left, 0f);
+        rect.offsetMax = new Vector2(-right, -NameTopPadding);
+    }
+
+    void SetImageAnchorsRight(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.70f, 0.0f);
+        rect.anchorMax = new Vector2(1.0f, 1.66f);
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = new Vector2(-SideImagePadding, 0f);
+    }
+
+    void SetImageAnchorsLeft(RectTransform rect)
+    {
+        if (rect == null)
+            return;
+
+        rect.anchorMin = new Vector2(0.0f, 0.0f);
+        rect.anchorMax = new Vector2(0.30f, 1.66f);
+        rect.offsetMin = new Vector2(SideImagePadding, 0f);
+        rect.offsetMax = Vector2.zero;
     }
 
     IEnumerator TypeText(string text)

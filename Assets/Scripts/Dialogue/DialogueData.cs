@@ -15,4 +15,6 @@ public class DialogueLine
     public bool isPlayer;
     [Tooltip("Optional image to show on the right side of the dialogue UI for this line.")]
     public Sprite rightImage;
+    [Tooltip("If true, place the image on the left and shift text to the right.")]
+    public bool imageOnLeft;
 }
