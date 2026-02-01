@@ -126,10 +126,18 @@ public static class ActionExecutor
                 damage *= 1.5f;
 
             int finalDamage = Mathf.Max(1, Mathf.RoundToInt(damage));
-            if (context != null && actor.IsPlayer && context.PlayerCheatNextAttack && target != actor)
+            if (context != null && target != actor)
             {
-                finalDamage = 100;
-                context.PlayerCheatNextAttack = false;
+                if (actor.IsPlayer && context.PlayerCheatNextAttack)
+                {
+                    finalDamage = 100;
+                    context.PlayerCheatNextAttack = false;
+                }
+                else if (!actor.IsPlayer && context.EnemyCheatNextAttack)
+                {
+                    finalDamage = 100;
+                    context.EnemyCheatNextAttack = false;
+                }
             }
             target.TakeDamage(finalDamage);
 

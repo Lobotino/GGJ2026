@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class BattleUIController : MonoBehaviour
 {
+    const float DebugMenuReferenceWidth = 1920f;
+    const float DebugMenuReferenceHeight = 1080f;
+
     [SerializeField] FighterHUD playerHUD;
     [SerializeField] FighterHUD enemyHUD;
     [SerializeField] ActionMenuPanel actionMenu;
@@ -144,7 +147,11 @@ public class BattleUIController : MonoBehaviour
         if (playerState == null || enemyState == null)
             return;
 
-        int fontSize = Mathf.Max(8, debugMenuFontSize);
+        float scale = Mathf.Min(Screen.width / DebugMenuReferenceWidth, Screen.height / DebugMenuReferenceHeight);
+        if (scale < 1f) scale = 1f;
+        scale *= 1.1f;
+
+        int fontSize = Mathf.Max(8, Mathf.RoundToInt(debugMenuFontSize * scale));
         GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize, richText = true };
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
         GUIStyle boxStyle = new GUIStyle(GUI.skin.box) { fontSize = fontSize };
@@ -157,7 +164,8 @@ public class BattleUIController : MonoBehaviour
 
         if (!awaitingCommand && !string.IsNullOrEmpty(debugResult))
         {
-            Rect resultRect = new Rect(10f, 10f, 200f, 60f);
+            float margin = 10f * scale;
+            Rect resultRect = new Rect(margin, margin, 200f * scale, 60f * scale);
             GUI.Box(resultRect, debugResult, boxStyle);
             return;
         }
@@ -165,9 +173,11 @@ public class BattleUIController : MonoBehaviour
         if (!awaitingCommand)
             return;
 
-        float width = 340f;
-        float height = 520f;
-        Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
+        float width = 340f * scale;
+        float height = 520f * scale;
+        float marginLeft = 10f * scale;
+        float marginTop = 10f * scale;
+        Rect panel = new Rect(marginLeft, marginTop, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
         GUILayout.Label(
@@ -175,14 +185,14 @@ public class BattleUIController : MonoBehaviour
             labelStyle);
         GUILayout.Label($"<color=#FFD84D>ОД {playerState.CurrentAP}</color>", labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(playerState)}", labelStyle);
-        GUILayout.Space(4f);
+        GUILayout.Space(4f * scale);
         GUILayout.Label(
             $"Враг: <color=#FF4D4D>Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}</color>  <color=#4DA6FF>Мана {enemyState.CurrentMP}/{enemyState.MaxMP}</color>",
             labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}", labelStyle);
 
-        GUILayout.Space(8f);
-        float listHeight = 160f;
+        GUILayout.Space(8f * scale);
+        float listHeight = 160f * scale;
         if (!showMaskList)
         {
             debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
@@ -208,7 +218,7 @@ public class BattleUIController : MonoBehaviour
             }
             GUILayout.EndScrollView();
 
-            GUILayout.Space(4f);
+            GUILayout.Space(4f * scale);
             if (GUILayout.Button("Сменить маску", buttonStyle))
             {
                 LogMaskChangeState(playerState);

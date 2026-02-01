@@ -20,6 +20,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Fonts")]
     [SerializeField] Font dialogueFont;
     [SerializeField] Font speakerNameFont;
+    [SerializeField, Min(1)] int dialogueFontSize = 24;
+    [SerializeField, Min(1)] int speakerNameFontSize = 28;
+    [SerializeField, Min(1)] int continueIndicatorFontSize = 20;
 
     [Header("Settings")]
     [SerializeField] float typingSpeed = 0.01f;
@@ -65,6 +68,7 @@ public class DialogueManager : MonoBehaviour
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
+        ApplyFontSizes();
         uiReady = true;
     }
 
@@ -97,7 +101,7 @@ public class DialogueManager : MonoBehaviour
         nameGo.transform.SetParent(dialoguePanel.transform, false);
         speakerNameText = nameGo.AddComponent<Text>();
         speakerNameText.font = speakerNameFont != null ? speakerNameFont : Font.CreateDynamicFontFromOSFont("Arial", 28);
-        speakerNameText.fontSize = 28;
+        speakerNameText.fontSize = speakerNameFontSize;
         speakerNameText.fontStyle = FontStyle.Bold;
         speakerNameText.color = Color.yellow;
         speakerNameText.horizontalOverflow = HorizontalWrapMode.Overflow;
@@ -113,7 +117,7 @@ public class DialogueManager : MonoBehaviour
         textGo.transform.SetParent(dialoguePanel.transform, false);
         dialogueText = textGo.AddComponent<Text>();
         dialogueText.font = dialogueFont != null ? dialogueFont : Font.CreateDynamicFontFromOSFont("Arial", 24);
-        dialogueText.fontSize = 24;
+        dialogueText.fontSize = dialogueFontSize;
         dialogueText.color = Color.white;
         dialogueText.horizontalOverflow = HorizontalWrapMode.Wrap;
         dialogueText.verticalOverflow = VerticalWrapMode.Overflow;
@@ -138,7 +142,7 @@ public class DialogueManager : MonoBehaviour
         var indText = continueIndicator.AddComponent<Text>();
         indText.font = Font.CreateDynamicFontFromOSFont("Arial", 20);
         indText.text = "\u25BC";
-        indText.fontSize = 20;
+        indText.fontSize = continueIndicatorFontSize;
         indText.color = Color.white;
         indText.alignment = TextAnchor.LowerRight;
         var indRect = continueIndicator.GetComponent<RectTransform>();
@@ -156,6 +160,7 @@ public class DialogueManager : MonoBehaviour
             return;
 
         EnsureUI();
+        ApplyFontSizes();
 
         if (dialogueText == null)
         {
@@ -211,6 +216,22 @@ public class DialogueManager : MonoBehaviour
             yield return StartCoroutine(preEndSequence);
 
         EndDialogue();
+    }
+
+    void ApplyFontSizes()
+    {
+        if (speakerNameText != null)
+            speakerNameText.fontSize = speakerNameFontSize;
+
+        if (dialogueText != null)
+            dialogueText.fontSize = dialogueFontSize;
+
+        if (continueIndicator != null)
+        {
+            var indicatorText = continueIndicator.GetComponent<Text>();
+            if (indicatorText != null)
+                indicatorText.fontSize = continueIndicatorFontSize;
+        }
     }
 
     void ApplySideImage(Sprite sprite, bool placeOnLeft)

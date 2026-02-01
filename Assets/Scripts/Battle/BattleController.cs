@@ -117,6 +117,12 @@ public class BattleController : MonoBehaviour
             battleContext.PlayerCheatNextAttack = true;
             Debug.Log("[Battle] Cheat enabled: next player attack deals 100 damage.");
         }
+
+        if (keyboard.digit6Key.wasPressedThisFrame || keyboard.numpad6Key.wasPressedThisFrame)
+        {
+            battleContext.EnemyCheatNextAttack = true;
+            Debug.Log("[Battle] Cheat enabled: next enemy attack deals 100 damage.");
+        }
     }
 
     IEnumerator RunTurn(FighterState actor, FighterState target, bool isPlayer, AIProfile aiProfile)
