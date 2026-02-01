@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class BattleController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BattleController : MonoBehaviour
     FighterState playerState;
     FighterState enemyState;
     BattleContext battleContext;
+    bool battleActive;
 
     public bool PlayerLost { get; private set; }
 
@@ -18,6 +20,7 @@ public class BattleController : MonoBehaviour
         MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None,
         MaskType[] playerAvailableMasksOverride = null, FighterProfile enemyProfileOverride = null)
     {
+        battleActive = true;
         PlayerLost = false;
         var playerProfile = maskData != null ? maskData.GetFighterProfile(MaskType.Base) : null;
         var enemyProfile = enemyProfileOverride != null
@@ -96,6 +99,24 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.ShowResult(playerState.IsAlive ? "Победа" : "Поражение");
+
+        battleActive = false;
+    }
+
+    void Update()
+    {
+        if (!battleActive || battleContext == null)
+            return;
+
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+            return;
+
+        if (keyboard.digit0Key.wasPressedThisFrame || keyboard.numpad0Key.wasPressedThisFrame)
+        {
+            battleContext.PlayerCheatNextAttack = true;
+            Debug.Log("[Battle] Cheat enabled: next player attack deals 100 damage.");
+        }
     }
 
     IEnumerator RunTurn(FighterState actor, FighterState target, bool isPlayer, AIProfile aiProfile)

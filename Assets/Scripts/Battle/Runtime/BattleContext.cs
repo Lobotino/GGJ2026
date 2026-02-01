@@ -7,6 +7,7 @@ public class BattleContext
     public bool CatLastStandUsedEnemy { get; set; }
     public bool FirstAttackUsedPlayer { get; set; }
     public bool FirstAttackUsedEnemy { get; set; }
+    public bool PlayerCheatNextAttack { get; set; }
 
     // Per-turn tracking
     public int ActionsThisTurn { get; set; }

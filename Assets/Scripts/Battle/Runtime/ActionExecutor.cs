@@ -126,6 +126,11 @@ public static class ActionExecutor
                 damage *= 1.5f;
 
             int finalDamage = Mathf.Max(1, Mathf.RoundToInt(damage));
+            if (context != null && actor.IsPlayer && context.PlayerCheatNextAttack && target != actor)
+            {
+                finalDamage = 100;
+                context.PlayerCheatNextAttack = false;
+            }
             target.TakeDamage(finalDamage);
 
             // Passive: OnHPChanged (Cat last stand)
