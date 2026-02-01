@@ -39,6 +39,7 @@ public class DialogueManager : MonoBehaviour
     bool skipRequested;
     bool uiReady;
     Action onCompleteCallback;
+    IEnumerator preEndSequence;
     PlayerMovement2D cachedPlayerMovement;
 
     public bool IsActive => isActive;
@@ -149,7 +150,7 @@ public class DialogueManager : MonoBehaviour
         Debug.Log("[Dialogue] UI built programmatically.");
     }
 
-    public void StartDialogue(DialogueData data, PlayerMovement2D playerMovement, Action onComplete = null)
+    public void StartDialogue(DialogueData data, PlayerMovement2D playerMovement, Action onComplete = null, IEnumerator preEndSequence = null)
     {
         if (isActive || data == null || data.lines == null || data.lines.Length == 0)
             return;
@@ -164,6 +165,7 @@ public class DialogueManager : MonoBehaviour
 
         isActive = true;
         onCompleteCallback = onComplete;
+        this.preEndSequence = preEndSequence;
         cachedPlayerMovement = playerMovement;
 
         if (cachedPlayerMovement != null)
@@ -204,6 +206,9 @@ public class DialogueManager : MonoBehaviour
 
             yield return StartCoroutine(WaitForAdvance());
         }
+
+        if (preEndSequence != null)
+            yield return StartCoroutine(preEndSequence);
 
         EndDialogue();
     }
@@ -363,6 +368,13 @@ public class DialogueManager : MonoBehaviour
 
         Action callback = onCompleteCallback;
         onCompleteCallback = null;
+        preEndSequence = null;
         callback?.Invoke();
+    }
+
+    public void HideDialoguePanelImmediate()
+    {
+        if (dialoguePanel != null)
+            dialoguePanel.SetActive(false);
     }
 }

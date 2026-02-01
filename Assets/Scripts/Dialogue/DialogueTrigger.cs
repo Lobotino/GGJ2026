@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -45,6 +46,7 @@ public class DialogueTrigger : MonoBehaviour
     [SerializeField] AIProfile aiProfile;
     [SerializeField] GameObject playerBattlePrefab;
     [SerializeField] GameObject enemyBattlePrefab;
+    [SerializeField] Sprite battleIntroImage;
     [SerializeField] MaskType playerCompanionMask = MaskType.None;
     [SerializeField] MaskType enemyCompanionMask = MaskType.None;
     [SerializeField] GameObject playerCompanionPrefab;
@@ -119,15 +121,38 @@ public class DialogueTrigger : MonoBehaviour
         string capturedFlagOnLose = flagOnLose;
         bool capturedDisable = disableAfterThis;
 
+        IEnumerator preEndSequence = null;
+        bool skipBattleIntroImage = false;
+        if (action == DialoguePostAction.StartBattle)
+        {
+            BattleTransitionManager preBtm = battleTransitionManager;
+            Sprite preIntro = battleIntroImage;
+            var patrol = GetComponent<NPCPatrol>();
+            if (patrol != null)
+            {
+                if (preBtm == null) preBtm = patrol.BattleTransition;
+                if (preIntro == null) preIntro = patrol.BattleIntroImage;
+            }
+            if (preBtm != null && preIntro != null)
+            {
+                skipBattleIntroImage = true;
+                preEndSequence = preBtm.PlayDialogueBattleIntro(preIntro, () =>
+                {
+                    if (DialogueManager.Instance != null)
+                        DialogueManager.Instance.HideDialoguePanelImmediate();
+                });
+            }
+        }
+
         DialogueManager.Instance.StartDialogue(data, playerMovement, () =>
         {
             if (capturedDisable)
                 disabled = true;
-            ExecutePostAction(action, capturedFlag, capturedFlagOnWin, capturedFlagOnLose, other);
-        });
+            ExecutePostAction(action, capturedFlag, capturedFlagOnWin, capturedFlagOnLose, other, skipBattleIntroImage);
+        }, preEndSequence);
     }
 
-    void ExecutePostAction(DialoguePostAction action, string flagToSet, string flagOnWin, string flagOnLose, Collider2D player)
+    void ExecutePostAction(DialoguePostAction action, string flagToSet, string flagOnWin, string flagOnLose, Collider2D player, bool skipBattleIntroImage)
     {
         if (!string.IsNullOrEmpty(flagToSet))
             DialogueFlags.SetFlag(flagToSet);
@@ -144,6 +169,7 @@ public class DialogueTrigger : MonoBehaviour
                 MaskType eComp = enemyCompanionMask;
                 GameObject pBattlePrefab = playerBattlePrefab;
                 GameObject eBattlePrefab = enemyBattlePrefab;
+                Sprite introImage = battleIntroImage;
                 GameObject pCompPrefab = playerCompanionPrefab;
                 GameObject eCompPrefab = enemyCompanionPrefab;
                 MaskType[] playerAvailableMasks = null;
@@ -157,6 +183,7 @@ public class DialogueTrigger : MonoBehaviour
                     if (eComp == MaskType.None) eComp = patrol.EnemyCompanionMask;
                     if (pBattlePrefab == null) pBattlePrefab = patrol.PlayerBattlePrefab;
                     if (eBattlePrefab == null) eBattlePrefab = patrol.EnemyBattlePrefab;
+                    if (introImage == null) introImage = patrol.BattleIntroImage;
                     if (pCompPrefab == null) pCompPrefab = patrol.PlayerCompanionPrefab;
                     if (eCompPrefab == null) eCompPrefab = patrol.EnemyCompanionPrefab;
                     if (patrol.PlayerAvailableMasks != null && patrol.PlayerAvailableMasks.Length > 0)
@@ -173,9 +200,11 @@ public class DialogueTrigger : MonoBehaviour
                     var playerMovement = player.GetComponent<PlayerMovement2D>();
                     string capturedWin = flagOnWin;
                     string capturedLose = flagOnLose;
+                    if (skipBattleIntroImage)
+                        introImage = null;
                     btm.StartBattle(pMask, nMask, playerMovement, profile, pComp, eComp,
                         pBattlePrefab, eBattlePrefab, pCompPrefab, eCompPrefab,
-                        playerAvailableMasks, enemyProfileOverride,
+                        playerAvailableMasks, enemyProfileOverride, introImage,
                         onBattleComplete: (playerWon) =>
                         {
                             if (playerWon && !string.IsNullOrEmpty(capturedWin))

@@ -35,6 +35,9 @@ public class NPCPatrol : MonoBehaviour
     [SerializeField] GameObject playerBattlePrefab;
     [SerializeField] GameObject enemyBattlePrefab;
 
+    [Header("Battle Intro Image")]
+    [SerializeField] Sprite battleIntroImage;
+
     [Header("Companions")]
     [SerializeField] MaskType playerCompanionMask = MaskType.None;
     [SerializeField] MaskType enemyCompanionMask = MaskType.None;
@@ -45,6 +48,7 @@ public class NPCPatrol : MonoBehaviour
     public MaskType EnemyCompanionMask => enemyCompanionMask;
     public GameObject PlayerBattlePrefab => playerBattlePrefab;
     public GameObject EnemyBattlePrefab => enemyBattlePrefab;
+    public Sprite BattleIntroImage => battleIntroImage;
     public GameObject PlayerCompanionPrefab => playerCompanionPrefab;
     public GameObject EnemyCompanionPrefab => enemyCompanionPrefab;
 
@@ -147,7 +151,8 @@ public class NPCPatrol : MonoBehaviour
                 playerBattlePrefab, enemyBattlePrefab,
                 playerCompanionPrefab, enemyCompanionPrefab,
                 playerAvailableMasks,
-                enemyProfileOverride);
+                enemyProfileOverride,
+                battleIntroImage);
         }
     }
 
