@@ -11,6 +11,7 @@ public class BattleUIController : MonoBehaviour
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
     [SerializeField, Min(8)] int debugMenuFontSize = 14;
+    [SerializeField] Font debugMenuFont;
     [SerializeField] bool showResultMessage;
 
     FighterState playerState;
@@ -147,6 +148,12 @@ public class BattleUIController : MonoBehaviour
         GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize, richText = true };
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
         GUIStyle boxStyle = new GUIStyle(GUI.skin.box) { fontSize = fontSize };
+        if (debugMenuFont != null)
+        {
+            labelStyle.font = debugMenuFont;
+            buttonStyle.font = debugMenuFont;
+            boxStyle.font = debugMenuFont;
+        }
 
         if (!awaitingCommand && !string.IsNullOrEmpty(debugResult))
         {
@@ -167,31 +174,12 @@ public class BattleUIController : MonoBehaviour
             $"Игрок: <color=#FF4D4D>Здоровье {playerState.CurrentHP}/{playerState.MaxHP}</color>  <color=#4DA6FF>Мана {playerState.CurrentMP}/{playerState.MaxMP}</color>",
             labelStyle);
         GUILayout.Label($"<color=#FFD84D>ОД {playerState.CurrentAP}</color>", labelStyle);
-        GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}", labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(playerState)}", labelStyle);
         GUILayout.Space(4f);
         GUILayout.Label(
             $"Враг: <color=#FF4D4D>Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}</color>  <color=#4DA6FF>Мана {enemyState.CurrentMP}/{enemyState.MaxMP}</color>",
             labelStyle);
-        GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}", labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}", labelStyle);
-
-        // Companion info
-        if (battleContext != null)
-        {
-            if (battleContext.PlayerCompanion != null)
-            {
-                var pc = battleContext.PlayerCompanion;
-                string pcName = pc.Mask != null ? pc.Mask.displayName : "?";
-                GUILayout.Label($"Компаньон игрока: {pcName} (атака через {pc.TurnsUntilAttack()} х.)", labelStyle);
-            }
-            if (battleContext.EnemyCompanion != null)
-            {
-                var ec = battleContext.EnemyCompanion;
-                string ecName = ec.Mask != null ? ec.Mask.displayName : "?";
-                GUILayout.Label($"Компаньон врага: {ecName} (атака через {ec.TurnsUntilAttack()} х.)", labelStyle);
-            }
-        }
 
         GUILayout.Space(8f);
         float listHeight = 160f;
