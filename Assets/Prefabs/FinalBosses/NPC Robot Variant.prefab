@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2905515201275547959
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_Name
+      value: NPC Robot Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: aiProfile
+      value: 
+      objectReference: {fileID: 11400000, guid: b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6a7, type: 2}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: enemyBattlePrefab
+      value: 
+      objectReference: {fileID: 6958405296511422301, guid: 8b92d527356a54adc93dc707c50dab10, type: 3}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: enemyCompanionMask
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: enemyCompanionPrefab
+      value: 
+      objectReference: {fileID: 1198732133965032192, guid: cad3fb6572ead4427ad18de75dbdcd42, type: 3}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: playerAvailableMasks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: 'playerAvailableMasks.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: 'playerAvailableMasks.Array.data[1]'
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4190355338117574657, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: 'playerAvailableMasks.Array.data[2]'
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7254355933115139803, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: currentMask
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8073601327192901711, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2162732448759344158, guid: f377b109a8c0c4481ae4a79f9797d52b, type: 3}
+    - target: {fileID: 8452026633942434973, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1b058758ff5c046dda65ca591e551adc, type: 2}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -17.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -19.63
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042955550714594852, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5365292787441459772}
+  m_SourcePrefab: {fileID: 100100000, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+--- !u!1 &4423146774504056061 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1526819367402894794, guid: 716610c636f1e42b081f6c58f2916be2, type: 3}
+  m_PrefabInstance: {fileID: 2905515201275547959}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5365292787441459772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4423146774504056061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea80a3bcc20d470b8bb4ec5df3cb1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
+  dialogueData: {fileID: 11400000, guid: 1bc7f0e785a934bff94fb18e68a2c1ce, type: 2}
+  disableAfterDefault: 1
+  postAction: 1
+  conditionalDialogues: []
+  battleTransitionManager: {fileID: 0}
+  aiProfile: {fileID: 0}
+  playerBattlePrefab: {fileID: 0}
+  enemyBattlePrefab: {fileID: 0}
+  playerCompanionMask: 0
+  enemyCompanionMask: 0
+  playerCompanionPrefab: {fileID: 0}
+  enemyCompanionPrefab: {fileID: 0}
+  objectsToActivate: []
+  objectsToDeactivate: []
+  setFlagOnComplete: 
+  onDialogueComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
