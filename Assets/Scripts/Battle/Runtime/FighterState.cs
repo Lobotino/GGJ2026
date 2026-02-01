@@ -43,6 +43,22 @@ public class FighterState
         CurrentMP = MaxMP;
     }
 
+    public void SetAvailableMasks(IEnumerable<BattleMaskData> masks, bool includeCurrentMask = true)
+    {
+        availableMasks.Clear();
+        if (masks != null)
+        {
+            foreach (var mask in masks)
+            {
+                if (mask == null) continue;
+                if (!availableMasks.Contains(mask))
+                    availableMasks.Add(mask);
+            }
+        }
+        if (includeCurrentMask && CurrentMask != null && !availableMasks.Contains(CurrentMask))
+            availableMasks.Add(CurrentMask);
+    }
+
     public bool IsAlive => CurrentHP > 0;
 
     public int MaxHP => Mathf.Max(1, Mathf.RoundToInt(BaseStats.HP * GetMaskMultiplier().HP * GetStatusMultiplier().HP));

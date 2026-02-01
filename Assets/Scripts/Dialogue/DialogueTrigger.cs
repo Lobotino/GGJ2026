@@ -132,6 +132,8 @@ public class DialogueTrigger : MonoBehaviour
                 GameObject eBattlePrefab = enemyBattlePrefab;
                 GameObject pCompPrefab = playerCompanionPrefab;
                 GameObject eCompPrefab = enemyCompanionPrefab;
+                MaskType[] playerAvailableMasks = null;
+                FighterProfile enemyProfileOverride = null;
                 var patrol = GetComponent<NPCPatrol>();
                 if (patrol != null)
                 {
@@ -143,6 +145,10 @@ public class DialogueTrigger : MonoBehaviour
                     if (eBattlePrefab == null) eBattlePrefab = patrol.EnemyBattlePrefab;
                     if (pCompPrefab == null) pCompPrefab = patrol.PlayerCompanionPrefab;
                     if (eCompPrefab == null) eCompPrefab = patrol.EnemyCompanionPrefab;
+                    if (patrol.PlayerAvailableMasks != null && patrol.PlayerAvailableMasks.Length > 0)
+                        playerAvailableMasks = patrol.PlayerAvailableMasks;
+                    if (patrol.EnemyProfileOverride != null)
+                        enemyProfileOverride = patrol.EnemyProfileOverride;
                 }
                 if (btm != null && !btm.InBattle)
                 {
@@ -152,7 +158,8 @@ public class DialogueTrigger : MonoBehaviour
                     MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
                     var playerMovement = player.GetComponent<PlayerMovement2D>();
                     btm.StartBattle(pMask, nMask, playerMovement, profile, pComp, eComp,
-                        pBattlePrefab, eBattlePrefab, pCompPrefab, eCompPrefab);
+                        pBattlePrefab, eBattlePrefab, pCompPrefab, eCompPrefab,
+                        playerAvailableMasks, enemyProfileOverride);
                 }
                 break;
 

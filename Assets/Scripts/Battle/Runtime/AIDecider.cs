@@ -11,11 +11,11 @@ public static class AIDecider
         {
             foreach (var rule in profile.rules)
             {
-                if (hpPercent <= rule.hpThreshold)
-                {
-                    if (rule.switchToMask != null && self.CanChangeMask(rule.switchToMask))
-                        return AICommand.ChangeMask(rule.switchToMask);
-                }
+                if (hpPercent > rule.hpThreshold)
+                    continue;
+
+                if (rule.switchToMask != null && self.CanChangeMask(rule.switchToMask))
+                    return AICommand.ChangeMask(rule.switchToMask);
 
                 if (rule.preferredAction != null && self.CanUseAction(rule.preferredAction))
                 {
@@ -39,6 +39,7 @@ public static class AIDecider
         if (profile == null || action == null) return false;
         if (profile.guardEveryNTurns <= 1) return false;
         if (!action.grantsGuard) return false;
+        if (self.IsGuarding) return true;
         if (self.Context == null) return false;
         int turnIndex = self.Context.TurnNumber;
         return turnIndex % profile.guardEveryNTurns != 0;

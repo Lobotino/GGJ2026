@@ -15,16 +15,35 @@ public class BattleController : MonoBehaviour
     public bool PlayerLost { get; private set; }
 
     public IEnumerator RunBattle(MaskType playerMaskType, MaskType enemyMaskType, AIProfile enemyAIProfile,
-        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None)
+        MaskType playerCompanionMask = MaskType.None, MaskType enemyCompanionMask = MaskType.None,
+        MaskType[] playerAvailableMasksOverride = null, FighterProfile enemyProfileOverride = null)
     {
         PlayerLost = false;
-        var playerProfile = maskData != null ? maskData.GetFighterProfile(playerMaskType) : null;
-        var enemyProfile = maskData != null ? maskData.GetFighterProfile(enemyMaskType) : null;
+        var playerProfile = maskData != null ? maskData.GetFighterProfile(MaskType.Base) : null;
+        var enemyProfile = enemyProfileOverride != null
+            ? enemyProfileOverride
+            : (maskData != null ? maskData.GetFighterProfile(enemyMaskType) : null);
         var playerMask = maskData != null ? maskData.GetBattleMask(playerMaskType) : null;
         var enemyMask = maskData != null ? maskData.GetBattleMask(enemyMaskType) : null;
 
         playerState = new FighterState(playerProfile, playerMask);
         enemyState = new FighterState(enemyProfile, enemyMask);
+
+        if (playerAvailableMasksOverride != null && playerAvailableMasksOverride.Length > 0 && maskData != null)
+        {
+            var overrideMasks = new System.Collections.Generic.List<BattleMaskData>();
+            foreach (var maskType in playerAvailableMasksOverride)
+            {
+                if (maskType == MaskType.None) continue;
+                var mask = maskData.GetBattleMask(maskType);
+                if (mask == null)
+                    Debug.LogWarning($"[Battle] No BattleMaskData for maskType {maskType} in MaskData.");
+                if (mask != null && !overrideMasks.Contains(mask))
+                    overrideMasks.Add(mask);
+            }
+            if (overrideMasks.Count > 0)
+                playerState.SetAvailableMasks(overrideMasks, includeCurrentMask: true);
+        }
 
         battleContext = new BattleContext();
 
@@ -52,6 +71,8 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.Initialize(playerState, enemyState, battleContext);
+
+        Debug.Log($"[Battle] Player available masks: {FormatMasks(playerState.AvailableMasks)}");
 
         bool playerTurn = playerState.EffectiveSPD >= enemyState.EffectiveSPD;
 
@@ -211,6 +232,21 @@ public class BattleController : MonoBehaviour
 
         if (uiController != null)
             uiController.RefreshAll();
+    }
+
+    static string FormatMasks(System.Collections.Generic.IReadOnlyList<BattleMaskData> masks)
+    {
+        if (masks == null || masks.Count == 0) return "none";
+        var sb = new System.Text.StringBuilder();
+        for (int i = 0; i < masks.Count; i++)
+        {
+            var mask = masks[i];
+            if (i > 0) sb.Append(", ");
+            if (mask == null) sb.Append("null");
+            else if (!string.IsNullOrWhiteSpace(mask.displayName)) sb.Append(mask.displayName);
+            else sb.Append(mask.maskType);
+        }
+        return sb.ToString();
     }
 
     IEnumerator TryCompanionAttack(CompanionState companion, FighterState target)

@@ -31,6 +31,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
   - {fileID: 11400000, guid: 1fbd025ec9e9464ddcd275b71fedcb1e, type: 2}
   - {fileID: 11400000, guid: 73847bdf7fd6ba96109babf358df6197, type: 2}
+  - {fileID: 11400000, guid: eb884465c9a9438389e011e6082a26ea, type: 2}
   changeCooldownTurns: 0
   disallowConsecutiveChange: 1
   applyInertia: 1

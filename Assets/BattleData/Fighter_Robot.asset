@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
   displayName: "\u041C\u0435\u0445\u0430\u043D\u043E\u0438\u0434"
   baseStats:
-    HP: 120
+    HP: 75
     MP: 8
-    ATK: 9
-    DEF: 16
+    ATK: 6
+    DEF: 11
     MAG: 5
     RES: 8
     SPD: 3

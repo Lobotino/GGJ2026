@@ -23,6 +23,14 @@ public class NPCPatrol : MonoBehaviour
 
     public AIProfile AiProfile => aiProfile;
 
+    [SerializeField] FighterProfile enemyProfileOverride;
+    public FighterProfile EnemyProfileOverride => enemyProfileOverride;
+
+    [Header("Available Masks (Battle)")]
+    [Tooltip("If empty, uses the fighter profile's available masks")]
+    [SerializeField] MaskType[] playerAvailableMasks;
+    public MaskType[] PlayerAvailableMasks => playerAvailableMasks;
+
     [Header("Battle Prefabs (override overworld visuals)")]
     [SerializeField] GameObject playerBattlePrefab;
     [SerializeField] GameObject enemyBattlePrefab;
@@ -139,11 +147,14 @@ public class NPCPatrol : MonoBehaviour
             MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
             MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
             var playerMovement = other.GetComponent<PlayerMovement2D>();
-            Debug.Log($"[NPCPatrol] Starting battle: playerMask={pMask}, npcMask={nMask}, aiProfile={aiProfile}");
+            string available = playerAvailableMasks == null ? "null" : string.Join(", ", playerAvailableMasks);
+            Debug.Log($"[NPCPatrol] Starting battle: playerMask={pMask}, npcMask={nMask}, aiProfile={aiProfile}, playerAvailableMasks={available}");
             battleTransitionManager.StartBattle(pMask, nMask, playerMovement, aiProfile,
                 playerCompanionMask, enemyCompanionMask,
                 playerBattlePrefab, enemyBattlePrefab,
-                playerCompanionPrefab, enemyCompanionPrefab);
+                playerCompanionPrefab, enemyCompanionPrefab,
+                playerAvailableMasks,
+                enemyProfileOverride);
         }
     }
 
