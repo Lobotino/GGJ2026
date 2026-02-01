@@ -11,6 +11,7 @@ public class BattleUIController : MonoBehaviour
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
     [SerializeField, Min(8)] int debugMenuFontSize = 14;
+    [SerializeField] bool showResultMessage;
 
     FighterState playerState;
     FighterState enemyState;
@@ -108,6 +109,13 @@ public class BattleUIController : MonoBehaviour
 
     public void ShowResult(string message)
     {
+        if (!showResultMessage)
+        {
+            if (resultPanel != null)
+                resultPanel.SetActive(false);
+            debugResult = null;
+            return;
+        }
         if (resultText != null)
             resultText.text = message;
         if (resultPanel != null)
@@ -136,7 +144,7 @@ public class BattleUIController : MonoBehaviour
             return;
 
         int fontSize = Mathf.Max(8, debugMenuFontSize);
-        GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize };
+        GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize, richText = true };
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
         GUIStyle boxStyle = new GUIStyle(GUI.skin.box) { fontSize = fontSize };
 
@@ -155,12 +163,16 @@ public class BattleUIController : MonoBehaviour
         Rect panel = new Rect(10f, Screen.height - height - 10f, width, height);
         GUILayout.BeginArea(panel, GUI.skin.box);
 
-        GUILayout.Label($"Игрок: Здоровье {playerState.CurrentHP}/{playerState.MaxHP}  Мана {playerState.CurrentMP}/{playerState.MaxMP}", labelStyle);
-        GUILayout.Label($"ОД {playerState.CurrentAP}", labelStyle);
+        GUILayout.Label(
+            $"Игрок: <color=#FF4D4D>Здоровье {playerState.CurrentHP}/{playerState.MaxHP}</color>  <color=#4DA6FF>Мана {playerState.CurrentMP}/{playerState.MaxMP}</color>",
+            labelStyle);
+        GUILayout.Label($"<color=#FFD84D>ОД {playerState.CurrentAP}</color>", labelStyle);
         GUILayout.Label($"Маска: {(playerState.CurrentMask != null ? playerState.CurrentMask.displayName : "Нет")}", labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(playerState)}", labelStyle);
         GUILayout.Space(4f);
-        GUILayout.Label($"Враг: Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}  Мана {enemyState.CurrentMP}/{enemyState.MaxMP}", labelStyle);
+        GUILayout.Label(
+            $"Враг: <color=#FF4D4D>Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}</color>  <color=#4DA6FF>Мана {enemyState.CurrentMP}/{enemyState.MaxMP}</color>",
+            labelStyle);
         GUILayout.Label($"Маска врага: {(enemyState.CurrentMask != null ? enemyState.CurrentMask.displayName : "Нет")}", labelStyle);
         GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}", labelStyle);
 
@@ -185,7 +197,6 @@ public class BattleUIController : MonoBehaviour
         float listHeight = 160f;
         if (!showMaskList)
         {
-            GUILayout.Label("Действия:", labelStyle);
             debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
             if (playerState.CurrentMask != null && playerState.CurrentMask.availableActions != null)
             {

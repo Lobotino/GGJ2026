@@ -16,7 +16,7 @@ MonoBehaviour:
     \u043B\u0443\u0447"
   category: 0
   apCost: 3
-  mpCost: 10
+  mpCost: 5
   basePower: 16
   isMagical: 1
   isHealing: 0

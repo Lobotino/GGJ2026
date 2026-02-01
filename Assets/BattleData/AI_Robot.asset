@@ -16,7 +16,7 @@ MonoBehaviour:
   - hpThreshold: 0.5
     switchToMask: {fileID: 0}
     preferredAction: {fileID: 11400000, guid: fd2d721d71ceb3b89342bbbc0bb0af0a, type: 2}
-  - hpThreshold: 1
+  - hpThreshold: 0.196
     switchToMask: {fileID: 0}
     preferredAction: {fileID: 11400000, guid: 67a2e5fcf243fd2306967e942cb4bf48, type: 2}
   - hpThreshold: 1

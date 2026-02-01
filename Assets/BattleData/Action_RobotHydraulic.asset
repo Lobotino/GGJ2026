@@ -12,35 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b188457c9416243dbbcaac0e8599e66f, type: 3}
   m_Name: Action_RobotHydraulic
   m_EditorClassIdentifier: Assembly-CSharp::BattleActionData
-  actionName: Гидравлический удар
+  actionName: "\u0413\u0438\u0434\u0440\u0430\u0432\u043B\u0438\u0447\u0435\u0441\u043A\u0438\u0439
+    \u0443\u0434\u0430\u0440"
   category: 0
   apCost: 2
   mpCost: 0
-  basePower: 16
+  basePower: 10
   isMagical: 0
   isHealing: 0
   targetSelf: 0
   statusToApply: {fileID: 11400000, guid: 0dbfc5320501abfd586c87b1157e110c, type: 2}
+  animationTrigger: 
   grantsGuard: 0
   grantsCounter: 0
   selfStatusOnUse: {fileID: 0}
-  removeStatusTypes: []
+  removeStatusTypes: 
   statusDurationReduction: 0
   secondaryStatus: {fileID: 0}
   conditionalBonusOnTargetStatus: 0
   requiredTargetStatus: 0
-  conditionalDamageMultiplier: 1.0
+  conditionalDamageMultiplier: 1
   conditionalAPGain: 0
   apGainAmount: 0
   isEnhancedCounter: 0
-  enhancedCounterMultiplier: 1.0
+  enhancedCounterMultiplier: 1
   overrideGuardMultiplier: 0
   guardMultiplierOverride: 0.5
   reactiveGuard: 0
   reactiveGuardStatus: {fileID: 0}
   lastActionBonus: 0
-  lastActionMultiplier: 1.0
+  lastActionMultiplier: 1
   firstTurnBonus: 0
-  firstTurnMultiplier: 1.0
+  firstTurnMultiplier: 1
   selfDebuffIfConditionFails: 0
   selfDebuffOnFail: {fileID: 0}
