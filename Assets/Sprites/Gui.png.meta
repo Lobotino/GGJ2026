@@ -291,10 +291,10 @@ TextureImporter:
       name: Gui_7
       rect:
         serializedVersion: 2
-        x: 490
-        y: 38
-        width: 372
-        height: 72
+        x: 493
+        y: 44
+        width: 369
+        height: 60
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,12 +313,12 @@ TextureImporter:
       name: Gui_8
       rect:
         serializedVersion: 2
-        x: 492
-        y: 115
-        width: 370
-        height: 70
+        x: 493
+        y: 120
+        width: 369
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -335,12 +335,12 @@ TextureImporter:
       name: Gui_9
       rect:
         serializedVersion: 2
-        x: 492
-        y: 187
-        width: 370
-        height: 67
+        x: 493
+        y: 189
+        width: 369
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
