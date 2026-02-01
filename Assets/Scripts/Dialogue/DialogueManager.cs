@@ -16,6 +16,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] Text dialogueText;
     [SerializeField] GameObject continueIndicator;
 
+    [Header("Fonts")]
+    [SerializeField] Font dialogueFont;
+    [SerializeField] Font speakerNameFont;
+
     [Header("Settings")]
     [SerializeField] float typingSpeed = 0.01f;
 
@@ -80,7 +84,7 @@ public class DialogueManager : MonoBehaviour
         var nameGo = new GameObject("SpeakerName");
         nameGo.transform.SetParent(dialoguePanel.transform, false);
         speakerNameText = nameGo.AddComponent<Text>();
-        speakerNameText.font = Font.CreateDynamicFontFromOSFont("Arial", 28);
+        speakerNameText.font = speakerNameFont != null ? speakerNameFont : Font.CreateDynamicFontFromOSFont("Arial", 28);
         speakerNameText.fontSize = 28;
         speakerNameText.fontStyle = FontStyle.Bold;
         speakerNameText.color = Color.yellow;
@@ -96,7 +100,7 @@ public class DialogueManager : MonoBehaviour
         var textGo = new GameObject("DialogueText");
         textGo.transform.SetParent(dialoguePanel.transform, false);
         dialogueText = textGo.AddComponent<Text>();
-        dialogueText.font = Font.CreateDynamicFontFromOSFont("Arial", 24);
+        dialogueText.font = dialogueFont != null ? dialogueFont : Font.CreateDynamicFontFromOSFont("Arial", 24);
         dialogueText.fontSize = 24;
         dialogueText.color = Color.white;
         dialogueText.horizontalOverflow = HorizontalWrapMode.Wrap;

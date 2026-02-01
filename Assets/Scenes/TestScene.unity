@@ -2983,6 +2983,8 @@ MonoBehaviour:
   speakerNameText: {fileID: 0}
   dialogueText: {fileID: 0}
   continueIndicator: {fileID: 0}
+  dialogueFont: {fileID: 12800000, guid: 790de308b6dbc4c258e4041f8065ba2c, type: 3}
+  speakerNameFont: {fileID: 12800000, guid: 80557ee32f6504dcd8cb199544cf6a34, type: 3}
   typingSpeed: 0.03
 --- !u!4 &786309537
 Transform:
