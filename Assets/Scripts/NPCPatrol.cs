@@ -85,13 +85,6 @@ public class NPCPatrol : MonoBehaviour
         Vector2 dest = target.position;
         Vector2 diff = dest - pos;
 
-        // Flip sprite to face movement direction
-        if (spriteRenderer != null && diff.x != 0f)
-        {
-            bool movingLeft = diff.x < 0f;
-            spriteRenderer.flipX = spriteDefaultFacesLeft ? !movingLeft : movingLeft;
-        }
-
         if (diff.sqrMagnitude < waypointReachThreshold * waypointReachThreshold)
         {
             AdvanceWaypoint();
@@ -160,11 +153,6 @@ public class NPCPatrol : MonoBehaviour
 
     void FaceTarget(Transform target)
     {
-        if (spriteRenderer == null) return;
-        float dx = target.position.x - transform.position.x;
-        if (dx == 0f) return;
-
-        bool targetIsLeft = dx < 0f;
-        spriteRenderer.flipX = spriteDefaultFacesLeft ? !targetIsLeft : targetIsLeft;
+        // Sprite flip disabled — NPC keeps its scene-authored orientation
     }
 }
