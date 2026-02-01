@@ -17,7 +17,7 @@ public class BattleTransitionManager : MonoBehaviour
     [SerializeField] Image battleIntroImage;
     [SerializeField] float battleIntroImageDuration = 1f;
     [SerializeField] float battleIntroSlideDuration = 0.6f;
-    [SerializeField] Vector2 battleIntroOffscreenDirection = Vector2.right;
+    [SerializeField] Vector2 battleIntroOffscreenDirection = Vector2.up;
 
     bool inBattle;
     bool preFadedToBlack;
@@ -195,6 +195,8 @@ public class BattleTransitionManager : MonoBehaviour
         battleIntroImage.enabled = true;
         battleIntroImage.transform.SetAsLastSibling();
 
+        onBeforeFade?.Invoke();
+
         Vector2 targetPos = Vector2.zero;
         Vector2 offscreenPos = GetOffscreenPosition(rect, battleIntroOffscreenDirection);
         rect.anchoredPosition = offscreenPos;
@@ -209,8 +211,6 @@ public class BattleTransitionManager : MonoBehaviour
         }
         rect.anchoredPosition = targetPos;
 
-        onBeforeFade?.Invoke();
-
         yield return screenFade.FadeIn(fadeDuration);
         yield return HoldOnBlack();
         battleIntroImage.enabled = false;
@@ -222,7 +222,7 @@ public class BattleTransitionManager : MonoBehaviour
 
     Vector2 GetOffscreenPosition(RectTransform rect, Vector2 direction)
     {
-        Vector2 dir = direction.sqrMagnitude > 0.01f ? direction.normalized : Vector2.right;
+        Vector2 dir = direction.sqrMagnitude > 0.01f ? direction.normalized : Vector2.up;
         float distance = 0f;
         RectTransform parentRect = rect != null ? rect.parent as RectTransform : null;
         if (parentRect != null)

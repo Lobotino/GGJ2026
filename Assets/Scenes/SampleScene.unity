@@ -570,6 +570,10 @@ PrefabInstance:
       value: crystal_win
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: battleIntroImage
+      value: 
+      objectReference: {fileID: 90217800608434482, guid: 2818fc6a780524706b4edb7de67d3b96, type: 3}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: setFlagOnComplete
       value: crystal_met
       objectReference: {fileID: 0}
@@ -5072,6 +5076,10 @@ PrefabInstance:
       propertyPath: setFlagOnLose
       value: robot_win
       objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: battleIntroImage
+      value: 
+      objectReference: {fileID: -1368543061709340531, guid: 648c85b96216e4923998c1e0e1b28140, type: 3}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: setFlagOnComplete
       value: robot_met
@@ -28902,12 +28910,13 @@ MonoBehaviour:
   battleArena: {fileID: 1683882568}
   cameraFollow: {fileID: 519420033}
   battleController: {fileID: 497515959}
-  fadeDuration: 2
+  fadeDuration: 0.6
+  fadeHoldDuration: 3
   battleDisplayDuration: 5
   battleIntroImage: {fileID: 742601290}
-  battleIntroImageDuration: 3
+  battleIntroImageDuration: 2
   battleIntroSlideDuration: 0.6
-  battleIntroOffscreenDirection: {x: 1, y: 0}
+  battleIntroOffscreenDirection: {x: 0, y: 1}
 --- !u!114 &1506877339
 MonoBehaviour:
   m_ObjectHideFlags: 0
