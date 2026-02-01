@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 [DisallowMultipleComponent]
 public class MainMenuUIController : MonoBehaviour
 {
-    private const string TestSceneName = "TestScene";
+    private const string SampleSceneName = "SampleScene";
 
     private static readonly Color BackgroundColor = new Color(0.06f, 0.07f, 0.09f, 1f);
     private static readonly Color PanelColor = new Color(0.12f, 0.14f, 0.17f, 0.95f);
@@ -230,7 +230,7 @@ public class MainMenuUIController : MonoBehaviour
 
     private void OnStartClicked()
     {
-        SceneManager.LoadScene(TestSceneName);
+        SceneManager.LoadScene(SampleSceneName);
     }
 
     private void OnExitClicked()
