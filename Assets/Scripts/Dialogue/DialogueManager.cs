@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] Text speakerNameText;
     [SerializeField] Text dialogueText;
     [SerializeField] GameObject continueIndicator;
+    [SerializeField] Image dialogueSideImage;
 
     [Header("Fonts")]
     [SerializeField] Font dialogueFont;
@@ -109,7 +110,19 @@ public class DialogueManager : MonoBehaviour
         textRect.anchorMin = new Vector2(0f, 0f);
         textRect.anchorMax = new Vector2(1f, 0.72f);
         textRect.offsetMin = new Vector2(24f, 16f);
-        textRect.offsetMax = new Vector2(-24f, -4f);
+        textRect.offsetMax = new Vector2(-520f, -4f);
+
+        // Right-side image (optional per line)
+        var imageGo = new GameObject("DialogueSideImage");
+        imageGo.transform.SetParent(dialoguePanel.transform, false);
+        dialogueSideImage = imageGo.AddComponent<Image>();
+        dialogueSideImage.preserveAspect = true;
+        dialogueSideImage.enabled = false;
+        var imageRect = imageGo.GetComponent<RectTransform>();
+        imageRect.anchorMin = new Vector2(0.62f, 0.04f);
+        imageRect.anchorMax = new Vector2(0.98f, 0.96f);
+        imageRect.offsetMin = Vector2.zero;
+        imageRect.offsetMax = Vector2.zero;
 
         // Continue indicator — bottom-right
         continueIndicator = new GameObject("ContinueIndicator");
@@ -172,6 +185,8 @@ public class DialogueManager : MonoBehaviour
             if (speakerNameText != null)
                 speakerNameText.text = line.speakerName;
 
+            ApplySideImage(line.rightImage);
+
             if (continueIndicator != null)
                 continueIndicator.SetActive(false);
 
@@ -184,6 +199,22 @@ public class DialogueManager : MonoBehaviour
         }
 
         EndDialogue();
+    }
+
+    void ApplySideImage(Sprite sprite)
+    {
+        if (dialogueSideImage == null)
+            return;
+
+        if (sprite == null)
+        {
+            dialogueSideImage.sprite = null;
+            dialogueSideImage.enabled = false;
+            return;
+        }
+
+        dialogueSideImage.sprite = sprite;
+        dialogueSideImage.enabled = true;
     }
 
     IEnumerator TypeText(string text)
