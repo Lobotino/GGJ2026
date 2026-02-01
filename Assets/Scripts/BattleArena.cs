@@ -170,6 +170,17 @@ public class BattleArena : MonoBehaviour
     public void SwapFighterSprite(bool isPlayer, BattleMaskData mask)
     {
         if (mask == null) return;
+
+        BattleFighterAnimator anim = isPlayer ? playerAnimator : enemyAnimator;
+
+        // Prefer swapping just the animator controller (no prefab respawn)
+        if (mask.animatorController != null && anim != null)
+        {
+            anim.SwapAnimatorController(mask.animatorController);
+            return;
+        }
+
+        // Fallback: respawn entire prefab if battlePrefab is set
         GameObject prefab = mask.battlePrefab;
         if (prefab == null) return;
 

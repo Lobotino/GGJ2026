@@ -33,6 +33,14 @@ public class BattleFighterAnimator : MonoBehaviour
         propertyBlock = new MaterialPropertyBlock();
     }
 
+    public void SwapAnimatorController(RuntimeAnimatorController controller)
+    {
+        if (controller == null) return;
+        if (animator == null) animator = GetComponentInChildren<Animator>();
+        if (animator != null)
+            animator.runtimeAnimatorController = controller;
+    }
+
     public IEnumerator PlayAndWait(string trigger, bool lunge = false, bool shake = false)
     {
         if (string.IsNullOrEmpty(trigger))

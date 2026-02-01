@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b188457c9416243dbbcaac0e8599e66f, type: 3}
   m_Name: Action_FlowerThornyBlock
   m_EditorClassIdentifier: Assembly-CSharp::BattleActionData
-  actionName: Шипастый блок
+  actionName: "\u0428\u0438\u043F\u0430\u0441\u0442\u044B\u0439 \u0431\u043B\u043E\u043A"
   category: 1
   apCost: 2
   mpCost: 0
@@ -21,26 +21,27 @@ MonoBehaviour:
   isHealing: 0
   targetSelf: 1
   statusToApply: {fileID: 0}
+  animationTrigger: Shipi
   grantsGuard: 1
   grantsCounter: 0
   selfStatusOnUse: {fileID: 0}
-  removeStatusTypes: []
+  removeStatusTypes: 
   statusDurationReduction: 0
   secondaryStatus: {fileID: 0}
   conditionalBonusOnTargetStatus: 0
   requiredTargetStatus: 0
-  conditionalDamageMultiplier: 1.0
+  conditionalDamageMultiplier: 1
   conditionalAPGain: 0
   apGainAmount: 0
   isEnhancedCounter: 0
-  enhancedCounterMultiplier: 1.0
+  enhancedCounterMultiplier: 1
   overrideGuardMultiplier: 0
   guardMultiplierOverride: 0.5
   reactiveGuard: 1
   reactiveGuardStatus: {fileID: 11400000, guid: a8720c409fc000043ce11c4c3f075418, type: 2}
   lastActionBonus: 0
-  lastActionMultiplier: 1.0
+  lastActionMultiplier: 1
   firstTurnBonus: 0
-  firstTurnMultiplier: 1.0
+  firstTurnMultiplier: 1
   selfDebuffIfConditionFails: 0
   selfDebuffOnFail: {fileID: 0}

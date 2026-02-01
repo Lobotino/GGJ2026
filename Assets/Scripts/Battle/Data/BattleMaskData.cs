@@ -18,6 +18,9 @@ public class BattleMaskData : ScriptableObject
     [Tooltip("Prefab to spawn on the battle arena (if null, falls back to overworld prefab from MaskData)")]
     public GameObject battlePrefab;
 
+    [Tooltip("Animator controller to swap when this mask is equipped (overrides the current controller without respawning the prefab)")]
+    public RuntimeAnimatorController animatorController;
+
     [Header("Mask Change")]
     public int changeCooldownTurns = 0;
     public bool disallowConsecutiveChange = false;

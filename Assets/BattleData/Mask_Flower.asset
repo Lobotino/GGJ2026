@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Mask_Flower
   m_EditorClassIdentifier: Assembly-CSharp::BattleMaskData
   maskType: 13
-  displayName: Цветочек
-  loreDescription: "Природная маска — поджигает и восстанавливается."
+  displayName: "\u0426\u0432\u0435\u0442\u043E\u0447\u0435\u043A"
+  loreDescription: "\u041F\u0440\u0438\u0440\u043E\u0434\u043D\u0430\u044F \u043C\u0430\u0441\u043A\u0430
+    \u2014 \u043F\u043E\u0434\u0436\u0438\u0433\u0430\u0435\u0442 \u0438 \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442\u0441\u044F."
   statMultipliers:
     HP: 1
     MP: 1
@@ -23,7 +24,10 @@ MonoBehaviour:
     MAG: 1.15
     RES: 1.1
     SPD: 0.95
-  passiveEffect: "В конце хода, если на враге Burn — восстанови 3% HP или 2 MP."
+  passiveEffect: "\u0412 \u043A\u043E\u043D\u0446\u0435 \u0445\u043E\u0434\u0430,
+    \u0435\u0441\u043B\u0438 \u043D\u0430 \u0432\u0440\u0430\u0433\u0435 Burn \u2014
+    \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438 3% HP \u0438\u043B\u0438
+    2 MP."
   passiveType: 11
   vulnerability: 5
   availableActions:
@@ -31,7 +35,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43d8b0e114454bb088442abfec7046b6, type: 2}
   - {fileID: 11400000, guid: 1fbd025ec9e9464ddcd275b71fedcb1e, type: 2}
   - {fileID: 11400000, guid: 73847bdf7fd6ba96109babf358df6197, type: 2}
-  - {fileID: 11400000, guid: eb884465c9a9438389e011e6082a26ea, type: 2}
+  battlePrefab: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: 8e975b4a95589446aad5040402283e49, type: 2}
   changeCooldownTurns: 0
   disallowConsecutiveChange: 1
   applyInertia: 1
