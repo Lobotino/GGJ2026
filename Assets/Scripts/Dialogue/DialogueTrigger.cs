@@ -19,6 +19,10 @@ public class ConditionalDialogue
     public DialoguePostAction postAction;
     [Tooltip("Flag to set after this dialogue completes")]
     public string setFlagOnComplete;
+    [Tooltip("Flag to set when the player wins the battle")]
+    public string setFlagOnWin;
+    [Tooltip("Flag to set when the player loses the battle")]
+    public string setFlagOnLose;
     [Tooltip("Disable this trigger after this dialogue completes")]
     public bool disableAfter;
 }
@@ -53,6 +57,10 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Flags")]
     [Tooltip("Flag to set after this dialogue completes")]
     [SerializeField] string setFlagOnComplete;
+    [Tooltip("Flag to set when the player wins the battle")]
+    [SerializeField] string setFlagOnWin;
+    [Tooltip("Flag to set when the player loses the battle")]
+    [SerializeField] string setFlagOnLose;
 
     [Header("Custom Action")]
     [SerializeField] UnityEvent onDialogueComplete;
@@ -81,6 +89,8 @@ public class DialogueTrigger : MonoBehaviour
         DialogueData data = dialogueData;
         DialoguePostAction action = postAction;
         string flagToSet = setFlagOnComplete;
+        string flagOnWin = setFlagOnWin;
+        string flagOnLose = setFlagOnLose;
         bool disableAfterThis = disableAfterDefault;
 
         if (conditionalDialogues != null)
@@ -93,6 +103,8 @@ public class DialogueTrigger : MonoBehaviour
                     data = cd.dialogueData;
                     action = cd.postAction;
                     flagToSet = cd.setFlagOnComplete;
+                    flagOnWin = cd.setFlagOnWin;
+                    flagOnLose = cd.setFlagOnLose;
                     disableAfterThis = cd.disableAfter;
                     break;
                 }
@@ -103,17 +115,19 @@ public class DialogueTrigger : MonoBehaviour
 
         var playerMovement = other.GetComponent<PlayerMovement2D>();
         string capturedFlag = flagToSet;
+        string capturedFlagOnWin = flagOnWin;
+        string capturedFlagOnLose = flagOnLose;
         bool capturedDisable = disableAfterThis;
 
         DialogueManager.Instance.StartDialogue(data, playerMovement, () =>
         {
             if (capturedDisable)
                 disabled = true;
-            ExecutePostAction(action, capturedFlag, other);
+            ExecutePostAction(action, capturedFlag, capturedFlagOnWin, capturedFlagOnLose, other);
         });
     }
 
-    void ExecutePostAction(DialoguePostAction action, string flagToSet, Collider2D player)
+    void ExecutePostAction(DialoguePostAction action, string flagToSet, string flagOnWin, string flagOnLose, Collider2D player)
     {
         if (!string.IsNullOrEmpty(flagToSet))
             DialogueFlags.SetFlag(flagToSet);
@@ -157,9 +171,18 @@ public class DialogueTrigger : MonoBehaviour
                     MaskType pMask = playerMask != null ? playerMask.CurrentMask : MaskType.None;
                     MaskType nMask = npcMask != null ? npcMask.CurrentMask : MaskType.None;
                     var playerMovement = player.GetComponent<PlayerMovement2D>();
+                    string capturedWin = flagOnWin;
+                    string capturedLose = flagOnLose;
                     btm.StartBattle(pMask, nMask, playerMovement, profile, pComp, eComp,
                         pBattlePrefab, eBattlePrefab, pCompPrefab, eCompPrefab,
-                        playerAvailableMasks, enemyProfileOverride);
+                        playerAvailableMasks, enemyProfileOverride,
+                        onBattleComplete: (playerWon) =>
+                        {
+                            if (playerWon && !string.IsNullOrEmpty(capturedWin))
+                                DialogueFlags.SetFlag(capturedWin);
+                            if (!playerWon && !string.IsNullOrEmpty(capturedLose))
+                                DialogueFlags.SetFlag(capturedLose);
+                        });
                 }
                 break;
 

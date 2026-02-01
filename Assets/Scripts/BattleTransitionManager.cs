@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -19,21 +20,24 @@ public class BattleTransitionManager : MonoBehaviour
         GameObject playerBattlePrefab = null, GameObject enemyBattlePrefab = null,
         GameObject playerCompanionPrefab = null, GameObject enemyCompanionPrefab = null,
         MaskType[] playerAvailableMasks = null,
-        FighterProfile enemyProfileOverride = null)
+        FighterProfile enemyProfileOverride = null,
+        Action<bool> onBattleComplete = null)
     {
         if (inBattle) return;
         StartCoroutine(BattleSequence(playerMask, enemyMask, playerMovement, enemyAIProfile,
             playerCompanionMask, enemyCompanionMask,
             playerBattlePrefab, enemyBattlePrefab,
             playerCompanionPrefab, enemyCompanionPrefab,
-            playerAvailableMasks, enemyProfileOverride));
+            playerAvailableMasks, enemyProfileOverride,
+            onBattleComplete));
     }
 
     IEnumerator BattleSequence(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
         MaskType playerCompanionMask, MaskType enemyCompanionMask,
         GameObject playerBattlePrefab, GameObject enemyBattlePrefab,
         GameObject playerCompanionPrefab, GameObject enemyCompanionPrefab,
-        MaskType[] playerAvailableMasks, FighterProfile enemyProfileOverride)
+        MaskType[] playerAvailableMasks, FighterProfile enemyProfileOverride,
+        Action<bool> onBattleComplete)
     {
         inBattle = true;
 
@@ -113,6 +117,10 @@ public class BattleTransitionManager : MonoBehaviour
             playerMovement.enabled = true;
 
         inBattle = false;
+
+        bool playerWon = battleController != null && !battleController.PlayerLost;
+        onBattleComplete?.Invoke(playerWon);
+
         Debug.Log("[Battle] Done.");
     }
 }

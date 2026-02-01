@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FighterProfile
   displayName: "\u0412\u043E\u0440\u043E\u043D-\u0440\u044B\u0446\u0430\u0440\u044C"
   baseStats:
-    HP: 20
+    HP: 14
     MP: 10
-    ATK: 11
+    ATK: 9
     DEF: 8
     MAG: 9
     RES: 9
@@ -25,4 +25,3 @@ MonoBehaviour:
   availableMasks:
   - {fileID: 11400000, guid: 6a7d02d396744a44a737a36a383e6759, type: 2}
   - {fileID: 11400000, guid: 38d7664082a4e2d07a01a31c7d7fe5b9, type: 2}
-  - {fileID: 11400000, guid: 4557f4aa292749569e9a2a72848a967d, type: 2}

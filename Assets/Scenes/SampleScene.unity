@@ -400,17 +400,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 725944110769295761, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2415466183373942620, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: m_Name
       value: NPC Tulpan Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2601105383572139448, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.6
+      value: -20.64
       objectReference: {fileID: 0}
     - target: {fileID: 2601105383572139448, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -34.39
+      value: -34.66
       objectReference: {fileID: 0}
     - target: {fileID: 2601105383572139448, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: m_LocalPosition.z
@@ -449,9 +453,49 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1506877338}
     - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: setFlagOnWin
+      value: tulpan_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: setFlagOnLose
+      value: tulpan_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: setFlagOnComplete
+      value: tulpan_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: disableAfterDefault
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
       propertyPath: battleTransitionManager
       value: 
       objectReference: {fileID: 1506877338}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].requiredFlag
+      value: tulpan_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
+      value: tulpan_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 6327891261858450938, guid: 88442d89da639418a95b455530ba3318, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: tulpan_win
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -465,6 +509,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2786886435300211175, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3159622560650721164, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.55
@@ -510,9 +558,49 @@ PrefabInstance:
       value: NPC Crystal Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: setFlagOnWin
+      value: crystal_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: setFlagOnLose
+      value: crystal_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: setFlagOnComplete
+      value: crystal_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: disableAfterDefault
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: battleTransitionManager
       value: 
       objectReference: {fileID: 1506877338}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].requiredFlag
+      value: crystal_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
+      value: crystal_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 7498006904131005703, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: crystal_win
+      objectReference: {fileID: 0}
     - target: {fileID: 7818550397998465449, guid: 1b4bfc717f43f4a2c9b58e65f0d7dd41, type: 3}
       propertyPath: battleTransitionManager
       value: 
@@ -533,6 +621,7 @@ GameObject:
   - component: {fileID: 16898850}
   - component: {fileID: 16898851}
   - component: {fileID: 16898852}
+  - component: {fileID: 16898853}
   m_Layer: 0
   m_Name: vator_0
   m_TagString: Untagged
@@ -627,9 +716,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueTrigger
   dialogueData: {fileID: 11400000, guid: b2fe00bccd2aa4927aa9ac66f974c8a5, type: 2}
-  disableAfterDefault: 0
+  disableAfterDefault: 1
   postAction: 0
-  conditionalDialogues: []
+  conditionalDialogues:
+  - requiredFlag: robot_dead
+    dialogueData: {fileID: 11400000, guid: f285315600efd437ea896e3c197bc984, type: 2}
+    postAction: 0
+    setFlagOnComplete: 
+    setFlagOnWin: 
+    setFlagOnLose: 
+    disableAfter: 1
   battleTransitionManager: {fileID: 0}
   aiProfile: {fileID: 0}
   playerBattlePrefab: {fileID: 0}
@@ -641,9 +737,47 @@ MonoBehaviour:
   objectsToActivate: []
   objectsToDeactivate: []
   setFlagOnComplete: 
+  setFlagOnWin: 
+  setFlagOnLose: 
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
+--- !u!58 &16898853
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16898849}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -2.42}
+  m_Radius: 1.4457358
 --- !u!1 &17782928
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,9 +5060,49 @@ PrefabInstance:
       value: NPC Robot Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: setFlagOnWin
+      value: robot_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: setFlagOnLose
+      value: robot_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: setFlagOnComplete
+      value: robot_met
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: disableAfterDefault
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: battleTransitionManager
       value: 
       objectReference: {fileID: 1506877338}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].postAction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].dialogueData
+      value: 
+      objectReference: {fileID: 11400000, guid: 26b5ebf17d8dd47f3834aa8d12670907, type: 2}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].requiredFlag
+      value: robot_win
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnWin
+      value: robot_dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 5365292787441459772, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
+      propertyPath: conditionalDialogues.Array.data[0].setFlagOnLose
+      value: robot_win
+      objectReference: {fileID: 0}
     - target: {fileID: 6137700985771611923, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.74
@@ -4971,7 +5145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6366197681923185016, guid: 61cd825796dd2423a88997789b27ba13, type: 3}
       propertyPath: m_FlipX
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6727,6 +6901,8 @@ MonoBehaviour:
   objectsToActivate: []
   objectsToDeactivate: []
   setFlagOnComplete: 
+  setFlagOnWin: 
+  setFlagOnLose: 
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -19855,11 +20031,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6093193911117016314, guid: 86fb78b0e794149eca266f9178c71850, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.26
+      value: 3.08
       objectReference: {fileID: 0}
     - target: {fileID: 6093193911117016314, guid: 86fb78b0e794149eca266f9178c71850, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.9
+      value: -16.49
       objectReference: {fileID: 0}
     - target: {fileID: 6093193911117016314, guid: 86fb78b0e794149eca266f9178c71850, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34832,6 +35008,8 @@ MonoBehaviour:
     dialogueData: {fileID: 11400000, guid: 1227dedf764ce455e87e1893c424df80, type: 2}
     postAction: 0
     setFlagOnComplete: 
+    setFlagOnWin: 
+    setFlagOnLose: 
     disableAfter: 1
   battleTransitionManager: {fileID: 0}
   aiProfile: {fileID: 0}
@@ -34844,6 +35022,8 @@ MonoBehaviour:
   objectsToActivate: []
   objectsToDeactivate: []
   setFlagOnComplete: 
+  setFlagOnWin: 
+  setFlagOnLose: 
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
@@ -37650,6 +37830,8 @@ MonoBehaviour:
   objectsToActivate: []
   objectsToDeactivate: []
   setFlagOnComplete: 
+  setFlagOnWin: 
+  setFlagOnLose: 
   onDialogueComplete:
     m_PersistentCalls:
       m_Calls: []
