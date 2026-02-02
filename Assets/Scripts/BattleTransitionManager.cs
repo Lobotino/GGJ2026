@@ -66,6 +66,14 @@ public class BattleTransitionManager : MonoBehaviour
         if (playerMovement != null)
             playerMovement.enabled = false;
 
+        GameObject playerObject = null;
+        bool playerWasActive = false;
+        if (playerMovement != null)
+        {
+            playerObject = playerMovement.gameObject;
+            playerWasActive = playerObject != null && playerObject.activeSelf;
+        }
+
         // Remember camera state to restore later
         Camera cam = cameraFollow.GetComponent<Camera>();
         if (cam == null) { Debug.LogError("[Battle] No Camera component on cameraFollow object!"); yield break; }
@@ -83,6 +91,10 @@ public class BattleTransitionManager : MonoBehaviour
         {
             preFadedToBlack = false;
         }
+
+        // Hide player while in battle so triggers can re-fire on return
+        if (playerObject != null && playerWasActive)
+            playerObject.SetActive(false);
 
         // Move camera to center of arena background and fit to it
         cameraFollow.enabled = false;
@@ -138,17 +150,21 @@ public class BattleTransitionManager : MonoBehaviour
             cameraFollow.transform.position.y,
             camTransform.position.z);
 
+        bool playerWon = battleController != null && !battleController.PlayerLost;
+        onBattleComplete?.Invoke(playerWon);
+
         Debug.Log("[Battle] Returning to overworld...");
         yield return screenFade.FadeOut(fadeDuration);
+
+        // Show player again after result flags are set
+        if (playerObject != null && playerWasActive)
+            playerObject.SetActive(true);
 
         // Unfreeze player
         if (playerMovement != null)
             playerMovement.enabled = true;
 
         inBattle = false;
-
-        bool playerWon = battleController != null && !battleController.PlayerLost;
-        onBattleComplete?.Invoke(playerWon);
 
         Debug.Log("[Battle] Done.");
     }

@@ -20,7 +20,11 @@ MonoBehaviour:
       \u0440\u0430\u0431\u043E\u0442\u044B \u043C\u0435\u043D\u044C\u0448\u0435 \u043D\u0435
       \u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u0441\u044F!"
     isPlayer: 1
+    rightImage: {fileID: 7895062046642514236, guid: 77f666bfcc91d4263a9ce7075f5b6b6e, type: 3}
+    imageOnLeft: 1
   - speakerName: "\u0413\u0435\u0440\u043E\u0439"
     text: "\u041F\u0440\u0438\u0448\u043B\u043E \u0432\u0440\u0435\u043C\u044F \u0432\u044B\u0431\u0438\u0442\u044C
       \u0441\u0435\u0431\u0435 \u043F\u043E\u0432\u044B\u0448\u0435\u043D\u0438\u0435!"
     isPlayer: 1
+    rightImage: {fileID: 7895062046642514236, guid: 77f666bfcc91d4263a9ce7075f5b6b6e, type: 3}
+    imageOnLeft: 1
