@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: b1c6a883563e7431eb1c104bf7b16be0
+guid: bcdff2f69fa7d7046a9f87143c7de49e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4163892790983594318
-    second: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_0"
+      213: -6714588061624207752
+    second: lamps 2_0
   - first:
-      213: -5751291723792155448
-    second: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_1"
+      213: 8016075360908695849
+    second: lamps 2_1
   - first:
-      213: 1692141908895548146
-    second: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_2"
-  - first:
-      213: -4674469921423164777
-    second: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_3"
+      213: 471464837813975185
+    second: lamps 2_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 340
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,106 +102,71 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_0"
+      name: lamps 2_0
       rect:
         serializedVersion: 2
-        x: 63
-        y: 0
-        width: 512
-        height: 644
-      alignment: 9
-      pivot: {x: 0.43437707, y: 0.5299713}
+        x: 17
+        y: 22
+        width: 118
+        height: 632
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e411361ae6e19c930800000000000000
-      internalID: 4163892790983594318
+      spriteID: 8767fcdbbbdf0d2a0800000000000000
+      internalID: -6714588061624207752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_1"
+      name: lamps 2_1
       rect:
         serializedVersion: 2
-        x: 616
-        y: 0
-        width: 529
-        height: 649
-      alignment: 9
-      pivot: {x: 0.45270225, y: 0.5264359}
+        x: 137
+        y: 311
+        width: 118
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8cc79bb16ae4f20b0800000000000000
-      internalID: -5751291723792155448
+      spriteID: 92959bbd112de3f60800000000000000
+      internalID: 8016075360908695849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_2"
+      name: lamps 2_2
       rect:
         serializedVersion: 2
-        x: 1186
-        y: 0
-        width: 534
-        height: 644
-      alignment: 9
-      pivot: {x: 0.40939936, y: 0.52946115}
+        x: 257
+        y: 311
+        width: 118
+        height: 343
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2f2454dc912bb7710800000000000000
-      internalID: 1692141908895548146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_3"
-      rect:
-        serializedVersion: 2
-        x: 1786
-        y: 0
-        width: 531
-        height: 681
-      alignment: 9
-      pivot: {x: 0.4118742, y: 0.5007809}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79af2547f52f02fb0800000000000000
-      internalID: -4674469921423164777
+      spriteID: 1983df5a5cafa8600800000000000000
+      internalID: 471464837813975185
       vertices: []
       indices: 
       edges: []
@@ -213,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bb5796eea5625454aa3442a668660b15
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_0": 4163892790983594318
-      "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_1": -5751291723792155448
-      "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_2": 1692141908895548146
-      "\u043C\u0430\u0441\u043A\u0430 \u0448\u0438\u043F_3": -4674469921423164777
+      lamps 2_0: -6714588061624207752
+      lamps 2_1: 8016075360908695849
+      lamps 2_2: 471464837813975185
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
