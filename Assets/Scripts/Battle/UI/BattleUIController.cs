@@ -1,31 +1,48 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleUIController : MonoBehaviour
 {
-    const float DebugMenuReferenceWidth = 1920f;
-    const float DebugMenuReferenceHeight = 1080f;
-
+    [Header("HUD")]
     [SerializeField] FighterHUD playerHUD;
     [SerializeField] FighterHUD enemyHUD;
-    [SerializeField] ActionMenuPanel actionMenu;
+
+    [Header("Action Buttons (scene objects)")]
+    [SerializeField] Button attackButton;
+    [SerializeField] Button defendButton;
+    [SerializeField] Button skill1Button;
+    [SerializeField] Button skill2Button;
+    [SerializeField] Button changeMaskButton;
+    [SerializeField] Button endTurnButton;
+
+    [Header("Result")]
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
-    [SerializeField, Min(8)] int debugMenuFontSize = 14;
-    [SerializeField] Font debugMenuFont;
     [SerializeField] bool showResultMessage;
 
     FighterState playerState;
     FighterState enemyState;
     BattleContext battleContext;
-    bool awaitingCommand;
-    bool showMaskList;
     bool commandReady;
     PlayerCommand pendingCommand;
-    string debugResult;
-    Vector2 debugScroll;
+
+    string attackLabel;
+    string defendLabel;
+    string skill1Label;
+    string skill2Label;
+    string changeMaskLabel;
+
+    void Awake()
+    {
+        attackLabel = GetButtonLabel(attackButton);
+        defendLabel = GetButtonLabel(defendButton);
+        skill1Label = GetButtonLabel(skill1Button);
+        skill2Label = GetButtonLabel(skill2Button);
+        changeMaskLabel = GetButtonLabel(changeMaskButton);
+    }
 
     public void Initialize(FighterState player, FighterState enemy, BattleContext context = null)
     {
@@ -34,6 +51,7 @@ public class BattleUIController : MonoBehaviour
         battleContext = context;
         if (resultPanel != null)
             resultPanel.SetActive(false);
+        HideAllButtons();
         RefreshAll();
     }
 
@@ -47,68 +65,17 @@ public class BattleUIController : MonoBehaviour
 
     public IEnumerator WaitForPlayerCommand(FighterState player, Action<PlayerCommand> onSelected)
     {
-        Debug.Log($"[BattleUI] Command UI path: {(actionMenu == null ? "OnGUI" : "ActionMenu")}");
         LogMaskChangeState(player);
-        if (actionMenu == null)
-        {
-            awaitingCommand = true;
-            showMaskList = false;
-            commandReady = false;
-            pendingCommand = default;
+        commandReady = false;
+        pendingCommand = default;
 
-            while (!commandReady)
-                yield return null;
+        ShowActionButtons(player);
 
-            awaitingCommand = false;
-            onSelected?.Invoke(pendingCommand);
-            yield break;
-        }
-
-        bool chosen = false;
-        PlayerCommand command = default;
-
-        void Choose(PlayerCommand result)
-        {
-            command = result;
-            chosen = true;
-        }
-
-        Action showActions = null;
-        showActions = () =>
-        {
-            actionMenu.ShowActions(player.CurrentMask != null ? player.CurrentMask.availableActions : null, player,
-                action => Choose(new PlayerCommand { Type = PlayerCommandType.UseAction, Action = action }),
-                () => Choose(new PlayerCommand { Type = PlayerCommandType.EndTurn }),
-                () =>
-                {
-                    LogMaskChangeState(player);
-                    bool canChange = false;
-                    foreach (var mask in player.AvailableMasks)
-                    {
-                        if (player.CanChangeMask(mask))
-                        {
-                            canChange = true;
-                            break;
-                        }
-                    }
-                    if (!canChange)
-                    {
-                        showActions();
-                        return;
-                    }
-                    actionMenu.ShowMaskOptions(player.AvailableMasks, player,
-                        mask => Choose(new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = mask }),
-                        showActions);
-                });
-        };
-
-        showActions();
-
-        while (!chosen)
+        while (!commandReady)
             yield return null;
 
-        actionMenu.Hide();
-        onSelected?.Invoke(command);
+        HideAllButtons();
+        onSelected?.Invoke(pendingCommand);
     }
 
     public void ShowResult(string message)
@@ -117,141 +84,187 @@ public class BattleUIController : MonoBehaviour
         {
             if (resultPanel != null)
                 resultPanel.SetActive(false);
-            debugResult = null;
             return;
         }
         if (resultText != null)
             resultText.text = message;
         if (resultPanel != null)
             resultPanel.SetActive(true);
-        if (resultPanel == null)
-            debugResult = message;
     }
 
-    string FormatStatuses(FighterState fighter)
+    void ShowActionButtons(FighterState player)
     {
-        if (fighter.ActiveStatuses.Count == 0)
-            return "Нет";
-        var sb = new System.Text.StringBuilder();
-        for (int i = 0; i < fighter.ActiveStatuses.Count; i++)
+        ClearAllListeners();
+        RestoreOriginalLabels();
+
+        var actions = player.CurrentMask != null ? player.CurrentMask.availableActions : null;
+
+        BattleActionData attackAction = null;
+        BattleActionData defendAction = null;
+        var skillActions = new List<BattleActionData>();
+
+        if (actions != null)
         {
-            var s = fighter.ActiveStatuses[i];
-            if (i > 0) sb.Append(", ");
-            sb.Append($"{s.Definition.statusType}({s.RemainingTurns})");
+            foreach (var action in actions)
+            {
+                if (action == null) continue;
+                if (action.category == ActionCategory.Attack && attackAction == null)
+                    attackAction = action;
+                else if (action.category == ActionCategory.Defense && defendAction == null)
+                    defendAction = action;
+                else
+                    skillActions.Add(action);
+            }
         }
-        return sb.ToString();
+
+        ConfigureActionButton(attackButton, attackAction, player);
+        ConfigureActionButton(defendButton, defendAction, player);
+        ConfigureActionButton(skill1Button, skillActions.Count > 0 ? skillActions[0] : null, player);
+        ConfigureActionButton(skill2Button, skillActions.Count > 1 ? skillActions[1] : null, player);
+
+        // Change mask — show only when there are alternative masks
+        if (changeMaskButton != null)
+        {
+            bool hasAlternatives = player.AvailableMasks != null && player.AvailableMasks.Count > 1;
+            changeMaskButton.gameObject.SetActive(hasAlternatives);
+            if (hasAlternatives)
+            {
+                bool canChangeAny = false;
+                foreach (var mask in player.AvailableMasks)
+                {
+                    if (player.CanChangeMask(mask)) { canChangeAny = true; break; }
+                }
+                changeMaskButton.interactable = canChangeAny;
+                changeMaskButton.onClick.AddListener(() =>
+                {
+                    LogMaskChangeState(player);
+                    if (!canChangeAny) return;
+                    ShowMaskSelection(player);
+                });
+            }
+        }
+
+        // End turn — always available
+        if (endTurnButton != null)
+        {
+            endTurnButton.gameObject.SetActive(true);
+            endTurnButton.interactable = true;
+            endTurnButton.onClick.AddListener(() =>
+                SelectCommand(new PlayerCommand { Type = PlayerCommandType.EndTurn }));
+        }
     }
 
-    void OnGUI()
+    void ShowMaskSelection(FighterState player)
     {
-        if (playerState == null || enemyState == null)
+        ClearAllListeners();
+
+        var masks = player.AvailableMasks;
+        Button[] slots = { attackButton, defendButton, skill1Button, skill2Button };
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] == null) continue;
+
+            if (i < masks.Count)
+            {
+                var mask = masks[i];
+                slots[i].gameObject.SetActive(true);
+                slots[i].interactable = player.CanChangeMask(mask);
+                SetButtonLabel(slots[i],
+                    !string.IsNullOrEmpty(mask.displayName) ? mask.displayName : mask.maskType.ToString());
+                var captured = mask;
+                slots[i].onClick.AddListener(() =>
+                    SelectCommand(new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = captured }));
+            }
+            else
+            {
+                slots[i].gameObject.SetActive(false);
+            }
+        }
+
+        // Mask button becomes "Back"
+        if (changeMaskButton != null)
+        {
+            changeMaskButton.gameObject.SetActive(true);
+            changeMaskButton.interactable = true;
+            SetButtonLabel(changeMaskButton, "Назад");
+            changeMaskButton.onClick.AddListener(() => ShowActionButtons(player));
+        }
+
+        // End turn stays
+        if (endTurnButton != null)
+        {
+            endTurnButton.gameObject.SetActive(true);
+            endTurnButton.interactable = true;
+            endTurnButton.onClick.AddListener(() =>
+                SelectCommand(new PlayerCommand { Type = PlayerCommandType.EndTurn }));
+        }
+    }
+
+    void ConfigureActionButton(Button button, BattleActionData action, FighterState player)
+    {
+        if (button == null) return;
+        if (action == null)
+        {
+            button.gameObject.SetActive(false);
             return;
-
-        float scale = Mathf.Min(Screen.width / DebugMenuReferenceWidth, Screen.height / DebugMenuReferenceHeight);
-        if (scale < 1f) scale = 1f;
-        scale *= 1.1f;
-
-        int fontSize = Mathf.Max(8, Mathf.RoundToInt(debugMenuFontSize * scale));
-        GUIStyle labelStyle = new GUIStyle(GUI.skin.label) { fontSize = fontSize, richText = true };
-        GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = fontSize };
-        GUIStyle boxStyle = new GUIStyle(GUI.skin.box) { fontSize = fontSize };
-        if (debugMenuFont != null)
-        {
-            labelStyle.font = debugMenuFont;
-            buttonStyle.font = debugMenuFont;
-            boxStyle.font = debugMenuFont;
         }
+        button.gameObject.SetActive(true);
+        button.interactable = player.CanUseAction(action);
+        var captured = action;
+        button.onClick.AddListener(() =>
+            SelectCommand(new PlayerCommand { Type = PlayerCommandType.UseAction, Action = captured }));
+    }
 
-        if (!awaitingCommand && !string.IsNullOrEmpty(debugResult))
-        {
-            float margin = 10f * scale;
-            Rect resultRect = new Rect(margin, margin, 200f * scale, 60f * scale);
-            GUI.Box(resultRect, debugResult, boxStyle);
-            return;
-        }
+    void SelectCommand(PlayerCommand command)
+    {
+        RestoreOriginalLabels();
+        pendingCommand = command;
+        commandReady = true;
+    }
 
-        if (!awaitingCommand)
-            return;
+    void RestoreOriginalLabels()
+    {
+        SetButtonLabel(attackButton, attackLabel);
+        SetButtonLabel(defendButton, defendLabel);
+        SetButtonLabel(skill1Button, skill1Label);
+        SetButtonLabel(skill2Button, skill2Label);
+        SetButtonLabel(changeMaskButton, changeMaskLabel);
+    }
 
-        float width = 340f * scale;
-        float height = 520f * scale;
-        float marginLeft = 10f * scale;
-        float marginTop = 10f * scale;
-        Rect panel = new Rect(marginLeft, marginTop, width, height);
-        GUILayout.BeginArea(panel, GUI.skin.box);
+    void ClearAllListeners()
+    {
+        if (attackButton) attackButton.onClick.RemoveAllListeners();
+        if (defendButton) defendButton.onClick.RemoveAllListeners();
+        if (skill1Button) skill1Button.onClick.RemoveAllListeners();
+        if (skill2Button) skill2Button.onClick.RemoveAllListeners();
+        if (changeMaskButton) changeMaskButton.onClick.RemoveAllListeners();
+        if (endTurnButton) endTurnButton.onClick.RemoveAllListeners();
+    }
 
-        GUILayout.Label(
-            $"Игрок: <color=#FF4D4D>Здоровье {playerState.CurrentHP}/{playerState.MaxHP}</color>  <color=#4DA6FF>Мана {playerState.CurrentMP}/{playerState.MaxMP}</color>",
-            labelStyle);
-        GUILayout.Label($"<color=#FFD84D>ОД {playerState.CurrentAP}</color>", labelStyle);
-        GUILayout.Label($"Статусы: {FormatStatuses(playerState)}", labelStyle);
-        GUILayout.Space(4f * scale);
-        GUILayout.Label(
-            $"Враг: <color=#FF4D4D>Здоровье {enemyState.CurrentHP}/{enemyState.MaxHP}</color>  <color=#4DA6FF>Мана {enemyState.CurrentMP}/{enemyState.MaxMP}</color>",
-            labelStyle);
-        GUILayout.Label($"Статусы: {FormatStatuses(enemyState)}", labelStyle);
+    void HideAllButtons()
+    {
+        ClearAllListeners();
+        if (attackButton) attackButton.gameObject.SetActive(false);
+        if (defendButton) defendButton.gameObject.SetActive(false);
+        if (skill1Button) skill1Button.gameObject.SetActive(false);
+        if (skill2Button) skill2Button.gameObject.SetActive(false);
+        if (changeMaskButton) changeMaskButton.gameObject.SetActive(false);
+        if (endTurnButton) endTurnButton.gameObject.SetActive(false);
+    }
 
-        GUILayout.Space(8f * scale);
-        float listHeight = 160f * scale;
-        if (!showMaskList)
-        {
-            debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
-            if (playerState.CurrentMask != null && playerState.CurrentMask.availableActions != null)
-            {
-                foreach (var action in playerState.CurrentMask.availableActions)
-                {
-                    if (action == null) continue;
-                    GUI.enabled = playerState.CanUseAction(action);
-                    string label = action.actionName;
-                    string details = $"ОД {action.apCost}";
-                    if (action.mpCost > 0) details += $" / МП {action.mpCost}";
-                    if (action.basePower > 0 && !action.isHealing) details += $" / Урон {action.basePower}";
-                    if (action.basePower > 0 && action.isHealing) details += $" / Лечение {action.basePower}";
-                    if (action.statusToApply != null) details += $" / {action.statusToApply.statusType}";
-                    if (GUILayout.Button($"{label} ({details})", buttonStyle))
-                    {
-                        pendingCommand = new PlayerCommand { Type = PlayerCommandType.UseAction, Action = action };
-                        commandReady = true;
-                    }
-                    GUI.enabled = true;
-                }
-            }
-            GUILayout.EndScrollView();
+    static string GetButtonLabel(Button btn)
+    {
+        if (btn == null) return null;
+        var t = btn.GetComponentInChildren<Text>();
+        return t != null ? t.text : null;
+    }
 
-            GUILayout.Space(4f * scale);
-            if (GUILayout.Button("Сменить маску", buttonStyle))
-            {
-                LogMaskChangeState(playerState);
-                showMaskList = true;
-                debugScroll = Vector2.zero;
-            }
-            if (GUILayout.Button("Конец хода", buttonStyle))
-            {
-                pendingCommand = new PlayerCommand { Type = PlayerCommandType.EndTurn };
-                commandReady = true;
-            }
-        }
-        else
-        {
-            GUILayout.Label("Выбор маски:", labelStyle);
-            debugScroll = GUILayout.BeginScrollView(debugScroll, GUILayout.Height(listHeight));
-            foreach (var mask in playerState.AvailableMasks)
-            {
-                if (mask == null) continue;
-                GUI.enabled = playerState.CanChangeMask(mask);
-                if (GUILayout.Button($"{mask.displayName} (ОД 2)", buttonStyle))
-                {
-                    pendingCommand = new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = mask };
-                    commandReady = true;
-                }
-                GUI.enabled = true;
-            }
-            GUILayout.EndScrollView();
-            if (GUILayout.Button("Назад", buttonStyle))
-                showMaskList = false;
-        }
-
-        GUILayout.EndArea();
+    static void SetButtonLabel(Button btn, string label)
+    {
+        if (btn == null || label == null) return;
+        var t = btn.GetComponentInChildren<Text>();
+        if (t != null) t.text = label;
     }
 
     void LogMaskChangeState(FighterState player)
