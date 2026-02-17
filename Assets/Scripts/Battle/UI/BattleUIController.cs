@@ -23,6 +23,11 @@ public class BattleUIController : MonoBehaviour
     [SerializeField] Button changeMaskButton;
     [SerializeField] Button endTurnButton;
 
+    [Header("Action Points (3 icons)")]
+    [SerializeField] GameObject apIcon1;
+    [SerializeField] GameObject apIcon2;
+    [SerializeField] GameObject apIcon3;
+
     [Header("Result")]
     [SerializeField] GameObject resultPanel;
     [SerializeField] Text resultText;
@@ -76,6 +81,16 @@ public class BattleUIController : MonoBehaviour
         }
         if (enemyState != null && enemyHPBar != null)
             enemyHPBar.fillAmount = enemyState.MaxHP > 0 ? (float)enemyState.CurrentHP / enemyState.MaxHP : 0f;
+
+        RefreshAPIcons();
+    }
+
+    void RefreshAPIcons()
+    {
+        int ap = playerState != null ? playerState.CurrentAP : 0;
+        if (apIcon1 != null) apIcon1.SetActive(ap >= 1);
+        if (apIcon2 != null) apIcon2.SetActive(ap >= 2);
+        if (apIcon3 != null) apIcon3.SetActive(ap >= 3);
     }
 
     public IEnumerator WaitForPlayerCommand(FighterState player, Action<PlayerCommand> onSelected)

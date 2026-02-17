@@ -10417,6 +10417,8 @@ MonoBehaviour:
   battleArena: {fileID: 1683882568}
   maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
   baseApPerTurn: 3
+  gameCamera: {fileID: 519420028}
+  battleCamera: {fileID: 745578707}
 --- !u!1 &497877669
 GameObject:
   m_ObjectHideFlags: 0
@@ -31659,7 +31661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518345820}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6438ec5c69ea78748bd03c43d037cf6f, type: 3}
   m_Name: 
@@ -31700,6 +31702,9 @@ MonoBehaviour:
   skill2Button: {fileID: 1232106424}
   changeMaskButton: {fileID: 13224696}
   endTurnButton: {fileID: 2075845653}
+  apIcon1: {fileID: 1300683201}
+  apIcon2: {fileID: 1952170337}
+  apIcon3: {fileID: 1767411853}
   resultPanel: {fileID: 0}
   resultText: {fileID: 0}
   showResultMessage: 0

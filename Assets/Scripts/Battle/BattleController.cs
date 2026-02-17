@@ -8,6 +8,8 @@ public class BattleController : MonoBehaviour
     [SerializeField] BattleArena battleArena;
     [SerializeField] MaskData maskData;
     [SerializeField] int baseApPerTurn = 3;
+    [SerializeField] GameObject gameCamera;
+    [SerializeField] GameObject battleCamera;
 
     FighterState playerState;
     FighterState enemyState;
@@ -22,6 +24,7 @@ public class BattleController : MonoBehaviour
     {
         battleActive = true;
         PlayerLost = false;
+        SetCameraBattle(true);
         var playerProfile = maskData != null ? maskData.GetFighterProfile(MaskType.Base) : null;
         var enemyProfile = enemyProfileOverride != null
             ? enemyProfileOverride
@@ -100,6 +103,7 @@ public class BattleController : MonoBehaviour
         if (uiController != null)
             uiController.ShowResult(playerState.IsAlive ? "Победа" : "Поражение");
 
+        SetCameraBattle(false);
         battleActive = false;
     }
 
@@ -123,6 +127,14 @@ public class BattleController : MonoBehaviour
             battleContext.EnemyCheatNextAttack = true;
             Debug.Log("[Battle] Cheat enabled: next enemy attack deals 100 damage.");
         }
+    }
+
+    void SetCameraBattle(bool inBattle)
+    {
+        if (gameCamera != null)
+            gameCamera.SetActive(!inBattle);
+        if (battleCamera != null)
+            battleCamera.SetActive(inBattle);
     }
 
     IEnumerator RunTurn(FighterState actor, FighterState target, bool isPlayer, AIProfile aiProfile)
