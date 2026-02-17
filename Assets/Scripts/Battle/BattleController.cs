@@ -192,6 +192,8 @@ public class BattleController : MonoBehaviour
                         actor.ApplyInertia(command.Mask);
                         if (battleArena != null)
                             battleArena.SwapFighterSprite(true, command.Mask);
+                        if (uiController != null)
+                            uiController.RefreshAll();
                     }
                     else
                     {
@@ -208,6 +210,8 @@ public class BattleController : MonoBehaviour
                         int targetHpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, command.Action, battleContext);
                         yield return PlayReturnAndHit(actor, actionTarget, actorHpBefore, targetHpBefore);
+                        if (uiController != null)
+                            uiController.RefreshAll();
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
@@ -230,6 +234,8 @@ public class BattleController : MonoBehaviour
                         actor.ApplyInertia(aiCommand.Mask);
                         if (battleArena != null)
                             battleArena.SwapFighterSprite(false, aiCommand.Mask);
+                        if (uiController != null)
+                            uiController.RefreshAll();
                     }
                     else
                     {
@@ -246,6 +252,8 @@ public class BattleController : MonoBehaviour
                         int targetHpBefore = actionTarget.CurrentHP;
                         ActionExecutor.ExecuteAction(actor, actionTarget, aiCommand.Action, battleContext);
                         yield return PlayReturnAndHit(actor, actionTarget, actorHpBefore, targetHpBefore);
+                        if (uiController != null)
+                            uiController.RefreshAll();
                         if (!target.IsAlive)
                             yield return PlayAnimation(target, "Die");
                     }
