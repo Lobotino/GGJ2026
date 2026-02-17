@@ -10,6 +10,11 @@ public class BattleUIController : MonoBehaviour
     [SerializeField] FighterHUD playerHUD;
     [SerializeField] FighterHUD enemyHUD;
 
+    [Header("Bars (Image.fillAmount 0-1)")]
+    [SerializeField] Image playerHPBar;
+    [SerializeField] Image enemyHPBar;
+    [SerializeField] Image playerMPBar;
+
     [Header("Action Buttons (scene objects)")]
     [SerializeField] Button attackButton;
     [SerializeField] Button defendButton;
@@ -61,6 +66,16 @@ public class BattleUIController : MonoBehaviour
             playerHUD.Refresh(playerState, playerState.Profile != null ? playerState.Profile.displayName : "Игрок");
         if (enemyHUD != null && enemyState != null)
             enemyHUD.Refresh(enemyState, enemyState.Profile != null ? enemyState.Profile.displayName : "Враг");
+
+        if (playerState != null)
+        {
+            if (playerHPBar != null)
+                playerHPBar.fillAmount = playerState.MaxHP > 0 ? (float)playerState.CurrentHP / playerState.MaxHP : 0f;
+            if (playerMPBar != null)
+                playerMPBar.fillAmount = playerState.MaxMP > 0 ? (float)playerState.CurrentMP / playerState.MaxMP : 0f;
+        }
+        if (enemyState != null && enemyHPBar != null)
+            enemyHPBar.fillAmount = enemyState.MaxHP > 0 ? (float)enemyState.CurrentHP / enemyState.MaxHP : 0f;
     }
 
     public IEnumerator WaitForPlayerCommand(FighterState player, Action<PlayerCommand> onSelected)

@@ -12,6 +12,9 @@ public class BattleTransitionManager : MonoBehaviour
     [SerializeField] float fadeDuration = 0.3f;
     [SerializeField] float fadeHoldDuration = 0.15f;
     [SerializeField] float battleDisplayDuration = 2f;
+    [Header("Cameras")]
+    [SerializeField] Camera mainCamera;
+    [SerializeField] Camera battleCamera;
     [Header("Battle Intro Image")]
     [Tooltip("Optional full-screen image shown after fade-in/out, before battle starts.")]
     [SerializeField] Image battleIntroImage;
@@ -28,6 +31,8 @@ public class BattleTransitionManager : MonoBehaviour
     {
         if (battleIntroImage != null)
             battleIntroImage.enabled = false;
+        if (battleCamera != null)
+            battleCamera.gameObject.SetActive(false);
     }
 
     public void StartBattle(MaskType playerMask, MaskType enemyMask, PlayerMovement2D playerMovement, AIProfile enemyAIProfile,
@@ -96,6 +101,13 @@ public class BattleTransitionManager : MonoBehaviour
         if (playerObject != null && playerWasActive)
             playerObject.SetActive(false);
 
+        // Switch cameras: disable main, enable battle
+        if (mainCamera != null && battleCamera != null)
+        {
+            mainCamera.gameObject.SetActive(false);
+            battleCamera.gameObject.SetActive(true);
+        }
+
         // Move camera to center of arena background and fit to it
         cameraFollow.enabled = false;
         Vector3 arenaCenter = battleArena.GetCenter();
@@ -132,6 +144,13 @@ public class BattleTransitionManager : MonoBehaviour
 
         // Remove spawned arena characters
         battleArena.Cleanup();
+
+        // Switch cameras back: disable battle, enable main
+        if (mainCamera != null && battleCamera != null)
+        {
+            battleCamera.gameObject.SetActive(false);
+            mainCamera.gameObject.SetActive(true);
+        }
 
         // Handle death: teleport player to respawn point while screen is still black
         bool playerDied = battleController != null && battleController.PlayerLost;

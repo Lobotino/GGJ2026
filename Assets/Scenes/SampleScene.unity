@@ -4542,6 +4542,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!4 &175675873 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1271424880276443860, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+  m_PrefabInstance: {fileID: 1050204216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &186452367
 GameObject:
   m_ObjectHideFlags: 0
@@ -10408,7 +10413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022233cb7f84e4dd19bae08ff3ccd834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleController
-  uiController: {fileID: 954195581}
+  uiController: {fileID: 1518345827}
   battleArena: {fileID: 1683882568}
   maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
   baseApPerTurn: 3
@@ -15724,7 +15729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!20 &745578708
 Camera:
   m_ObjectHideFlags: 0
@@ -15837,7 +15842,7 @@ Transform:
   m_GameObject: {fileID: 745578707}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -75, y: -19.66, z: -10}
+  m_LocalPosition: {x: -86.6, y: -19.66, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20096,26 +20101,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &954195581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1506877337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dbf2693f24d41ad8e1104733ca0743, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
-  playerHUD: {fileID: 0}
-  enemyHUD: {fileID: 0}
-  actionMenu: {fileID: 0}
-  resultPanel: {fileID: 0}
-  resultText: {fileID: 0}
-  debugMenuFontSize: 18
-  debugMenuFont: {fileID: 12800000, guid: 790de308b6dbc4c258e4041f8065ba2c, type: 3}
-  showResultMessage: 0
 --- !u!1001 &957074542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21714,19 +21699,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1518345825}
     m_Modifications:
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -107.482
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -19.247108
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: -4496.387
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21734,15 +21719,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -21756,17 +21741,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5089663181319466763, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 4280154756298482466, guid: 897ee26f628154755be2f8d1d64e27ba, type: 3}
-    - target: {fileID: 5089663181319466763, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 5931822669569791217, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
       propertyPath: m_Name
-      value: BattleScene 1
+      value: BattleArenaController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569761669263986129, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+      propertyPath: background
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25184,6 +25165,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!4 &1203558477 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2673031411247269300, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+  m_PrefabInstance: {fileID: 1050204216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1207668160
 GameObject:
   m_ObjectHideFlags: 0
@@ -27849,6 +27835,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!4 &1328035027 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8415673309992822838, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+  m_PrefabInstance: {fileID: 1050204216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1329299286
 GameObject:
   m_ObjectHideFlags: 0
@@ -31325,7 +31316,6 @@ GameObject:
   - component: {fileID: 1506877339}
   - component: {fileID: 1506877338}
   - component: {fileID: 497515959}
-  - component: {fileID: 954195581}
   m_Layer: 5
   m_Name: BattleCanvas
   m_TagString: Untagged
@@ -31352,6 +31342,8 @@ MonoBehaviour:
   fadeDuration: 0.6
   fadeHoldDuration: 3
   battleDisplayDuration: 5
+  mainCamera: {fileID: 0}
+  battleCamera: {fileID: 0}
   battleIntroImage: {fileID: 742601290}
   battleIntroImageDuration: 2
   battleIntroSlideDuration: 0.6
@@ -31543,38 +31535,15 @@ GameObject:
   - component: {fileID: 1518345824}
   - component: {fileID: 1518345823}
   - component: {fileID: 1518345822}
-  - component: {fileID: 1518345821}
   - component: {fileID: 1518345826}
+  - component: {fileID: 1518345827}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: BattleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1518345821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1518345820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e68418ab023545709207e3d6606cf63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BattleArena
-  playerSlot: {fileID: 28455980}
-  enemySlot: {fileID: 1536861179}
-  playerCompanionSlot: {fileID: 211710983}
-  enemyCompanionSlot: {fileID: 1230904814}
-  background: {fileID: 0}
-  maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
-  defaultPlayerBattlePrefab: {fileID: 0}
-  defaultEnemyBattlePrefab: {fileID: 0}
-  defaultPlayerCompanionPrefab: {fileID: 0}
-  defaultEnemyCompanionPrefab: {fileID: 0}
-  companionScale: 0.6
 --- !u!114 &1518345822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31650,6 +31619,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1683882570}
   - {fileID: 1766724390}
   - {fileID: 107440167}
   - {fileID: 1291098465}
@@ -31699,14 +31669,40 @@ MonoBehaviour:
   MpBarFull: {fileID: 510146854}
   MpBarWhite: {fileID: 2088610147}
   EnemyHpBarFull: {fileID: 1574114588}
-  Attack: {fileID: 0}
-  Defend: {fileID: 0}
-  Skill: {fileID: 0}
-  Skill2: {fileID: 0}
-  Maski: {fileID: 0}
+  Attack: {fileID: 122788434}
+  Defend: {fileID: 1728830951}
+  Skill: {fileID: 908261566}
+  Skill2: {fileID: 1232106424}
+  Maski: {fileID: 13224696}
   maxHealth: 300
   smoothspeed: 3
   delay: 0.5
+--- !u!114 &1518345827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1518345820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11dbf2693f24d41ad8e1104733ca0743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleUIController
+  playerHUD: {fileID: 0}
+  enemyHUD: {fileID: 0}
+  playerHPBar: {fileID: 1657799918}
+  enemyHPBar: {fileID: 1574114588}
+  playerMPBar: {fileID: 510146854}
+  attackButton: {fileID: 122788434}
+  defendButton: {fileID: 1728830951}
+  skill1Button: {fileID: 908261566}
+  skill2Button: {fileID: 1232106424}
+  changeMaskButton: {fileID: 13224696}
+  endTurnButton: {fileID: 2075845653}
+  resultPanel: {fileID: 0}
+  resultText: {fileID: 0}
+  showResultMessage: 0
 --- !u!1 &1520210695
 GameObject:
   m_ObjectHideFlags: 0
@@ -40086,6 +40082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e68418ab023545709207e3d6606cf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleArena
+--- !u!4 &1683882570 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3247463143822623790, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+  m_PrefabInstance: {fileID: 1050204216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1688124237
 GameObject:
   m_ObjectHideFlags: 0
@@ -55262,6 +55263,7 @@ GameObject:
   - component: {fileID: 1766724390}
   - component: {fileID: 1766724392}
   - component: {fileID: 1766724391}
+  - component: {fileID: 1766724393}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -55326,6 +55328,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1766724389}
   m_CullTransparentMesh: 1
+--- !u!114 &1766724393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1766724389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e68418ab023545709207e3d6606cf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleArena
+  playerSlot: {fileID: 2076260596}
+  enemySlot: {fileID: 175675873}
+  playerCompanionSlot: {fileID: 1203558477}
+  enemyCompanionSlot: {fileID: 1328035027}
+  background: {fileID: 0}
+  maskData: {fileID: 11400000, guid: da55f26a5e953462389894ddfa97ed57, type: 2}
+  defaultPlayerBattlePrefab: {fileID: 0}
+  defaultEnemyBattlePrefab: {fileID: 0}
+  defaultPlayerCompanionPrefab: {fileID: 0}
+  defaultEnemyCompanionPrefab: {fileID: 0}
+  companionScale: 1
 --- !u!1 &1767411853
 GameObject:
   m_ObjectHideFlags: 0
@@ -61429,6 +61454,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075845651}
   m_CullTransparentMesh: 1
+--- !u!4 &2076260596 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8807510534721241401, guid: 1a1e48638c739470f9278333ba25d8e3, type: 3}
+  m_PrefabInstance: {fileID: 1050204216}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2076555484
 GameObject:
   m_ObjectHideFlags: 0
@@ -63033,7 +63063,6 @@ SceneRoots:
   - {fileID: 1080975963}
   - {fileID: 10338250}
   - {fileID: 244616117}
-  - {fileID: 1050204216}
   - {fileID: 341234092}
   - {fileID: 1730807951}
   - {fileID: 745578711}
