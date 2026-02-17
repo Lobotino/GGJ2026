@@ -39,6 +39,12 @@ public class BattleUIController : MonoBehaviour
     bool commandReady;
     PlayerCommand pendingCommand;
 
+    Text attackText;
+    Text defendText;
+    Text skill1Text;
+    Text skill2Text;
+    Text changeMaskText;
+
     string attackLabel;
     string defendLabel;
     string skill1Label;
@@ -47,11 +53,17 @@ public class BattleUIController : MonoBehaviour
 
     void Awake()
     {
-        attackLabel = GetButtonLabel(attackButton);
-        defendLabel = GetButtonLabel(defendButton);
-        skill1Label = GetButtonLabel(skill1Button);
-        skill2Label = GetButtonLabel(skill2Button);
-        changeMaskLabel = GetButtonLabel(changeMaskButton);
+        attackText = attackButton != null ? attackButton.GetComponentInChildren<Text>(true) : null;
+        defendText = defendButton != null ? defendButton.GetComponentInChildren<Text>(true) : null;
+        skill1Text = skill1Button != null ? skill1Button.GetComponentInChildren<Text>(true) : null;
+        skill2Text = skill2Button != null ? skill2Button.GetComponentInChildren<Text>(true) : null;
+        changeMaskText = changeMaskButton != null ? changeMaskButton.GetComponentInChildren<Text>(true) : null;
+
+        attackLabel = attackText != null ? attackText.text : null;
+        defendLabel = defendText != null ? defendText.text : null;
+        skill1Label = skill1Text != null ? skill1Text.text : null;
+        skill2Label = skill2Text != null ? skill2Text.text : null;
+        changeMaskLabel = changeMaskText != null ? changeMaskText.text : null;
     }
 
     public void Initialize(FighterState player, FighterState enemy, BattleContext context = null)
@@ -190,6 +202,7 @@ public class BattleUIController : MonoBehaviour
 
         var masks = player.AvailableMasks;
         Button[] slots = { attackButton, defendButton, skill1Button, skill2Button };
+        Text[] slotTexts = { attackText, defendText, skill1Text, skill2Text };
 
         for (int i = 0; i < slots.Length; i++)
         {
@@ -200,8 +213,8 @@ public class BattleUIController : MonoBehaviour
                 var mask = masks[i];
                 slots[i].gameObject.SetActive(true);
                 slots[i].interactable = player.CanChangeMask(mask);
-                SetButtonLabel(slots[i],
-                    !string.IsNullOrEmpty(mask.displayName) ? mask.displayName : mask.maskType.ToString());
+                if (slotTexts[i] != null)
+                    slotTexts[i].text = !string.IsNullOrEmpty(mask.displayName) ? mask.displayName : mask.maskType.ToString();
                 var captured = mask;
                 slots[i].onClick.AddListener(() =>
                     SelectCommand(new PlayerCommand { Type = PlayerCommandType.ChangeMask, Mask = captured }));
@@ -217,7 +230,8 @@ public class BattleUIController : MonoBehaviour
         {
             changeMaskButton.gameObject.SetActive(true);
             changeMaskButton.interactable = true;
-            SetButtonLabel(changeMaskButton, "Назад");
+            if (changeMaskText != null)
+                changeMaskText.text = "Назад";
             changeMaskButton.onClick.AddListener(() => ShowActionButtons(player));
         }
 
@@ -255,11 +269,11 @@ public class BattleUIController : MonoBehaviour
 
     void RestoreOriginalLabels()
     {
-        SetButtonLabel(attackButton, attackLabel);
-        SetButtonLabel(defendButton, defendLabel);
-        SetButtonLabel(skill1Button, skill1Label);
-        SetButtonLabel(skill2Button, skill2Label);
-        SetButtonLabel(changeMaskButton, changeMaskLabel);
+        if (attackText != null && attackLabel != null) attackText.text = attackLabel;
+        if (defendText != null && defendLabel != null) defendText.text = defendLabel;
+        if (skill1Text != null && skill1Label != null) skill1Text.text = skill1Label;
+        if (skill2Text != null && skill2Label != null) skill2Text.text = skill2Label;
+        if (changeMaskText != null && changeMaskLabel != null) changeMaskText.text = changeMaskLabel;
     }
 
     void ClearAllListeners()
@@ -281,20 +295,6 @@ public class BattleUIController : MonoBehaviour
         if (skill2Button) skill2Button.gameObject.SetActive(false);
         if (changeMaskButton) changeMaskButton.gameObject.SetActive(false);
         if (endTurnButton) endTurnButton.gameObject.SetActive(false);
-    }
-
-    static string GetButtonLabel(Button btn)
-    {
-        if (btn == null) return null;
-        var t = btn.GetComponentInChildren<Text>();
-        return t != null ? t.text : null;
-    }
-
-    static void SetButtonLabel(Button btn, string label)
-    {
-        if (btn == null || label == null) return;
-        var t = btn.GetComponentInChildren<Text>();
-        if (t != null) t.text = label;
     }
 
     void LogMaskChangeState(FighterState player)
